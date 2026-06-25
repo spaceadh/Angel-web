@@ -10,11 +10,12 @@ issue/task - status.
 3. Rotate selected project screenshots while the hero is idle - Done.
 4. Pause screenshot rotation when scrolling begins - Done.
 5. Preserve the existing scroll-driven image-right / copy-left hero swipe - Done.
-6. Use darker terracotta for large CTAs and brighter terracotta for small signals - Done.
+6. Use signal red for primary CTAs and presence blue for trust/proof accents - Done.
 7. Add a persistent `Light / After dark` theme control - Done.
 8. Replace the literal website screenshot in “Why presence matters” with architectural wayfinding imagery - Done.
 9. Add responsive placement for project captions so they do not collide with the Presence block - Done.
 10. Verify desktop and mobile layouts, theme switching, screenshot rotation, scroll pause, and preserved swipe behavior - Done.
+11. Restore a stronger mobile scroll fade-in for Selected Work cards, with separate image and copy reveal timing - Done.
 
 ## Easy-first order
 

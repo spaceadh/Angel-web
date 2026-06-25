@@ -1,18 +1,21 @@
 .page {
   --paper: #ffffff;
   --surface: #ffffff;
-  --surface-raised: #ffffff;
+  --surface-raised: #fffefa;
   --surface-translucent: rgba(255, 255, 255, 0.92);
-  --ink: #1e1c1a;
-  --muted: #6f6760;
-  --sand: #d9c9b8;
-  --sand-soft: #f5f0eb;
-  --terracotta: #b85f3c;
-  --terracotta-bright: #c96e45;
-  --bronze: #a87a4b;
-  --line: rgba(30, 28, 26, 0.14);
-  --grid-line: rgba(217, 201, 184, 0.24);
-  --dark-panel: #1e1c1a;
+  --ink: #1d1c19;
+  --muted: #6d695f;
+  --presence-olive: #6c7661;
+  --presence-olive-text: #56614f;
+  --presence-olive-soft: #edf0e8;
+  --presence-olive-faint: #e5d8c5;
+  --presence-olive-deep: #46503f;
+  --signal-yellow: #c99a24;
+  --signal-yellow-deep: #a77c17;
+  --warm-white: #f7f2ea;
+  --line: rgba(29, 28, 25, 0.14);
+  --grid-line: rgba(201, 154, 36, 0.13);
+  --dark-panel: #1d1c19;
   background: var(--paper);
   color: var(--ink);
   overflow-x: clip;
@@ -21,18 +24,19 @@
 }
 
 .page[data-theme="dark"] {
-  --paper: #171513;
-  --surface: #1a1816;
-  --surface-raised: #211e1b;
-  --surface-translucent: rgba(23, 21, 19, 0.93);
-  --ink: #f2ece5;
-  --muted: #b9ada2;
-  --sand: #c9b6a3;
-  --sand-soft: #2a2521;
-  --bronze: #c09568;
-  --line: rgba(242, 236, 229, 0.14);
-  --grid-line: rgba(168, 122, 75, 0.15);
-  --dark-panel: #100f0e;
+  --paper: #12110f;
+  --surface: #171612;
+  --surface-raised: #1d1c17;
+  --surface-translucent: rgba(18, 17, 15, 0.93);
+  --ink: #f8f3e9;
+  --muted: #bbb3a5;
+  --presence-olive-text: #d3dbc6;
+  --presence-olive-soft: #2a3025;
+  --presence-olive-faint: #e5d8c5;
+  --warm-white: #242118;
+  --line: rgba(248, 243, 233, 0.15);
+  --grid-line: rgba(201, 154, 36, 0.11);
+  --dark-panel: #090906;
 }
 
 .cursor,
@@ -47,7 +51,7 @@
 }
 
 .cursor {
-  border: 1px solid rgba(201, 110, 69, 0.66);
+  border: 1px solid rgba(201, 154, 36, 0.7);
   height: 42px;
   margin: -21px 0 0 -21px;
   transition: opacity 0.2s ease, transform 0.12s ease-out;
@@ -55,7 +59,7 @@
 }
 
 .cursorDot {
-  background: var(--terracotta-bright);
+  background: var(--signal-yellow);
   height: 7px;
   margin: -3.5px 0 0 -3.5px;
   transition: opacity 0.2s ease, transform 0.04s linear;
@@ -74,7 +78,7 @@
 
 .page a:focus-visible,
 .page button:focus-visible {
-  outline: 3px solid var(--terracotta-bright);
+  outline: 3px solid var(--signal-yellow);
   outline-offset: 4px;
 }
 
@@ -97,20 +101,32 @@
 .brand {
   align-items: center;
   display: inline-flex;
-  gap: 12px;
-  min-width: 214px;
+  gap: 11px;
+  min-width: 222px;
 }
 
 .brandMark {
   align-items: center;
-  background: var(--dark-panel);
-  color: #fff;
   display: inline-flex;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 22px;
+  flex: 0 0 auto;
   height: 42px;
   justify-content: center;
-  width: 42px;
+  width: 38px;
+}
+
+.wingMark {
+  display: block;
+  height: 42px;
+  overflow: visible;
+  width: 38px;
+}
+
+.wingShape {
+  fill: var(--ink);
+}
+
+.wingSignal {
+  fill: var(--signal-yellow);
 }
 
 .brand span:last-child {
@@ -153,9 +169,9 @@
 }
 
 .siteHeader nav a:hover {
-  background: color-mix(in srgb, var(--terracotta-bright) 12%, transparent);
+  background: color-mix(in srgb, var(--signal-yellow) 12%, transparent);
   border-radius: 999px;
-  color: var(--terracotta-bright);
+  color: var(--signal-yellow-deep);
 }
 
 .themeToggle {
@@ -184,7 +200,7 @@
 }
 
 .themeToggle i::after {
-  background: var(--terracotta-bright);
+  background: var(--signal-yellow);
   border-radius: 50%;
   content: "";
   height: 12px;
@@ -201,7 +217,7 @@
 
 .headerCta {
   align-items: center;
-  background: var(--terracotta);
+  background: var(--dark-panel);
   color: #fff !important;
   display: inline-flex;
   font-size: 13px;
@@ -213,7 +229,8 @@
 }
 
 .headerCta:hover {
-  background: #a95334;
+  background: var(--signal-yellow);
+  color: var(--dark-panel) !important;
   transform: translateY(-2px);
 }
 
@@ -243,8 +260,8 @@
 
 .gridSignals span {
   animation: gridSignal 8s linear infinite;
-  background: var(--terracotta-bright);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--terracotta-bright) 14%, transparent);
+  background: var(--signal-yellow);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--signal-yellow) 14%, transparent);
   height: 5px;
   left: calc(var(--signal-column) * 72px - 2px);
   opacity: 0;
@@ -292,8 +309,8 @@
 
 .browserPane {
   background: #fff;
-  border: 1px solid rgba(30, 28, 26, 0.18);
-  box-shadow: 0 22px 55px rgba(30, 28, 26, 0.16);
+  border: 1px solid rgba(29, 28, 25, 0.18);
+  box-shadow: 0 22px 55px rgba(29, 28, 25, 0.14);
   height: 72%;
   left: 0;
   overflow: hidden;
@@ -304,7 +321,7 @@
 
 .browserBar {
   background: #fff;
-  border-bottom: 1px solid rgba(30, 28, 26, 0.1);
+  border-bottom: 1px solid rgba(29, 28, 25, 0.1);
   display: block;
   height: 26px;
   position: relative;
@@ -312,8 +329,8 @@
 }
 
 .browserBar::before {
-  background: var(--terracotta-bright);
-  box-shadow: 14px 0 0 var(--sand), 28px 0 0 var(--bronze);
+  background: var(--signal-yellow);
+  box-shadow: 14px 0 0 var(--presence-olive), 28px 0 0 var(--ink);
   content: "";
   height: 7px;
   left: 13px;
@@ -352,7 +369,7 @@
 
 .projectLabel {
   align-items: flex-end;
-  background: rgba(30, 28, 26, 0.88);
+  background: rgba(29, 28, 25, 0.9);
   bottom: 14px;
   color: #fff;
   display: flex;
@@ -374,7 +391,7 @@
 }
 
 .projectLabel span {
-  color: #e8ddd1;
+  color: #e5d8c5;
   font-size: 10px;
   text-align: right;
 }
@@ -403,7 +420,7 @@
 }
 
 .presenceCore small {
-  color: #e8ddd1;
+  color: #e5d8c5;
   font-size: 11px;
   max-width: 118px;
 }
@@ -418,14 +435,14 @@
 }
 
 .signalRail i {
-  background: var(--terracotta-bright);
+  background: var(--signal-yellow);
   display: block;
   height: 3px;
   transform-origin: left;
 }
 
 .signalRail i:nth-child(2) {
-  background: var(--bronze);
+  background: var(--presence-olive);
   transform: scaleX(0.72);
 }
 
@@ -443,7 +460,7 @@
 }
 
 .eyebrow {
-  color: var(--bronze);
+  color: var(--presence-olive-text);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0;
@@ -497,7 +514,7 @@
 
 .arrowLink {
   align-items: center;
-  background: var(--terracotta);
+  background: var(--dark-panel);
   color: #fff !important;
   display: inline-flex;
   font-size: 14px;
@@ -510,23 +527,25 @@
 }
 
 .arrowLink:hover {
-  background: #a95334;
-  box-shadow: 0 14px 28px rgba(184, 95, 60, 0.24);
+  background: var(--signal-yellow);
+  box-shadow: 0 14px 28px rgba(201, 154, 36, 0.24);
+  color: var(--dark-panel) !important;
   transform: translateY(-3px);
 }
 
 .arrowLinkDark {
   background: #fff;
-  color: #1e1c1a !important;
+  color: #1d1c19 !important;
 }
 
 .arrowLinkDark:hover {
-  background: #f5f0eb;
+  background: var(--presence-olive-soft);
+  color: #1d1c19 !important;
 }
 
 .heroIntro {
   background: var(--surface-translucent);
-  border-left: 5px solid var(--terracotta);
+  border-left: 5px solid var(--signal-yellow);
   color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(28px, 3.2vw, 56px);
@@ -543,7 +562,7 @@
 }
 
 .heroDivider {
-  background: linear-gradient(90deg, transparent, var(--terracotta-bright), var(--bronze), transparent);
+  background: var(--signal-yellow);
   height: 1px;
   left: 50%;
   opacity: 0.72;
@@ -578,7 +597,7 @@
 
 .scrollCue b::after {
   animation: cueTravel 1.35s infinite;
-  background: var(--terracotta-bright);
+  background: var(--signal-yellow);
   content: "";
   height: 1px;
   left: 0;
@@ -607,7 +626,7 @@
 }
 
 .sectionTitle::after {
-  background: linear-gradient(90deg, transparent, var(--bronze), var(--line), transparent);
+  background: var(--presence-olive-text);
   content: "";
   height: 1px;
   left: 35%;
@@ -645,8 +664,9 @@
 }
 
 .sectionTitle h2 {
-  font-size: clamp(48px, 6.7vw, 116px);
-  max-width: 980px;
+  /* font-size: clamp(48px, 6.7vw, 116px); */
+  font-size: clamp(32px, 4.5vw, 72px);
+  max-width: 780px;
 }
 
 .presence {
@@ -662,7 +682,7 @@
 }
 
 .sectionDivider {
-  background: linear-gradient(90deg, var(--terracotta-bright), var(--bronze), transparent);
+  background: var(--signal-yellow);
   height: 1px;
   left: 50%;
   position: absolute;
@@ -673,7 +693,7 @@
 }
 
 .proofFrame {
-  background: var(--sand-soft);
+  background: var(--warm-white);
   border: 1px solid var(--line);
   min-height: 58vh;
   overflow: hidden;
@@ -753,7 +773,7 @@
 }
 
 .magnetItem span {
-  color: var(--bronze);
+  color: var(--presence-olive-text);
   display: block;
   font-size: 13px;
   font-weight: 800;
@@ -800,7 +820,7 @@
 }
 
 .serviceItem::before {
-  background: var(--terracotta-bright);
+  background: var(--signal-yellow);
   content: "";
   height: 4px;
   left: 30px;
@@ -810,7 +830,7 @@
 }
 
 .serviceItem:hover {
-  background: rgba(217, 201, 184, 0.16);
+  background: color-mix(in srgb, var(--presence-olive-soft) 70%, transparent);
   transform: translateY(-6px);
 }
 
@@ -838,7 +858,7 @@
 }
 
 .light {
-  color: var(--sand);
+  color: var(--presence-olive-faint);
 }
 
 .method h2 {
@@ -847,11 +867,11 @@
 }
 
 .methodCopy > p:not(.eyebrow) {
-  color: #d8cec2;
-  font-size: 18px;
-  line-height: 1.6;
-  margin: 32px 0 12px;
-  max-width: 560px;
+  color: #ddd2c3;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 28px 0 10px;
+  max-width: 480px;
 }
 
 .methodList {
@@ -870,7 +890,7 @@
 }
 
 .methodStep b {
-  color: var(--sand);
+  color: var(--presence-olive-faint);
   font-size: 12px;
 }
 
@@ -883,7 +903,7 @@
 }
 
 .methodStep p {
-  color: #d8cec2;
+  color: #ddd2c3;
   font-size: 15px;
   line-height: 1.55;
   margin: 0;
@@ -903,7 +923,7 @@
   background: var(--surface-raised);
   border: 1px solid var(--line);
   border-radius: 8px;
-  box-shadow: 0 26px 70px rgba(30, 28, 26, 0.08);
+  box-shadow: 0 26px 70px rgba(29, 28, 25, 0.08);
   display: grid;
   gap: 34px;
   grid-template-columns: 1.15fr 0.85fr;
@@ -940,7 +960,7 @@
 }
 
 .workMeta > p {
-  color: var(--bronze);
+  color: var(--presence-olive-text);
   font-size: 12px;
   font-weight: 800;
   margin: 0 0 22px;
@@ -1009,7 +1029,7 @@
 }
 
 .auditIntro h2 {
-  font-size: clamp(44px, 5.5vw, 92px);
+  font-size: clamp(40px, 5.0vw, 80px);
 }
 
 .auditPanel {
@@ -1038,7 +1058,7 @@
 }
 
 .auditChoices button::after {
-  background: var(--terracotta-bright);
+  background: var(--signal-yellow);
   bottom: 0;
   content: "";
   position: absolute;
@@ -1102,13 +1122,13 @@
 }
 
 .inquiryInner {
-  background: var(--terracotta);
+  background: var(--dark-panel);
   color: #fff;
   padding: 7vw;
 }
 
 .inquiry .eyebrow {
-  color: #ffe5d6;
+  color: var(--presence-olive-faint);
 }
 
 .inquiry h2 {
@@ -1117,7 +1137,7 @@
 }
 
 .inquiryInner > p:not(.eyebrow) {
-  color: #ffe5d6;
+  color: #ddd2c3;
   font-size: clamp(19px, 2vw, 30px);
   line-height: 1.35;
   max-width: 720px;
@@ -1132,7 +1152,7 @@
 
 .inquiryActions a {
   background: #fff;
-  color: #1e1c1a !important;
+  color: #1d1c19 !important;
   display: inline-flex;
   font-size: 14px;
   font-weight: 800;
@@ -1150,13 +1170,16 @@
 }
 
 .footer .brandMark {
-  background: #fff;
-  color: #1e1c1a;
+  color: #fff;
+}
+
+.footer .wingShape {
+  fill: #fff;
 }
 
 .footer .brand small,
 .footer p {
-  color: #d8cec2;
+  color: #ddd2c3;
 }
 
 .footer p {
@@ -1511,6 +1534,38 @@
     top: auto;
   }
 
+  .workItem.reveal {
+    opacity: 0;
+    transform: translate3d(0, 48px, 0) scale(0.985);
+    transition:
+      opacity 0.72s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.72s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .workItem.reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .workItem.reveal .workImage,
+  .workItem.reveal .workMeta {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    transition:
+      opacity 0.68s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.68s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .workItem.reveal .workMeta {
+    transition-delay: 0.08s;
+  }
+
+  .workItem.reveal[data-visible="true"] .workImage,
+  .workItem.reveal[data-visible="true"] .workMeta {
+    opacity: 1;
+    transform: none;
+  }
+
   .workMeta {
     padding-top: 24px;
   }
@@ -1532,7 +1587,7 @@
   }
 
   .auditResult p {
-    font-size: 29px;
+    font-size: 20px;
   }
 
   .inquiry {
@@ -1604,8 +1659,16 @@
   .arrowLink,
   .headerCta,
   .magnetItem,
+  .workImage,
+  .workMeta,
   .workImage img {
     transition: none !important;
+  }
+
+  .workImage,
+  .workMeta {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .scrollCue span {
