@@ -145,19 +145,12 @@ function Brand() {
 
 export default function MalaikaLandingPage() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
-  const cursorDotRef = useRef<HTMLDivElement>(null);
   const [selectedAudit, setSelectedAudit] = useState(auditOptions[0].id);
   const [activeHeroProject, setActiveHeroProject] = useState(0);
-  const [darkMode, setDarkMode] = useState(false);
   const activeAudit = useMemo(
     () => auditOptions.find((item) => item.id === selectedAudit) ?? auditOptions[0],
     [selectedAudit],
   );
-
-  useEffect(() => {
-    setDarkMode(window.localStorage.getItem("malaika-theme") === "dark");
-  }, []);
 
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -171,14 +164,6 @@ export default function MalaikaLandingPage() {
 
     return () => window.clearInterval(rotation);
   }, []);
-
-  const toggleTheme = () => {
-    setDarkMode((current) => {
-      const next = !current;
-      window.localStorage.setItem("malaika-theme", next ? "dark" : "light");
-      return next;
-    });
-  };
 
   useEffect(() => {
     const root = rootRef.current;
@@ -218,45 +203,13 @@ export default function MalaikaLandingPage() {
       if (window.location.hash && window.location.hash !== lastHandledHash) revealHashTarget();
     };
 
-    const hero = root.querySelector<HTMLElement>("[data-hero]");
-    const presenceWrap = root.querySelector<HTMLElement>("[data-presence-wrap]");
-    const heroCopy = root.querySelector<HTMLElement>("[data-hero-copy]");
-    const heroIntro = root.querySelector<HTMLElement>("[data-hero-intro]");
-    const heroStage = root.querySelector<HTMLElement>("[data-hero-stage]");
-    const scrollCue = root.querySelector<HTMLElement>("[data-scroll-cue]");
-    const cursor = cursorRef.current;
-    const cursorDot = cursorDotRef.current;
     const parallaxItems = Array.from(root.querySelectorAll<HTMLElement>("[data-parallax]"));
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
-    let cursorFrame = 0;
-
-    const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-    const lerp = (from: number, to: number, progress: number) => from + (to - from) * progress;
 
     const renderScrollMotion = () => {
       frame = 0;
-      if (!hero || !heroStage || !presenceWrap || !heroCopy || !heroIntro || !scrollCue || reducedMotion.matches) return;
-
-      const mobile = window.innerWidth <= 760;
-      const heroRect = hero.getBoundingClientRect();
-      const heroTravel = Math.max(hero.offsetHeight - window.innerHeight, 1);
-      const progress = clamp(-heroRect.top / heroTravel);
-      const introProgress = clamp((progress - 0.12) / 0.26);
-
-      if (mobile) {
-        presenceWrap.style.transform = `translate3d(${lerp(0, window.innerWidth * 0.38, progress)}px, ${lerp(0, -74, progress)}px, 0) scale(${lerp(1, 0.78, progress)})`;
-        heroCopy.style.transform = `translate3d(${lerp(0, -window.innerWidth * 0.72, progress)}px, ${lerp(0, 42, progress)}px, 0)`;
-      } else {
-        presenceWrap.style.transform = `translate3d(${lerp(0, window.innerWidth * 0.38, progress)}px, ${lerp(0, 24, progress)}px, 0) scale(${lerp(1, 0.72, progress)})`;
-        heroCopy.style.transform = `translate3d(${lerp(0, -window.innerWidth * 0.43, progress)}px, ${lerp(0, 26, progress)}px, 0)`;
-      }
-
-      heroCopy.style.opacity = String(lerp(1, mobile ? 0.1 : 0.18, clamp(progress / 0.52)));
-      heroIntro.style.opacity = String(introProgress);
-      heroIntro.style.transform = `translate3d(${lerp(mobile ? 0 : -58, 0, introProgress)}px, ${lerp(mobile ? 35 : 0, 0, introProgress)}px, 0)`;
-      heroStage.style.opacity = String(lerp(1, 0.16, clamp((progress - 0.92) / 0.08)));
-      scrollCue.style.opacity = String(1 - clamp(progress * 4));
+      if (reducedMotion.matches) return;
 
       parallaxItems.forEach((item) => {
         const rect = item.getBoundingClientRect();
@@ -272,20 +225,8 @@ export default function MalaikaLandingPage() {
       if (!frame) frame = window.requestAnimationFrame(renderScrollMotion);
     };
 
-    const renderCursor = (event: MouseEvent) => {
-      if (!cursor || !cursorDot || reducedMotion.matches || window.matchMedia("(pointer: coarse)").matches) return;
-      if (!cursorFrame) {
-        cursorFrame = window.requestAnimationFrame(() => {
-          cursorFrame = 0;
-          cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
-          cursorDot.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
-        });
-      }
-    };
-
     window.addEventListener("scroll", requestRender, { passive: true });
     window.addEventListener("resize", requestRender);
-    window.addEventListener("mousemove", renderCursor, { passive: true });
     window.addEventListener("hashchange", revealHashTarget);
     reducedMotion.addEventListener("change", requestRender);
     const hashWatcher = window.setInterval(watchHash, 250);
@@ -296,19 +237,15 @@ export default function MalaikaLandingPage() {
       observer.disconnect();
       window.removeEventListener("scroll", requestRender);
       window.removeEventListener("resize", requestRender);
-      window.removeEventListener("mousemove", renderCursor);
       window.removeEventListener("hashchange", revealHashTarget);
       reducedMotion.removeEventListener("change", requestRender);
       window.clearInterval(hashWatcher);
       if (frame) window.cancelAnimationFrame(frame);
-      if (cursorFrame) window.cancelAnimationFrame(cursorFrame);
     };
   }, []);
 
   return (
-    <div className={styles.page} data-theme={darkMode ? "dark" : "light"} ref={rootRef}>
-      <div className={styles.cursor} ref={cursorRef} aria-hidden="true" />
-      <div className={styles.cursorDot} ref={cursorDotRef} aria-hidden="true" />
+    <div className={styles.page} ref={rootRef}>
       <header className={styles.siteHeader}>
         <Brand />
         <nav aria-label="Primary navigation">
@@ -317,16 +254,7 @@ export default function MalaikaLandingPage() {
           <a href="#audit">Audit</a>
           <a href="#inquiry">Start</a>
         </nav>
-        <button
-          aria-label={`Switch to ${darkMode ? "light" : "After dark"} mode`}
-          aria-pressed={darkMode}
-          className={styles.themeToggle}
-          onClick={toggleTheme}
-          type="button"
-        >
-          <span>{darkMode ? "After dark" : "Light"}</span>
-          <i aria-hidden="true" />
-        </button>
+        <p className={styles.availability}>Creative digital presence for serious businesses</p>
         <a className={styles.headerCta} href="#inquiry">Build presence</a>
       </header>
 
@@ -342,7 +270,6 @@ export default function MalaikaLandingPage() {
             <div className={styles.presenceWrap} data-presence-wrap aria-hidden="true">
               <div className={styles.presenceSystem}>
                 <div className={styles.browserPane}>
-                  <span className={styles.browserBar} />
                   <div className={styles.browserViewport}>
                     {heroProjects.map((project, index) => (
                       <img
@@ -359,7 +286,7 @@ export default function MalaikaLandingPage() {
                   </p>
                 </div>
                 <div className={styles.presenceCore}>
-                  <b>Presence</b>
+                  <b>Malaika</b>
                   <small>Attract · Convert · Retain</small>
                 </div>
                 <div className={styles.signalRail}>
@@ -371,7 +298,7 @@ export default function MalaikaLandingPage() {
             </div>
 
             <div className={styles.heroCopy} data-hero-copy>
-              <p className={styles.eyebrow}>Websites and digital presence for growing businesses</p>
+              <p className={styles.eyebrow}>Malaika Studios by Rotsi</p>
               <h1>Malaika Studios</h1>
               <p>We design websites and digital presence systems that make good businesses easier to trust, understand, and contact.</p>
               <div className={styles.heroActions}>
@@ -381,7 +308,8 @@ export default function MalaikaLandingPage() {
             </div>
 
             <p className={styles.heroIntro} data-hero-intro>
-              A client magnet studio for founders whose business is already good, but whose website does not yet show it clearly.
+              <span>Client magnet studio</span>
+              <b>Attract · Convert · Retain</b>
             </p>
             <span className={styles.heroDivider} aria-hidden="true" />
             <div className={styles.scrollCue} data-scroll-cue>
@@ -503,6 +431,9 @@ export default function MalaikaLandingPage() {
               <article className={cx(styles.workItem, styles.reveal)} data-reveal key={item.label} style={{ "--card-index": index } as React.CSSProperties}>
                 <div className={styles.workImage}>
                   <img src={item.image} alt={`${item.label} website screenshot`} />
+                  <span className={styles.workHover} aria-hidden="true">
+                    View project
+                  </span>
                 </div>
                 <div className={styles.workMeta}>
                   <p>{item.label}</p>
