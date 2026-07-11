@@ -28,6 +28,7 @@ export default function MotionController() {
 
     let frame = 0;
     const clamp = (value: number) => Math.min(1, Math.max(0, value));
+    const ease = (value: number) => value * value * (3 - 2 * value);
 
     const render = () => {
       frame = 0;
@@ -37,13 +38,18 @@ export default function MotionController() {
         const travel = Math.max(1, rect.height - window.innerHeight);
         const progress = clamp(-rect.top / travel);
         heroShell.style.setProperty("--hero-progress", progress.toFixed(4));
+        heroShell.style.setProperty("--hero-eased", ease(progress).toFixed(4));
       }
 
       projectCards.forEach((card) => {
         const rect = card.getBoundingClientRect();
         const viewportRange = window.innerHeight + rect.height;
         const progress = clamp((window.innerHeight - rect.top) / viewportRange);
+        const enter = ease(clamp((window.innerHeight - rect.top) / (window.innerHeight * 0.72)));
+        const focus = ease(clamp((window.innerHeight * 0.72 - rect.top) / (window.innerHeight * 0.72)));
         card.style.setProperty("--project-progress", progress.toFixed(4));
+        card.style.setProperty("--project-enter", enter.toFixed(4));
+        card.style.setProperty("--project-focus", focus.toFixed(4));
       });
     };
 

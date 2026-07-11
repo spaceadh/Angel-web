@@ -1,4 +1,5 @@
 import MotionController from "./MotionController";
+import SiteFooter from "./SiteFooter";
 
 const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
   <span aria-hidden="true" className="arrow">
@@ -9,34 +10,39 @@ const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
 const projects = [
   {
     number: "01",
-    title: "Kairi Tours",
-    category: "Travel / Web experience",
-    image:
-      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1800&q=88",
-    alt: "A wooden boat moving through emerald water between limestone cliffs",
+    title: "Somafix Kenya",
+    category: "Website / Product clarity",
+    image: "/work/somafix-landing.png",
+    alt: "Somafix Kenya website homepage",
     className: "project project--wide",
-    caption: "Turning years of travel expertise into a destination worth exploring.",
+    caption: "A technical product business made clearer, more credible, and ready to be found.",
+    href: "/projects/somafix-kenya",
   },
   {
     number: "02",
     title: "Bewama",
     category: "Commerce / Product design",
-    image:
-      "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1400&q=88",
-    alt: "Construction professionals working on a modern building site",
+    image: "/work/bewama-landing.png",
+    alt: "Bewama B2B ecommerce homepage",
     className: "project project--tall",
     caption: "A clearer way to source construction materials across Kenya.",
+    href: "/projects/bewama",
   },
   {
     number: "03",
-    title: "Roja Consultancy",
-    category: "Insurance / Brand system",
-    image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1400&q=88",
-    alt: "A desk with a contract, pen, and calculator in soft daylight",
+    title: "Kumbusha",
+    category: "Product / Culture workflows",
+    image: "/work/projects/kumbusha/landing-page.png",
+    alt: "Kumbusha employee milestone product",
     className: "project project--standard",
-    caption: "Making insurance feel simpler, warmer, and easier to trust.",
+    caption: "Turning thoughtful employee moments into a workflow managers can act on.",
+    href: "/projects/kumbusha",
   },
+];
+
+const conceptProjects = [
+  { name: "Kairi Tours", label: "Travel website concept", href: "/projects/kairi-tours-concept" },
+  { name: "Roja Consultancy", label: "Insurance brand concept", href: "/projects/roja-consultancy-concept" },
 ];
 
 export default function Home() {
@@ -45,7 +51,7 @@ export default function Home() {
       <MotionController />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Malaika Studios home">
-          <span className="brand-mark">M</span>
+          <span className="brand-mark"><img src="/brand/malaika-wing-mark-reverse.svg" alt="" /></span>
           <span className="brand-name">
             Malaika
             <br />
@@ -118,7 +124,7 @@ export default function Home() {
               className={`${project.className} project--motion`}
               data-project-card
               data-project-index={index}
-              href="#contact"
+              href={project.href}
               key={project.title}
             >
               <figure className="project-image-wrap">
@@ -138,18 +144,54 @@ export default function Home() {
             </a>
           ))}
         </div>
+
+        <div className="concepts" data-scroll-reveal>
+          <div className="concepts-copy">
+            <p className="eyebrow">Studio concepts</p>
+            <h3>Ideas we made before anyone asked.</h3>
+            <p>Self-initiated redesign studies: honest concept work that shows how we think, without pretending it was commissioned.</p>
+          </div>
+          <div className="concepts-list">
+            {conceptProjects.map((project, index) => (
+              <a href={project.href} key={project.name}>
+                <span>0{index + 1}</span><strong>{project.name}</strong><small>{project.label}</small><Arrow diagonal />
+              </a>
+            ))}
+          </div>
+        </div>
       </section>
 
-      <section className="statement" aria-label="Our point of view" data-scroll-reveal>
-        <p className="eyebrow eyebrow--light">Our point of view</p>
-        <p className="statement-copy">
-          Your website should not just exist.
-          <br />
-          It should <em>move the business forward.</em>
-        </p>
-        <div className="statement-stamp" aria-hidden="true">
-          <span>M</span>
-          <small>Est. Nairobi</small>
+      <section className="brand-proof" aria-label="Brands and products represented in our work" data-scroll-reveal>
+        <p>Brands and products we have helped shape</p>
+        <div className="brand-proof-track">
+          {[false, true].map((duplicate) => (
+            <div className="brand-proof-set" aria-hidden={duplicate || undefined} key={String(duplicate)}>
+              <img src="/work/projects/somafix/logo.png" alt={duplicate ? "" : "Somafix"} />
+              <img src="/work/projects/bewama/logo.png" alt={duplicate ? "" : "Bewama"} />
+              <img src="/work/projects/kumbusha/logo.png" alt={duplicate ? "" : "Kumbusha"} />
+              <img src="/work/projects/tena/logo.png" alt={duplicate ? "" : "Tena CRM"} />
+              <span>Rotsi</span>
+              <span>IBIZA</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="acquisition" id="client-magnet" aria-label="The client magnet system" data-scroll-reveal>
+        <div className="acquisition-lead">
+          <p className="eyebrow eyebrow--light">Our point of view</p>
+          <h2>A website should earn its place in your business.</h2>
+          <p>It should make you visible, make the value clear, build trust before the first call, and turn attention into a real inquiry.</p>
+        </div>
+        <div className="magnet-path" aria-label="Attract, convert and retain customer journey">
+          <article><span>01</span><strong>Attract</strong><p>Help the right people find you and recognise that you understand their problem.</p></article>
+          <article><span>02</span><strong>Convert</strong><p>Give them the clarity, proof and next step they need to choose you.</p></article>
+          <article><span>03</span><strong>Retain</strong><p>Connect inquiries to thoughtful follow-up so good opportunities do not disappear.</p></article>
+        </div>
+        <div className="acquisition-close">
+          <p>That is what we mean by a</p>
+          <strong>Client magnet.</strong>
+          <a href="#contact">Build mine <Arrow diagonal /></a>
         </div>
       </section>
 
@@ -242,18 +284,7 @@ export default function Home() {
         </a>
       </section>
 
-      <footer>
-        <a className="brand brand--footer" href="#top" aria-label="Back to top">
-          <span className="brand-mark">M</span>
-          <span className="brand-name">Malaika Studios</span>
-        </a>
-        <div className="footer-links">
-          <a href="#work">Work</a>
-          <a href="#services">Services</a>
-          <a href="#studio">Studio</a>
-        </div>
-        <p>© 2026 Malaika Studios. Made in Nairobi.</p>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
