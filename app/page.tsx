@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import JsonLd from "./components/JsonLd";
 import MotionController from "./MotionController";
+import MobileMenu from "./MobileMenu";
 import { organizationJsonLd, websiteJsonLd } from "./seoConfig";
 import SiteFooter from "./SiteFooter";
 
@@ -74,20 +75,11 @@ export default function Home() {
           <a href="#studio">Studio</a>
         </nav>
 
-        <a className="header-cta" href="mailto:hello@malaikastudios.co.ke">
+        <a className="header-cta" href="mailto:business@rotsi.co.ke">
           Start a project <Arrow diagonal />
         </a>
 
-        <details className="menu">
-          <summary aria-label="Open navigation">Menu</summary>
-          <nav aria-label="Mobile navigation">
-            <a href="#work">Work</a>
-            <Link href="/services">Services</Link>
-            <Link href="/pricing">Pricing</Link>
-            <a href="#studio">Studio</a>
-            <a href="mailto:hello@malaikastudios.co.ke">Start a project ↗</a>
-          </nav>
-        </details>
+        <MobileMenu />
       </header>
 
       <div className="hero-shell" data-hero-shell id="top">
@@ -159,7 +151,7 @@ export default function Home() {
           <div className="concepts-copy">
             <p className="eyebrow">Studio concepts</p>
             <h3>Ideas we made before anyone asked.</h3>
-            <p>Self-initiated redesign studies: honest concept work that shows how we think, without pretending it was commissioned.</p>
+            <p>Self-initiated redesign studies: honest concept work that shows how we think, and how we would have designed it.</p>
           </div>
           <div className="concepts-list">
             {conceptProjects.map((project, index) => (
@@ -245,7 +237,7 @@ export default function Home() {
 
       <section className="method" id="studio" data-scroll-reveal>
         <div className="method-intro">
-          <p className="eyebrow eyebrow--light">The Malaika method</p>
+          <p className="eyebrow eyebrow--light">Our Method, The Malaika method</p>
           <h2>Less noise. More pull.</h2>
           <p>
             We find the sharpest version of your story, give it a visual world,
@@ -286,7 +278,7 @@ export default function Home() {
           <p className="eyebrow">Have something in mind?</p>
           <p>Selected projects · Q3 2026</p>
         </div>
-        <a className="contact-link" href="mailto:hello@malaikastudios.co.ke">
+        <a className="contact-link" href="mailto:business@rotsi.co.ke">
           <span>Let&apos;s make it</span>
           <span className="contact-link-bottom">
             unforgettable. <Arrow diagonal />

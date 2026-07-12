@@ -2,7 +2,7 @@ export const siteUrl = "https://malaikastudios.co.ke";
 
 export const siteName = "Malaika Studios by Rotsi";
 
-export const contactEmail = "hello@malaikastudios.co.ke";
+export const contactEmail = "business@rotsi.co.ke";
 
 export const serviceArea = ["Nairobi", "Kenya", "East Africa"];
 

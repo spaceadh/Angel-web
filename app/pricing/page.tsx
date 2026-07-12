@@ -206,7 +206,7 @@ export default function PricingPage() {
         <nav aria-label="Pricing navigation">
           <Link href="/services">Services</Link>
           <Link href="/#work">Work</Link>
-          <a href="mailto:hello@malaikastudios.co.ke">Request a fit estimate ↗</a>
+          <a href="mailto:business@rotsi.co.ke">Request a fit estimate ↗</a>
         </nav>
       </header>
 
@@ -294,7 +294,7 @@ export default function PricingPage() {
       <section className="seo-band">
         <p className="eyebrow eyebrow--light">Fit before figure</p>
         <h2>If your business is good but the website does not show it, start with the right level of work.</h2>
-        <a href="mailto:hello@malaikastudios.co.ke">Request a fit-and-scope estimate ↗</a>
+        <a href="mailto:business@rotsi.co.ke">Request a fit-and-scope estimate ↗</a>
       </section>
 
       <SiteFooter />

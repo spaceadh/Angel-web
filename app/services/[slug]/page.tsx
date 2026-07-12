@@ -71,7 +71,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <nav aria-label="Service page navigation">
           <Link href="/services">Services</Link>
           <Link href="/pricing">Pricing</Link>
-          <a href="mailto:hello@malaikastudios.co.ke">Start a project ↗</a>
+          <a href="mailto:business@rotsi.co.ke">Start a project ↗</a>
         </nav>
       </header>
 

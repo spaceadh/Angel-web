@@ -342,7 +342,7 @@ Allow: /
 User-agent: GPTBot
 Disallow: /
 
-Sitemap: https://malaikastudios.co.ke/sitemap.xml
+Sitemap: https://malaikastudiosrotsi..co.ke/sitemap.xml
 ```
 
 Rationale:

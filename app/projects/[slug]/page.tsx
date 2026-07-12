@@ -59,7 +59,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <span>Malaika Studios<small>by Rotsi</small></span>
         </Link>
         <Link href="/#work">All work</Link>
-        <a className="case-nav-cta" href="mailto:hello@malaikastudios.co.ke">Start a project ↗</a>
+        <a className="case-nav-cta" href="mailto:business@rotsi.co.ke">Start a project ↗</a>
       </header>
 
       <section className="case-hero">
@@ -127,7 +127,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       <section className="case-finish">
         <p>Have a good business that deserves a stronger presence?</p>
-        <a href="mailto:hello@malaikastudios.co.ke">Let&apos;s make it<br /><em>impossible to overlook.</em> ↗</a>
+        <a href="mailto:business@rotsi.co.ke">Let&apos;s make it<br /><em>impossible to overlook.</em> ↗</a>
         {project.liveUrl && <a className="case-live" href={project.liveUrl} target="_blank" rel="noreferrer">Visit live project ↗</a>}
       </section>
 

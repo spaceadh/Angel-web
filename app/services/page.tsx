@@ -25,7 +25,7 @@ export default function ServicesPage() {
         <nav aria-label="Services navigation">
           <Link href="/pricing">Pricing</Link>
           <Link href="/#work">Work</Link>
-          <a href="mailto:hello@malaikastudios.co.ke">Start a project ↗</a>
+          <a href="mailto:business@rotsi.co.ke">Start a project ↗</a>
         </nav>
       </header>
 
