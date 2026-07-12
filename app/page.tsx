@@ -91,18 +91,18 @@ export default function Home() {
 
         <div className="hero-title-wrap">
           <h1 className="hero-title">
-            <span className="line hero-line-enter" data-hero-line="one">Made to be</span>
+            <span className="line hero-line-enter" data-hero-line="one">You deserve to be</span>
             <span className="line line--offset hero-line-enter hero-line-enter--2" data-hero-line="two">
-              <em>noticed.</em>
+              <em>seen.</em>
               <span className="orange-dot" aria-hidden="true" />
             </span>
-            <span className="line hero-line-enter hero-line-enter--3" data-hero-line="three">Built to be chosen.</span>
+            <span className="line hero-line-enter hero-line-enter--3" data-hero-line="three">Lets us help you.</span>
           </h1>
         </div>
 
         <div className="hero-bottom reveal reveal--3">
           <p>
-            Website design, digital presence audits, and client magnet systems
+            Malaika Studios is a creative agency specializing in Website design, digital presence audits, and client magnet systems
             for growing Kenyan businesses that need to look clear, feel credible, and convert better.
           </p>
           <a className="circle-link" href="#work" aria-label="Explore selected work">
