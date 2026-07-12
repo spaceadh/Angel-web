@@ -96,7 +96,7 @@ export default function Home() {
               <em>seen.</em>
               <span className="orange-dot" aria-hidden="true" />
             </span>
-            <span className="line hero-line-enter hero-line-enter--3" data-hero-line="three">Lets us help you.</span>
+            <span className="line hero-line-enter hero-line-enter--3" data-hero-line="three">Let us help.</span>
           </h1>
         </div>
 
