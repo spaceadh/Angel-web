@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import JsonLd from "../../components/JsonLd";
 import MotionController from "../../MotionController";
+import { absoluteUrl, breadcrumbJsonLd, siteUrl } from "../../seoConfig";
 import SiteFooter from "../../SiteFooter";
 import { getProject, projects } from "../projectData";
 
@@ -15,7 +18,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${project.name} — ${project.kind} | Malaika Studios`,
     description: project.intro,
-    alternates: { canonical: `/projects/${project.slug}` },
+    alternates: { canonical: absoluteUrl(`/projects/${project.slug}`) },
+    openGraph: {
+      title: `${project.name} — ${project.kind} | Malaika Studios`,
+      description: project.intro,
+      url: absoluteUrl(`/projects/${project.slug}`),
+      images: project.image.startsWith("http") ? [project.image] : [absoluteUrl(project.image)],
+    },
   };
 }
 
@@ -27,10 +36,26 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="case-page" style={{ "--case-accent": project.palette } as React.CSSProperties}>
+      <JsonLd data={breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Work", path: "/#work" },
+        { name: project.name, path: `/projects/${project.slug}` },
+      ])} />
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "@id": `${siteUrl}/projects/${project.slug}#work`,
+        name: project.name,
+        description: project.intro,
+        creator: { "@id": `${siteUrl}/#organization` },
+        about: project.sector,
+        url: absoluteUrl(`/projects/${project.slug}`),
+        image: project.image.startsWith("http") ? project.image : absoluteUrl(project.image),
+      }} />
       <MotionController />
       <header className="case-nav">
         <Link className="case-brand" href="/">
-          <img src="/brand/malaika-wing-mark.svg" alt="" />
+          <Image src="/brand/malaika-wing-mark.svg" alt="" width={42} height={42} />
           <span>Malaika Studios<small>by Rotsi</small></span>
         </Link>
         <Link href="/#work">All work</Link>
@@ -43,7 +68,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <span>{project.kind}</span>
           <span>{project.sector}</span>
         </div>
-        <h1 className="case-title">{project.name}</h1>
+        <h1 className={`case-title ${project.name.length > 12 ? "case-title--long" : ""}`}>{project.name}</h1>
         <div className="case-intro reveal reveal--3">
           <p>{project.headline}</p>
           <span>{project.intro}</span>
@@ -53,7 +78,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       <figure className="case-stage" data-scroll-reveal>
         <div className="case-stage-toolbar"><i /><i /><i /><span>{project.slug}.malaikastudios.co.ke</span></div>
-        <img src={project.image} alt={`${project.name} project presentation`} />
+        <Image
+          src={project.image}
+          alt={`${project.name} project presentation`}
+          width={1800}
+          height={1125}
+          sizes="100vw"
+          unoptimized={project.image.startsWith("http")}
+        />
       </figure>
 
       <section className="case-problem section" data-scroll-reveal>
@@ -73,7 +105,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {project.secondary && (
         <figure className="case-detail" data-scroll-reveal>
-          <img src={project.secondary} alt={`A closer view of the ${project.name} experience`} />
+          <Image
+            src={project.secondary}
+            alt={`A closer view of the ${project.name} experience`}
+            width={1600}
+            height={1000}
+            sizes="100vw"
+          />
         </figure>
       )}
 
@@ -83,7 +121,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="case-identity" data-scroll-reveal>
-        {project.logo ? <img src={project.logo} alt={`${project.name} logo`} /> : <span>{project.name}</span>}
+        {project.logo ? <Image src={project.logo} alt={`${project.name} logo`} width={540} height={160} /> : <span>{project.name}</span>}
         <p>Identity in context</p>
       </section>
 

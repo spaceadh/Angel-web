@@ -1,4 +1,8 @@
+import Link from "next/link";
+import Image from "next/image";
+import JsonLd from "./components/JsonLd";
 import MotionController from "./MotionController";
+import { organizationJsonLd, websiteJsonLd } from "./seoConfig";
 import SiteFooter from "./SiteFooter";
 
 const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
@@ -48,10 +52,14 @@ const conceptProjects = [
 export default function Home() {
   return (
     <main>
+      <JsonLd data={organizationJsonLd()} />
+      <JsonLd data={websiteJsonLd()} />
       <MotionController />
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Malaika Studios home">
-          <span className="brand-mark"><img src="/brand/malaika-wing-mark-reverse.svg" alt="" /></span>
+          <span className="brand-mark">
+            <Image src="/brand/malaika-wing-mark-reverse.svg" alt="" width={27} height={27} />
+          </span>
           <span className="brand-name">
             Malaika
             <br />
@@ -61,7 +69,8 @@ export default function Home() {
 
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#work">Work</a>
-          <a href="#services">What we do</a>
+          <Link href="/services">Services</Link>
+          <Link href="/pricing">Pricing</Link>
           <a href="#studio">Studio</a>
         </nav>
 
@@ -73,7 +82,8 @@ export default function Home() {
           <summary aria-label="Open navigation">Menu</summary>
           <nav aria-label="Mobile navigation">
             <a href="#work">Work</a>
-            <a href="#services">What we do</a>
+            <Link href="/services">Services</Link>
+            <Link href="/pricing">Pricing</Link>
             <a href="#studio">Studio</a>
             <a href="mailto:hello@malaikastudios.co.ke">Start a project ↗</a>
           </nav>
@@ -100,8 +110,8 @@ export default function Home() {
 
         <div className="hero-bottom reveal reveal--3">
           <p>
-            We shape brands, websites, and digital experiences that help good
-            businesses look clear, feel credible, and grow.
+            Website design, digital presence audits, and client magnet systems
+            for growing Kenyan businesses that need to look clear, feel credible, and convert better.
           </p>
           <a className="circle-link" href="#work" aria-label="Explore selected work">
             <span>Explore work</span>
@@ -128,7 +138,7 @@ export default function Home() {
               key={project.title}
             >
               <figure className="project-image-wrap">
-                <img src={project.image} alt={project.alt} className="project-image" />
+                <Image src={project.image} alt={project.alt} className="project-image" fill sizes="(max-width: 760px) 100vw, 68vw" />
                 <span className="project-open">
                   View <Arrow diagonal />
                 </span>
@@ -166,10 +176,10 @@ export default function Home() {
         <div className="brand-proof-track">
           {[false, true].map((duplicate) => (
             <div className="brand-proof-set" aria-hidden={duplicate || undefined} key={String(duplicate)}>
-              <img src="/work/projects/somafix/logo.png" alt={duplicate ? "" : "Somafix"} />
-              <img src="/work/projects/bewama/logo.png" alt={duplicate ? "" : "Bewama"} />
-              <img src="/work/projects/kumbusha/logo.png" alt={duplicate ? "" : "Kumbusha"} />
-              <img src="/work/projects/tena/logo.png" alt={duplicate ? "" : "Tena CRM"} />
+              <Image src="/work/projects/somafix/logo.png" alt={duplicate ? "" : "Somafix"} width={185} height={60} />
+              <Image src="/work/projects/bewama/logo.png" alt={duplicate ? "" : "Bewama"} width={185} height={60} />
+              <Image src="/work/projects/kumbusha/logo.png" alt={duplicate ? "" : "Kumbusha"} width={185} height={60} />
+              <Image src="/work/projects/tena/logo.png" alt={duplicate ? "" : "Tena CRM"} width={185} height={60} />
               <span>Rotsi</span>
               <span>IBIZA</span>
             </div>

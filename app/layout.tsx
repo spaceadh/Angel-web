@@ -1,25 +1,39 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { absoluteUrl, routeMeta, siteName, siteUrl } from "./seoConfig";
 
 export const metadata: Metadata = {
-  title: "Malaika Studios by Rotsi | Website Design & Digital Presence",
-  description:
-    "Malaika Studios helps growing Kenyan and African businesses build clearer websites, stronger digital presence, and inquiry paths that attract, convert, and retain customers.",
+  metadataBase: new URL(siteUrl),
+  applicationName: siteName,
+  title: {
+    default: routeMeta.home.title,
+    template: "%s | Malaika Studios",
+  },
+  description: routeMeta.home.description,
   alternates: {
-    canonical: "/",
+    canonical: absoluteUrl(routeMeta.home.path),
   },
   openGraph: {
-    title: "Malaika Studios by Rotsi | Website Design & Digital Presence",
-    description:
-      "Clearer websites, digital presence, and inquiry paths for growing Kenyan and African businesses.",
+    title: routeMeta.home.title,
+    description: "Clearer websites, digital presence, and inquiry paths for growing Kenyan and African businesses.",
+    url: absoluteUrl(routeMeta.home.path),
+    siteName,
     type: "website",
     locale: "en_KE",
+    images: [
+      {
+        url: absoluteUrl("/opengraph-image"),
+        width: 1200,
+        height: 630,
+        alt: "Malaika Studios by Rotsi",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Malaika Studios by Rotsi | Website Design & Digital Presence",
-    description:
-      "Clearer websites, digital presence, and inquiry paths for growing Kenyan and African businesses.",
+    title: routeMeta.home.title,
+    description: "Clearer websites, digital presence, and inquiry paths for growing Kenyan and African businesses.",
+    images: [absoluteUrl("/twitter-image")],
   },
 };
 

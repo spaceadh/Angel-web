@@ -5,8 +5,6 @@ import { useEffect } from "react";
 export default function MotionController() {
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (reduceMotion.matches) return;
-
     const heroShell = document.querySelector<HTMLElement>("[data-hero-shell]");
     const projectCards = Array.from(
       document.querySelectorAll<HTMLElement>("[data-project-card]"),
@@ -14,6 +12,16 @@ export default function MotionController() {
     const revealItems = Array.from(
       document.querySelectorAll<HTMLElement>("[data-scroll-reveal]"),
     );
+
+    if (reduceMotion.matches) {
+      revealItems.forEach((item) => item.setAttribute("data-visible", "true"));
+      projectCards.forEach((card) => {
+        card.style.setProperty("--project-progress", "1");
+        card.style.setProperty("--project-enter", "1");
+        card.style.setProperty("--project-focus", "1");
+      });
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
