@@ -77,7 +77,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </section>
 
       <figure className="case-stage" data-scroll-reveal>
-        <div className="case-stage-toolbar"><i /><i /><i /><span>{project.slug}.malaikastudios.co.ke</span></div>
+        <div className="case-stage-toolbar"><i /><i /><i /><span>{project.slug}.malaikastudios.rotsi.co.ke</span></div>
         <Image
           src={project.image}
           alt={`${project.name} project presentation`}

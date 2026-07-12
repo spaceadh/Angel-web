@@ -1,4 +1,4 @@
-export const siteUrl = "https://malaikastudios.co.ke";
+export const siteUrl = "https://malaikastudios.rotsi.co.ke";
 
 export const siteName = "Malaika Studios by Rotsi";
 
