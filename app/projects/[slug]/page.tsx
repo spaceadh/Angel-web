@@ -33,6 +33,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!project) notFound();
   const currentIndex = projects.findIndex(({ slug }) => slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
+  const liveDomain = project.liveUrl
+    ? new URL(project.liveUrl).hostname.replace(/^www\./, "")
+    : null;
 
   return (
     <main className="case-page" style={{ "--case-accent": project.palette } as React.CSSProperties}>
@@ -71,13 +74,29 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <h1 className={`case-title ${project.name.length > 12 ? "case-title--long" : ""}`}>{project.name}</h1>
         <div className="case-intro reveal reveal--3">
           <p>{project.headline}</p>
-          <span>{project.intro}</span>
+          <div>
+            <span>{project.intro}</span>
+            {project.liveUrl && liveDomain && (
+              <a className="case-project-url" href={project.liveUrl} target="_blank" rel="noreferrer">
+                {liveDomain} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
         </div>
         {project.note && <p className="case-disclosure">{project.note}</p>}
       </section>
 
       <figure className="case-stage" data-scroll-reveal>
-        <div className="case-stage-toolbar"><i /><i /><i /><span>{project.slug}.malaikastudios.rotsi.co.ke</span></div>
+        <div className="case-stage-toolbar">
+          <i /><i /><i />
+          {project.liveUrl && liveDomain ? (
+            <a href={project.liveUrl} target="_blank" rel="noreferrer" aria-label={`Visit ${project.name} at ${liveDomain}`}>
+              {liveDomain}
+            </a>
+          ) : (
+            <span>{project.slug}.malaikastudios.rotsi.co.ke</span>
+          )}
+        </div>
         <Image
           src={project.image}
           alt={`${project.name} project presentation`}

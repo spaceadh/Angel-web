@@ -139,11 +139,13 @@ img {
 .case-title--long { font-size:clamp(70px,10.8vw,172px); line-height:.82; margin-inline:auto; max-width:92vw; overflow-wrap:normal; }
 .case-intro { align-items:end; bottom:44px; display:grid; gap:8vw; grid-template-columns:1.3fr 1fr; left:3.25vw; position:absolute; width:72vw; }
 .case-intro p { font:400 clamp(26px,3.2vw,52px)/1.02 var(--serif); font-style:italic; margin:0; }
-.case-intro span { font-size:clamp(14px,1.15vw,18px); line-height:1.55; }
+.case-intro > div > span { display:block; font-size:clamp(14px,1.15vw,18px); line-height:1.55; }
+.case-project-url { align-items:center; border-bottom:1px solid currentColor; display:flex; font-size:11px; gap:8px; letter-spacing:.08em; margin-top:22px; padding-bottom:7px; text-transform:uppercase; width:max-content; }
+.case-project-url span { color:var(--case-accent); font-size:14px; transition:transform 180ms ease; }.case-project-url:hover span { transform:translate(2px,-2px); }
 .case-disclosure { background:#fff; border:1px solid rgba(29,28,25,.18); bottom:130px; font-size:10px; letter-spacing:.04em; margin:0; padding:10px 14px; position:absolute; right:3.25vw; width:min(300px,24vw); }
 .case-stage { background:var(--case-accent); margin:0; padding:clamp(60px,8vw,130px) 7vw; }
 .case-stage-toolbar { align-items:center; background:#272722; border-radius:14px 14px 0 0; color:#aaa; display:flex; gap:7px; height:38px; padding:0 14px; }
-.case-stage-toolbar i { background:#5d5d56; border-radius:50%; height:7px; width:7px; }.case-stage-toolbar span { font-size:9px; letter-spacing:.05em; margin:auto; transform:translateX(-20px); }
+.case-stage-toolbar i { background:#5d5d56; border-radius:50%; height:7px; width:7px; }.case-stage-toolbar > span,.case-stage-toolbar > a { font-size:9px; letter-spacing:.05em; margin:auto; transform:translateX(-20px); }.case-stage-toolbar > a { border-bottom:1px solid transparent; transition:border-color 180ms ease,color 180ms ease; }.case-stage-toolbar > a:hover { border-color:currentColor; color:#fff; }
 .case-stage > img { background:white; border-radius:0 0 14px 14px; box-shadow:0 32px 80px rgba(0,0,0,.18); max-height:80vh; object-fit:cover; object-position:top; }
 .case-problem { display:grid; gap:4vw; grid-template-columns:1fr 3fr; }
 .case-problem h2 { font:500 clamp(35px,5vw,78px)/1.02 var(--sans); letter-spacing:-.06em; margin:0; }
