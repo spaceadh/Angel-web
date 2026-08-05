@@ -33,6 +33,12 @@ export const routeMeta = {
       "Website design prices for Nairobi and Kenyan businesses: checks from KES 15,000, starter pages from KES 45,000, full websites from KES 120,000, and client magnet systems from KES 180,000.",
     path: "/pricing",
   },
+  connectAlvin: {
+    title: "Connect with Alvin | Founder, Malaika Studios",
+    description:
+      "Hi, I'm Alvin, Founder of Malaika Studios. Let's connect to discuss high-conversion websites, business automation, AI solutions, and digital growth.",
+    path: "/connect/alvin",
+  },
 };
 
 export function absoluteUrl(path = "/") {
