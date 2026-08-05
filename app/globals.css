@@ -792,6 +792,24 @@ footer {
   padding: 30px 3.25vw;
 }
 
+connectfooter {
+  align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  display: grid;
+  font-size: 10px;
+  grid-template-columns: 1fr auto 1fr;
+  min-height: 130px;
+  padding: 30px 3.25vw;
+}
+
+connectfooter {
+    align-items: start;
+    gap: 55px;
+    grid-template-columns: 1fr 1fr;
+    padding: 45px 20px;
+  }
+
 .brand--footer .brand-mark { border:1px solid rgba(244,241,233,.3); }
 
 .brand--footer .brand-name {
