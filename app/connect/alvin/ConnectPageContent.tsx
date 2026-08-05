@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { Project } from "../../projects/projectData";
+import { Project } from "../../projects/connectProjectData";
 import { FaWhatsapp, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { FiMail, FiCalendar, FiMapPin, FiChevronDown, FiChevronUp, FiExternalLink } from "react-icons/fi";
 

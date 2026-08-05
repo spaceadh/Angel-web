@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ConnectPageContent from "./ConnectPageContent";
 import JsonLd from "../../components/JsonLd";
 import { absoluteUrl, breadcrumbJsonLd, routeMeta } from "../../seoConfig";
-import { projects } from "../../projects/projectData";
+import { connectProjects } from "../../projects/connectProjectData";
 
 export const metadata: Metadata = {
   title: routeMeta.connectAlvin.title,
@@ -49,7 +49,7 @@ export default function AlvinConnectPage() {
         { name: "Connect with Alvin", path: "/connect/alvin" },
       ])} />
       <JsonLd data={profileJsonLd} />
-      <ConnectPageContent projects={projects} />
+      <ConnectPageContent projects={connectProjects} />
     </>
   );
 }
