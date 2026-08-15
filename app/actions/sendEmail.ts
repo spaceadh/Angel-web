@@ -22,7 +22,9 @@ export async function sendEmailAction(formData: FormData) {
       replyTo: email,
     });
     return { success: true, data };
-  } catch (error: any) {
-    return { error: error.message };
+    } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Failed to send email";
+    return { error: errorMessage };
   }
 }

@@ -7,7 +7,6 @@ import styles from "./page.module.css";
 import { Project } from "../../projects/connectProjectData";
 import { FaWhatsapp, FaInstagram, FaLinkedinIn, FaTwitter, FaFacebook } from "react-icons/fa";
 import { FiMail, FiCalendar, FiMapPin, FiChevronDown, FiChevronUp, FiExternalLink } from "react-icons/fi";
-import { sendEmailAction } from "../../actions/sendEmail";
 
 type FilterType = "all" | "commissioned" | "products" | "concepts";
 
@@ -29,17 +28,9 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
   // State for intro video modal
   const [isVideoOpen, setIsVideoOpen] = useState(false);
-  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   // Handle Time
   const year = new Date().getFullYear();
-
-  async function handleAction(formData: FormData) {
-    setFormStatus("submitting");
-    const res = await sendEmailAction(formData);
-    if (res.error) setFormStatus("error");
-    else setFormStatus("success");
-  }
 
   // Filter projects based on kind
   const filteredProjects = projects.filter((project) => {
