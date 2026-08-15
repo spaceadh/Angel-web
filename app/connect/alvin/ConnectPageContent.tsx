@@ -98,7 +98,7 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
       </header>
 
       {/* Hero section */}
-      <section className={`${styles.hero} malaika-dots`}>
+      <section className={`${styles.hero}`}>
         <h1 className={styles.heroTitle}>
           Hi, I&apos;m <em>Alvin.</em>
         </h1>
