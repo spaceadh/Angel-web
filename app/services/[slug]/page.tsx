@@ -57,7 +57,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   };
 
   return (
-    <main className="seo-page">
+    <main className="seo-page malaika-dots">
       <JsonLd data={breadcrumbJsonLd([
         { name: "Home", path: "/" },
         { name: "Services", path: "/services" },
@@ -71,37 +71,72 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <nav aria-label="Service page navigation">
           <Link href="/services">Services</Link>
           <Link href="/pricing">Pricing</Link>
-          <a href="mailto:business@rotsi.co.ke">Start a project ↗</a>
+          <a href="/contact">Start a project ↗</a>
         </nav>
       </header>
 
       <section className="seo-hero">
-        <p className="eyebrow">{service.kicker}</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            {service.kicker}
+          </p>
         <h1>{service.title}</h1>
         <p>{service.intro}</p>
       </section>
 
       <section className="seo-columns">
         <article>
-          <p className="eyebrow">Who this is for</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            WHO THIS IS FOR
+          </p>
           <ul>{service.whoFor.map((item) => <li key={item}>{item}</li>)}</ul>
         </article>
         <article>
-          <p className="eyebrow">What is included</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            WHAT IS INCLUDED
+          </p>
           <ul>{service.includes.map((item) => <li key={item}>{item}</li>)}</ul>
         </article>
       </section>
 
       <section className="seo-proof">
         <div>
-          <p className="eyebrow">Useful outcomes</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            USEFUL OUTCOMES
+          </p>
           <h2>Design earns its place when the business becomes easier to find, understand, trust, and contact.</h2>
         </div>
         <ul>{service.outcomes.map((item) => <li key={item}>{item}</li>)}</ul>
       </section>
 
       <section className="seo-faq" aria-label={`${service.title} frequently asked questions`}>
-        <p className="eyebrow">Questions buyers ask</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            QUESTIONS BUYERS ASK
+          </p>
         {service.faqs.map((faq) => (
           <details key={faq.question}>
             <summary>{faq.question}</summary>
@@ -111,7 +146,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </section>
 
       <section className="seo-band">
-        <p className="eyebrow eyebrow--light">Next step</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            NEXT STEP
+          </p>
         <h2>Not sure what level of website or system your business needs?</h2>
         <Link href="/pricing">Use the pricing guide as a starting point ↗</Link>
       </section>

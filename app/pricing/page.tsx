@@ -196,7 +196,7 @@ export default function PricingPage() {
   };
 
   return (
-    <main className="seo-page">
+    <main className="seo-page malaika-dots">
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Pricing", path: "/pricing" }])} />
       <JsonLd data={serviceJsonLd} />
       <JsonLd data={faqJsonLd} />
@@ -206,12 +206,19 @@ export default function PricingPage() {
         <nav aria-label="Pricing navigation">
           <Link href="/services">Services</Link>
           <Link href="/#work">Work</Link>
-          <a href="mailto:business@rotsi.co.ke">Request a fit estimate ↗</a>
+          <a href="/contact">Request a fit estimate ↗</a>
         </nav>
       </header>
 
       <section className="seo-hero seo-hero--split">
-        <p className="eyebrow">Website design prices in Nairobi</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            WEBSITE DESIGN PRICES IN NAIROBI
+          </p>
         <div>
           <h1>What should a serious business website cost?</h1>
           <p>
@@ -248,7 +255,14 @@ export default function PricingPage() {
 
       <section className="seo-proof">
         <div>
-          <p className="eyebrow">The practical things</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            THE PRACTICAL THINGS
+          </p>
           <h2>A website does not only need design. It needs to be connected, trackable, secure, findable, and easy to contact from.</h2>
         </div>
         <ul>{operationalExtras.map((item) => <li key={item}>{item}</li>)}</ul>
@@ -256,7 +270,14 @@ export default function PricingPage() {
 
       <section className="seo-columns">
         <article>
-          <p className="eyebrow">What affects price</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            WHAT AFFECTS PRICE
+          </p>
           <ul>
             <li>Whether the project is a new website, redesign, landing page, or audit.</li>
             <li>How much copywriting, content structure, and proof gathering is needed.</li>
@@ -266,13 +287,27 @@ export default function PricingPage() {
           </ul>
         </article>
         <article>
-          <p className="eyebrow">Useful add-ons</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            USEFUL ADD-ONS
+          </p>
           <ul>{addOns.map(([name, price]) => <li key={name}><strong>{name}</strong><br />{price}</li>)}</ul>
         </article>
       </section>
 
       <section className="terms-grid" aria-label="Payment terms">
-        <p className="eyebrow">Payment terms</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            PAYMENT TERMS
+          </p>
         {paymentTerms.map(([label, terms]) => (
           <article key={label}>
             <h2>{label}</h2>
@@ -282,7 +317,14 @@ export default function PricingPage() {
       </section>
 
       <section className="seo-faq" aria-label="Website pricing questions">
-        <p className="eyebrow">Pricing questions</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            PRICING QUESTIONS
+          </p>
         {pricingFaqs.map((faq) => (
           <details key={faq.question}>
             <summary>{faq.question}</summary>
@@ -292,9 +334,16 @@ export default function PricingPage() {
       </section>
 
       <section className="seo-band">
-        <p className="eyebrow eyebrow--light">Fit before figure</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            FIT BEFORE FIGURE
+          </p>
         <h2>If your business is good but the website does not show it, start with the right level of work.</h2>
-        <a href="mailto:business@rotsi.co.ke">Request a fit-and-scope estimate ↗</a>
+        <a href="/contact">Request a fit-and-scope estimate ↗</a>
       </section>
 
       <SiteFooter />

@@ -18,19 +18,26 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <main className="seo-page">
+    <main className="seo-page malaika-dots">
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }])} />
       <header className="seo-nav">
         <Link className="seo-brand" href="/">Malaika Studios<small>by Rotsi</small></Link>
         <nav aria-label="Services navigation">
           <Link href="/pricing">Pricing</Link>
           <Link href="/#work">Work</Link>
-          <a href="mailto:business@rotsi.co.ke">Start a project ↗</a>
+          <a href="/contact">Start a project ↗</a>
         </nav>
       </header>
 
       <section className="seo-hero seo-hero--split seo-hero--compact">
-        <p className="eyebrow">Services</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            SERVICES
+          </p>
         <div>
           <h1>Website design, digital presence audits, and client magnet systems for growing Kenyan businesses.</h1>
           <p>
@@ -55,7 +62,14 @@ export default function ServicesPage() {
       </section>
 
       <section className="seo-band">
-        <p className="eyebrow eyebrow--light">How the work connects</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            HOW THE WORK CONNECTS
+          </p>
         <h2>Attract the right people. Convert interest into action. Retain attention through better follow-up.</h2>
         <Link href="/pricing">See website pricing guidance ↗</Link>
       </section>

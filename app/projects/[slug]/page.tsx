@@ -62,7 +62,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <span>Malaika Studios<small>by Rotsi</small></span>
         </Link>
         <Link href="/#work">All work</Link>
-        <a className="case-nav-cta" href="mailto:business@rotsi.co.ke">Start a project ↗</a>
+        <a className="case-nav-cta" href="/contact">Start a project ↗</a>
       </header>
 
       <section className="case-hero">
@@ -108,13 +108,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </figure>
 
       <section className="case-problem section" data-scroll-reveal>
-        <p className="eyebrow">The opportunity</p>
+        <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            THE OPPORTUNITY
+          </p>
         <h2>{project.challenge}</h2>
       </section>
 
       <section className="case-system" data-scroll-reveal>
         <div className="case-system-intro">
-          <p className="eyebrow eyebrow--light">What we shaped</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            WHAT WE SHAPED
+          </p>
           <h2>Not decoration.<br /><em>A customer journey.</em></h2>
         </div>
         <ol>
@@ -135,7 +149,14 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       )}
 
       <section className="case-outcomes section" data-scroll-reveal>
-        <div><p className="eyebrow">What the work proves</p><h2>Design earns its place when it makes the business easier to choose.</h2></div>
+        <div><p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            WHAT THE WORK PROVES
+          </p><h2>Design earns its place when it makes the business easier to choose.</h2></div>
         <ul>{project.outcomes.map((item) => <li key={item}>{item}</li>)}</ul>
       </section>
 
@@ -146,7 +167,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       <section className="case-finish">
         <p>Have a good business that deserves a stronger presence?</p>
-        <a href="mailto:business@rotsi.co.ke">Let&apos;s make it<br /><em>impossible to overlook.</em> ↗</a>
+        <a href="/contact">Let&apos;s make it<br /><em>impossible to overlook.</em> ↗</a>
         {project.liveUrl && <a className="case-live" href={project.liveUrl} target="_blank" rel="noreferrer">Visit live project ↗</a>}
       </section>
 

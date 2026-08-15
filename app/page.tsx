@@ -72,17 +72,18 @@ export default function Home() {
           <a href="#work">Work</a>
           <Link href="/services">Services</Link>
           <Link href="/pricing">Pricing</Link>
+          <Link href="/contact">Contact</Link>
           <a href="#studio">Studio</a>
         </nav>
 
-        <a className="header-cta" href="mailto:business@rotsi.co.ke">
+        <a className="header-cta" href="/contact">
           Start a project <Arrow diagonal />
         </a>
 
         <MobileMenu />
       </header>
 
-      <div className="hero-shell" data-hero-shell id="top">
+      <div className="hero-shell malaika-dots" data-hero-shell id="top">
       <section className="hero" data-hero>
         <div className="hero-kicker reveal">
           <span>Independent creative studio</span>
@@ -94,7 +95,11 @@ export default function Home() {
             <span className="line hero-line-enter" data-hero-line="one">You deserve to be</span>
             <span className="line line--offset hero-line-enter hero-line-enter--2" data-hero-line="two">
               <em>seen.</em>
-              <span className="orange-dot" aria-hidden="true" />
+              <span className="malaika-signature" style={{ marginLeft: '12px' }} aria-hidden="true">
+                <span className="malaika-signature-color"></span>
+                <span className="malaika-signature-color"></span>
+                <span className="malaika-signature-color"></span>
+              </span>
             </span>
             <span className="line hero-line-enter hero-line-enter--3" data-hero-line="three">Let us help.</span>
           </h1>
@@ -105,17 +110,29 @@ export default function Home() {
             Malaika Studios is a creative agency specializing in Website design, digital presence audits, and client magnet systems
             for growing Kenyan businesses that need to look clear, feel credible, and convert better.
           </p>
-          <a className="circle-link" href="#work" aria-label="Explore selected work">
+          <a className="btn-primary" href="#work" aria-label="Explore selected work">
             <span>Explore work</span>
             <Arrow />
+            <span className="malaika-signature">
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
           </a>
         </div>
       </section>
       </div>
 
-      <section className="work section" id="work">
+      <section className="work section malaika-dots" id="work">
         <div className="section-heading">
-          <p className="eyebrow">Selected work</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '32px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            01 / SELECTED WORK
+          </p>
           <h2>A few things we&apos;ve brought to life.</h2>
           <span className="section-count">(03)</span>
         </div>
@@ -123,7 +140,7 @@ export default function Home() {
         <div className="project-grid" data-scroll-reveal>
           {projects.map((project, index) => (
             <a
-              className={`${project.className} project--motion`}
+              className={`${project.className} project--motion malaika-card`}
               data-project-card
               data-project-index={index}
               href={project.href}
@@ -149,7 +166,14 @@ export default function Home() {
 
         <div className="concepts" data-scroll-reveal>
           <div className="concepts-copy">
-            <p className="eyebrow">Studio concepts</p>
+            <p className="malaika-label">
+              <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+                <span className="malaika-signature-color"></span>
+                <span className="malaika-signature-color"></span>
+                <span className="malaika-signature-color"></span>
+              </span>
+              02 / CONCEPTS
+            </p>
             <h3>Ideas we made before anyone asked.</h3>
             <p>Self-initiated redesign studies: honest concept work that shows how we think, and how we would have designed it.</p>
           </div>
@@ -181,7 +205,14 @@ export default function Home() {
 
       <section className="acquisition" id="client-magnet" aria-label="The client magnet system" data-scroll-reveal>
         <div className="acquisition-lead">
-          <p className="eyebrow eyebrow--light">Our point of view</p>
+          <p className="malaika-label" style={{ color: 'rgba(244,241,233,.7)' }}>
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            03 / POINT OF VIEW
+          </p>
           <h2>A website should earn its place in your business.</h2>
           <p>It should make you visible, make the value clear, build trust before the first call, and turn attention into a real inquiry.</p>
         </div>
@@ -197,9 +228,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="services section" id="services" data-scroll-reveal>
+      <section className="services section malaika-dots" id="services" data-scroll-reveal>
         <div className="section-heading section-heading--services">
-          <p className="eyebrow">What we do</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            04 / SERVICES
+          </p>
           <h2>One studio. Three ways to help your business move.</h2>
           <span className="section-count">(Services)</span>
         </div>
@@ -237,7 +275,14 @@ export default function Home() {
 
       <section className="method" id="studio" data-scroll-reveal>
         <div className="method-intro">
-          <p className="eyebrow eyebrow--light">Our Method, The Malaika method</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            05 / ABOUT
+          </p>
           <h2>Less noise. More pull.</h2>
           <p>
             We find the sharpest version of your story, give it a visual world,
@@ -273,15 +318,27 @@ export default function Home() {
         <p className="quote-source">The standard we bring to every project.</p>
       </section>
 
-      <section className="contact" id="contact">
+      <section className="contact malaika-dots" id="contact">
         <div className="contact-top">
-          <p className="eyebrow">Have something in mind?</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            06 / CONTACT
+          </p>
           <p>Selected projects · Q3 2026</p>
         </div>
-        <a className="contact-link" href="mailto:business@rotsi.co.ke">
+        <a className="btn-primary" href="/contact">
           <span>Let&apos;s make it</span>
           <span className="contact-link-bottom">
             unforgettable. <Arrow diagonal />
+          </span>
+          <span className="malaika-signature">
+            <span className="malaika-signature-color"></span>
+            <span className="malaika-signature-color"></span>
+            <span className="malaika-signature-color"></span>
           </span>
         </a>
       </section>

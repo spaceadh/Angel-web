@@ -32,7 +32,7 @@ export default function MobileMenu() {
         <Link href="/services" onClick={handleLinkClick}>Services</Link>
         <Link href="/pricing" onClick={handleLinkClick}>Pricing</Link>
         <a href="#studio" onClick={handleLinkClick}>Studio</a>
-        <a href="mailto:business@rotsi.co.ke" onClick={handleLinkClick}>Start a project ↗</a>
+        <a href="/contact" onClick={handleLinkClick}>Start a project ↗</a>
       </nav>
     </details>
   );

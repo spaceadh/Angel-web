@@ -112,7 +112,7 @@
   align-items: center;
   justify-content: center;
   background-color: var(--orange);
-  color: #fff;
+  color: var(--paper);
   font-family: var(--sans);
   font-size: 15px;
   font-weight: 600;
@@ -161,7 +161,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background-color: #eae6db;
+  background-color: var(--light-gray);
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -185,7 +185,7 @@
 }
 
 .videoTitle {
-  color: #fff;
+  color: var(--paper);
   font-family: var(--sans);
   font-size: 13px;
   font-weight: 600;
@@ -219,7 +219,7 @@
 
 .videoPlaceholder:hover .playButton {
   transform: scale(1.08);
-  background-color: #fff;
+  background-color: var(--paper);
 }
 
 .videoElement {
@@ -244,7 +244,7 @@
   width: 100%;
   max-width: 480px;
   aspect-ratio: 16 / 9;
-  background: #000;
+  background: var(--ink);
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -256,7 +256,7 @@
   top: 10px;
   right: 10px;
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: var(--paper);
   border: none;
   width: 32px;
   height: 32px;
@@ -389,7 +389,7 @@
 }
 
 .projectCard {
-  background-color: #fff;
+  background-color: var(--paper);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(29, 28, 25, 0.08);
@@ -479,7 +479,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  background-color: #eae6db;
+  background-color: var(--light-gray);
   border-bottom: 1px solid var(--line);
 }
 
@@ -674,7 +674,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background-color: #fff;
+  background-color: var(--paper);
   border: 1px solid rgba(29, 28, 25, 0.08);
   border-radius: 12px;
   padding: 16px 8px;
@@ -713,7 +713,7 @@
   justify-content: center;
   gap: 10px;
   padding: 16px;
-  background-color: #fff;
+  background-color: var(--paper);
   border-color: rgba(29, 28, 25, 0.08);
 }
 

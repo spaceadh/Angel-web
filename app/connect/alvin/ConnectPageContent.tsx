@@ -5,8 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { Project } from "../../projects/connectProjectData";
-import { FaWhatsapp, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaWhatsapp, FaInstagram, FaLinkedinIn, FaTwitter, FaFacebook } from "react-icons/fa";
 import { FiMail, FiCalendar, FiMapPin, FiChevronDown, FiChevronUp, FiExternalLink } from "react-icons/fi";
+import { sendEmailAction } from "../../actions/sendEmail";
 
 type FilterType = "all" | "commissioned" | "products" | "concepts";
 
@@ -28,6 +29,17 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
   const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
   // State for intro video modal
   const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  // Handle Time
+  const year = new Date().getFullYear();
+
+  async function handleAction(formData: FormData) {
+    setFormStatus("submitting");
+    const res = await sendEmailAction(formData);
+    if (res.error) setFormStatus("error");
+    else setFormStatus("success");
+  }
 
   // Filter projects based on kind
   const filteredProjects = projects.filter((project) => {
@@ -71,7 +83,7 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
   ];
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={`${styles.pageContainer} malaika-dots`}>
       {/* Header section with brand mark */}
       <header className={styles.header}>
         <Link className={styles.brand} href="/">
@@ -86,18 +98,18 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
       </header>
 
       {/* Hero section */}
-      <section className={styles.hero}>
+      <section className={`${styles.hero} malaika-dots`}>
         <h1 className={styles.heroTitle}>
           Hi, I&apos;m <em>Alvin.</em>
         </h1>
-        <p className={styles.heroSubtitle}>Founder, Malaika Studios</p>
+        <p className={styles.heroSubtitle}>Tech Consultant, Malaika Studios</p>
         <p className={styles.heroBio}>
           I help growing businesses turn website visitors into real inquiries and automated workflows.
           At Malaika Studios, we focus on clear design and systems that save you time and convert attention.
         </p>
 
         <div className={styles.ctaContainer}>
-          <a href="#connect" className={styles.primaryButton}>
+          <a href="#connect" className={`${styles.primaryButton} btn-primary`}>
             Book a Call
           </a>
           <a href="#portfolio" className={styles.secondaryButton}>
@@ -141,7 +153,14 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
       {/* What we build */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Services</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            SERVICES
+          </p>
           <h2 className={styles.sectionTitle}>What we build</h2>
         </div>
         <div className={styles.servicesList}>
@@ -175,7 +194,14 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
       {/* Projects section with custom interactive filtering and inline expanding */}
       <section className={styles.section} id="portfolio">
         <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Portfolio</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            PORTFOLIO
+          </p>
           <h2 className={styles.sectionTitle}>Featured work</h2>
         </div>
 
@@ -293,12 +319,19 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
       {/* Why businesses work with us (Redesigned Editorial Style) */}
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Why Us</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            WHY US
+          </p>
           <h2 className={styles.sectionTitle}>Why work with us</h2>
         </div>
         <div className={styles.beliefsList}>
           {beliefs.map((belief) => (
-            <div key={belief.num} className={styles.beliefCard}>
+            <div key={belief.num} className={`${styles.beliefCard} malaika-card`}>
               <span className={styles.beliefNum}>{belief.num}</span>
               <div className={styles.beliefContent}>
                 <h3 className={styles.beliefTitle}>{belief.title}</h3>
@@ -309,10 +342,44 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
         </div>
       </section>
 
+      {/* Contact Form Section */}
+      {/* <section className={`${styles.section} malaika-dots`} style={{ padding: "32px", borderRadius: "8px", margin: "20px 0" }}> */}
+        {/* <h2 className="malaika-label"> */}
+          {/* <span className="malaika-signature"> */}
+            {/* <span className="malaika-signature-color"></span> */}
+            {/* <span className="malaika-signature-color"></span> */}
+            {/* <span className="malaika-signature-color"></span> */}
+          {/* </span> */}
+          {/* Send a Message */}
+        {/* </h2> */}
+        {/* <form action={handleAction} style={{ display: "flex", flexDirection: "column", gap: "16px" }}> */}
+          {/* <input type="text" name="name" placeholder="Your Name" required className="malaika-card" style={{ padding: "12px" }} /> */}
+          {/* <input type="email" name="email" placeholder="Your Email" required className="malaika-card" style={{ padding: "12px" }} /> */}
+          {/* <textarea name="message" placeholder="How can we help?" required className="malaika-card" style={{ padding: "12px", minHeight: "100px" }} /> */}
+          {/* <button type="submit" className="btn-primary" disabled={formStatus === "submitting"}> */}
+            {/* {formStatus === "submitting" ? "Sending..." : "Send Message"} */}
+            {/* <span className="malaika-signature"> */}
+              {/* <span className="malaika-signature-color"></span> */}
+              {/* <span className="malaika-signature-color"></span> */}
+              {/* <span className="malaika-signature-color"></span> */}
+            {/* </span> */}
+          {/* </button> */}
+          {/* {formStatus === "success" && <p style={{ color: "green", fontSize: "14px" }}>Message sent successfully!</p>} */}
+          {/* {formStatus === "error" && <p style={{ color: "red", fontSize: "14px" }}>Failed to send message. Please try again.</p>} */}
+        {/* </form> */}
+      {/* </section> */}
+
       {/* Let's connect section */}
-      <section className={styles.section} id="connect">
+      <section className={`${styles.section} malaika-dots`} id="connect">
         <div className={styles.sectionHeader}>
-          <p className={styles.eyebrow}>Next Step</p>
+          <p className="malaika-label">
+            <span className="malaika-signature" style={{ width: '24px', height: '2px' }}>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+              <span className="malaika-signature-color"></span>
+            </span>
+            NEXT STEP
+          </p>
           <h2 className={styles.sectionTitle}>Let&apos;s connect</h2>
         </div>
         <div className={styles.connectGrid}>
@@ -320,7 +387,7 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
           <div className={styles.socialRow}>
             {/* WhatsApp */}
             <a
-              href="https://wa.me/254722000000"
+              href="https://wa.me/254745474586"
               target="_blank"
               rel="noreferrer"
               className={styles.connectButton}
@@ -332,7 +399,7 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
 
             {/* Instagram */}
             <a
-              href="https://instagram.com/malaika.studios"
+              href="https://instagram.com/malaikastudios.ke"
               target="_blank"
               rel="noreferrer"
               className={styles.connectButton}
@@ -344,7 +411,7 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
 
             {/* LinkedIn */}
             <a
-              href="https://linkedin.com/in/alvin-dots"
+              href="https://linkedin.com/in/alvin-victor-"
               target="_blank"
               rel="noreferrer"
               className={styles.connectButton}
@@ -352,6 +419,20 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
               <FaLinkedinIn className={styles.connectIcon} />
               <span className={styles.connectLabel}>LinkedIn</span>
               <span className={styles.connectAction}>Connect</span>
+            </a>
+
+            {/* Twitter */}
+            <a href="https://x.com/rotsilabs" target="_blank" rel="noreferrer" className={styles.connectButton}>
+              <FaTwitter className={styles.connectIcon} />
+              <span className={styles.connectLabel}>Twitter</span>
+              <span className={styles.connectAction}>Follow</span>
+            </a>
+
+            {/* Facebook */}
+            <a href="https://facebook.com/rotsilabs" target="_blank" rel="noreferrer" className={styles.connectButton}>
+              <FaFacebook className={styles.connectIcon} />
+              <span className={styles.connectLabel}>Facebook</span>
+              <span className={styles.connectAction}>Follow</span>
             </a>
           </div>
 
@@ -369,7 +450,7 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
 
           {/* Email */}
           <a
-            href="mailto:business@rotsi.co.ke"
+            href="/contact"
             className={`${styles.connectButton} ${styles.connectFullWidth}`}
           >
             <FiMail className={styles.connectIcon} />
@@ -388,18 +469,19 @@ export default function ConnectPageContent({ projects }: ConnectPageContentProps
           <div className={styles.locationDetails}>
             <span className={styles.locationTitle}>Malaika Studios</span>
             <p className={styles.locationAddress}>Afya Mansionettes, Kilimani, Nairobi</p>
-            <a
-              href="https://maps.google.com/?q=Afya+Mansionettes+Kilimani+Nairobi"
-              target="_blank"
-              rel="noreferrer"
-              className={styles.directionsLink}
-            >
-              Get Directions ↗
-            </a>
+            <iframe 
+              src="https://maps.google.com/maps?q=Afya+Mansionettes+Kilimani+Nairobi&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+              width="100%" 
+              height="200" 
+              style={{ border: 0, borderRadius: "8px", marginTop: "10px" }} 
+              allowFullScreen 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
         <p className={styles.copyright}>
-          © 2026 Malaika Studios. All rights reserved.
+          © {year} Malaika Studios. All rights reserved.
         </p>
       </div>
     </div>

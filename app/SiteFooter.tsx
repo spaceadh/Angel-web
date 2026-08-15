@@ -15,7 +15,7 @@ export default function SiteFooter() {
         <Link href="/services">Services</Link>
         <Link href="/pricing">Pricing</Link>
         <Link href="/#studio">Studio</Link>
-        <a href="mailto:business@rotsi.co.ke">Start a project ↗</a>
+        <a href="/contact">Start a project ↗</a>
       </div>
       <p>© 2026 Malaika Studios · We are located at Afya Mansionettes, Kilimani, Nairobi.</p>
     </footer>
