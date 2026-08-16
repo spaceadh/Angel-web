@@ -24,6 +24,7 @@ export default function ContactPage() {
         <nav aria-label="Contact navigation">
           <Link href="/services">Services</Link>
           <Link href="/pricing">Pricing</Link>
+          <Link href="/insights">Insights</Link>
           <Link href="/#work">Work</Link>
         </nav>
       </header>

@@ -25,6 +25,8 @@ export default function ServicesPage() {
         <nav aria-label="Services navigation">
           <Link href="/pricing">Pricing</Link>
           <Link href="/#work">Work</Link>
+          <Link href="/insights">Insights</Link>
+          <Link href="/contact">Contact</Link>
           <a href="/contact">Start a project ↗</a>
         </nav>
       </header>

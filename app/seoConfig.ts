@@ -39,6 +39,12 @@ export const routeMeta = {
       "Hi, I'm Alvin, Founder of Malaika Studios. Let's connect to discuss high-conversion websites, business automation, AI solutions, and digital growth.",
     path: "/connect/alvin",
   },
+  insights: {
+    title: "Insights & Answers on Digital Presence | Malaika Studios",
+    description:
+      "Insights, answers, and strategies on website design, client magnet systems, and digital presence for growing businesses.",
+    path: "/insights",
+  },
 };
 
 export function absoluteUrl(path = "/") {

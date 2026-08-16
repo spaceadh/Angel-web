@@ -117,6 +117,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             THE OPPORTUNITY
           </p>
         <h2>{project.challenge}</h2>
+        {project.body && (
+          <div className="case-body" style={{ marginTop: "32px", maxWidth: "760px", display: "flex", flexDirection: "column", gap: "20px", fontSize: "17px", lineHeight: "1.6", color: "var(--muted)", fontFamily: "var(--body)" }}>
+            {project.body.map((paragraph, i) => (
+              <p key={i}>{paragraph}</p>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="case-system" data-scroll-reveal>

@@ -206,6 +206,8 @@ export default function PricingPage() {
         <nav aria-label="Pricing navigation">
           <Link href="/services">Services</Link>
           <Link href="/#work">Work</Link>
+          <Link href="/insights">Insights</Link>
+          <Link href="/contact">Contact</Link>
           <a href="/contact">Request a fit estimate ↗</a>
         </nav>
       </header>

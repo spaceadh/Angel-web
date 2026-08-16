@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function SiteFooter() {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="site-footer">
       <Link className="brand brand--footer" href="/" aria-label="Malaika Studios home">
@@ -14,10 +15,11 @@ export default function SiteFooter() {
         <Link href="/#work">Work</Link>
         <Link href="/services">Services</Link>
         <Link href="/pricing">Pricing</Link>
-        <Link href="/#studio">Studio</Link>
+        <Link href="/insights">Insights</Link>
+        <Link href="/contact">Contact</Link>
         <a href="/contact">Start a project ↗</a>
       </div>
-      <p>© 2026 Malaika Studios · We are located at Afya Mansionettes, Kilimani, Nairobi.</p>
+      <p>© {currentYear} Malaika Studios · We are located at Afya Mansionettes, Kilimani, Nairobi.</p>
     </footer>
   );
 }

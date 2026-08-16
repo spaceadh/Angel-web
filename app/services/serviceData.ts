@@ -149,6 +149,75 @@ export const services: Service[] = [
       },
     ],
   },
+  {
+    slug: "website-redesign-kenya",
+    title: "Website Redesign in Kenya",
+    kicker: "Turn an outdated brochure into an active client magnet",
+    description: "Website redesign for Kenyan SMEs that have outgrown their current site and need a modern, clear, and high-converting presence that matches their actual business quality.",
+    intro: "A website redesign is not just about changing colors. We rebuild your online presence to fix broken user journeys, clarify your message, and create a clearer path to inquiry for your best clients.",
+    whoFor: [
+      "Established businesses whose current website looks 5-10 years old.",
+      "Founders tired of losing credibility before a sales conversation.",
+      "Companies that have pivoted or grown and need their website to reflect their new level."
+    ],
+    includes: [
+      "Complete site audit and structure overhaul",
+      "Modern, responsive visual redesign",
+      "Copywriting improvements for clarity and conversion",
+      "Better integration of proof and case studies",
+      "Technical SEO improvements (speed, metadata, mobile-readiness)"
+    ],
+    outcomes: [
+      "Your website finally matches the quality of your actual business.",
+      "Higher conversion rates from visitor to lead.",
+      "A site that is easier to manage and update.",
+      "Improved trust and credibility instantly."
+    ],
+    faqs: [
+      {
+        question: "Do we lose our SEO rankings if we redesign?",
+        answer: "We carefully manage 301 redirects and preserve your existing SEO value while improving technical foundations to help you rank better over time."
+      },
+      {
+        question: "How long does a website redesign take?",
+        answer: "Typically 4-8 weeks, depending on the complexity, page count, and how quickly we align on copy and strategy."
+      }
+    ]
+  },
+  {
+    slug: "ecommerce-website-design-kenya",
+    title: "E-Commerce & Product Catalogues",
+    kicker: "Sell products and showcase catalogues smoothly",
+    description: "E-commerce website design and digital product catalogues for Kenyan businesses that need a clean, trusted, and easy-to-use platform to display inventory and process orders.",
+    intro: "Whether you need a full e-commerce checkout or a sleek digital product catalogue that directs inquiries to WhatsApp or email, we build platforms that make buying or inquiring easy.",
+    whoFor: [
+      "Retailers needing a modern online storefront.",
+      "B2B distributors requiring a clean, organized digital catalogue.",
+      "Brands wanting to shift ordering from messy DMs to a structured system."
+    ],
+    includes: [
+      "Clear product categorization and search",
+      "High-quality product display templates",
+      "Shopping cart and checkout integration or WhatsApp ordering paths",
+      "Mobile-first shopping experience",
+      "Inventory management foundation"
+    ],
+    outcomes: [
+      "A seamless shopping or browsing experience for your customers.",
+      "Reduced time spent answering basic product questions.",
+      "A professional storefront that builds instant trust."
+    ],
+    faqs: [
+      {
+        question: "Can you connect the catalogue directly to WhatsApp?",
+        answer: "Yes, many Kenyan businesses prefer WhatsApp ordering. We can build catalogues where the 'checkout' sends a perfectly formatted order directly to your WhatsApp."
+      },
+      {
+        question: "What platforms do you use for e-commerce?",
+        answer: "We choose the platform based on your needs, whether it's a custom Next.js storefront, WooCommerce, or Shopify, always optimizing for performance and ease of use."
+      }
+    ]
+  }
 ];
 
 export function getService(slug: string) {

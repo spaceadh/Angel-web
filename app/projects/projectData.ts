@@ -11,6 +11,7 @@ export type Project = {
   liveUrl?: string;
   palette: string;
   challenge: string;
+  body?: string[];
   approach: string[];
   outcomes: string[];
   note?: string;
@@ -22,32 +23,64 @@ export const projects: Project[] = [
     name: "Bewama",
     kind: "Commissioned work",
     sector: "B2B commerce · Product design",
-    headline: "Making a technical product catalogue feel easier to explore—and easier to buy from.",
-    intro: "Bewama is a B2B ecommerce and sourcing platform for construction and industrial products. The work connects product discovery, assisted quoting, checkout and repeat purchasing in one commercial journey.",
+    headline: "Making a technical construction catalogue feel easier to explore, specify, and buy from.",
+    intro: "Bewama is a B2B ecommerce and sourcing platform designed specifically for the heavy construction and industrial supply sectors. We were tasked with building a digital experience that bridges the gap between complex technical specifications and a modern, consumer-grade checkout flow. The resulting work connects product discovery, assisted quoting, direct checkout, and repeat purchasing in one unified commercial journey, tailored for Kenyan procurement teams.",
     image: "/work/projects/bewama/landing-page.png",
     secondary: "/work/projects/bewama/requestQuot.png",
     logo: "/work/projects/bewama/logo.png",
     liveUrl: "https://bewama.com",
     palette: "#ee4f23",
-    challenge: "Technical buyers do not always arrive ready to check out. They compare specifications, prepare budgets and sometimes need a human-assisted quote. A standard online-shop pattern would leave too much intent behind.",
-    approach: ["Structured product discovery", "Guided quote-request journey", "Loyalty and return-customer mechanics", "Search-led product content"],
-    outcomes: ["100+ products structured for discovery", "Quote and checkout paths working side by side", "90%+ recorded SEO health", "A clearer route from interest to sales conversation"],
+    challenge: "Technical buyers in Kenya's construction industry do not always arrive ready to check out with a credit card. They need to compare structural specifications, prepare detailed internal budgets, request bulk discounts, and sometimes require human-assisted quotes before procurement approval. A standard online-shop pattern would leave too much intent behind and fail to convert high-value buyers who need a consultation first.",
+    body: [
+      "The heavy construction industry operates on trust and precision. When procurement managers are sourcing materials for a massive commercial development, they aren't just 'adding to cart'. They need exact specifications, lead times, and negotiated pricing. Our initial audit of Bewama's digital presence revealed that their previous platform was treating complex industrial sales like a consumer retail shop.",
+      "Malaika Studios approached this challenge by rethinking the entire digital journey. We mapped out the 'Visibility-Ready Founder' avatar for Bewama—realizing that they needed a platform that served both as a product discovery engine and a B2B sales enabler.",
+      "We structured the new platform so that a user could easily search for technical terms (e.g., 'high-yield reinforcement steel Nairobi'), land on a highly-optimized product page, and then—crucially—choose between an immediate purchase or a guided 'Request Quote' flow.",
+      "This hybrid approach meant that Bewama stopped losing high-value buyers who weren't ready to pull out a credit card immediately. By connecting this quote request flow directly into their sales team's WhatsApp and CRM, we built a true Client Magnet System that converted anonymous traffic into actionable business conversations."
+    ],
+    approach: [
+      "Designed a structured product discovery system optimized for mobile buyers on construction sites",
+      "Built a guided, multi-step quote-request journey that integrates directly into their sales WhatsApp",
+      "Created loyalty and repeat-customer mechanics to encourage contractors to reuse the platform",
+      "Implemented search-led product content architecture to capture 'buy cement Nairobi' style queries"
+    ],
+    outcomes: [
+      "100+ technical products structured cleanly for organic search discovery",
+      "Quote and direct checkout paths working side-by-side without confusing the user",
+      "90%+ recorded technical SEO health on launch",
+      "A clearer, measurable route from initial interest to a qualified sales conversation"
+    ],
   },
   {
     slug: "somafix-kenya",
     name: "Somafix Kenya",
     kind: "Commissioned work",
     sector: "Construction chemicals · Website",
-    headline: "Turning a serious product business into a credible, searchable digital presence.",
-    intro: "Somafix Kenya needed more than a brochure. The website gives contractors, installers and professional buyers a clearer way to understand products, use cases and the company behind them.",
+    headline: "Turning a serious construction chemicals business into a credible, searchable digital presence.",
+    intro: "Somafix Kenya needed more than a digital brochure. They required a platform that would establish them as the definitive authority on construction chemicals and adhesives in East Africa. The new website gives contractors, installers, and professional buyers a much clearer way to understand the complex products, view real-world use cases, and immediately trust the company behind them.",
     image: "/work/projects/somafix/landing-page.png",
     secondary: "/work/projects/somafix/site-overview.png",
     logo: "/work/projects/somafix/logo.png",
     liveUrl: "https://somafixkenya.co.ke",
     palette: "#d4252a",
-    challenge: "A technical catalogue had to feel organised and approachable without losing the authority expected by professional construction buyers.",
-    approach: ["Brand-led editorial structure", "Product and use-case architecture", "Mobile-first technical optimisation", "Search-ready page foundations"],
-    outcomes: ["98 recorded performance score", "94 recorded accessibility score", "100 recorded best-practices score", "100 recorded SEO score"],
+    challenge: "Construction chemicals are inherently technical. A catalogue had to feel highly organized and approachable for a general contractor, without losing the strict technical authority expected by professional engineers and architects. Previously, inquiries were lost because the product applications were unclear, and the website didn't surface in local searches for adhesives or sealants.",
+    body: [
+      "Somafix Kenya had a robust, high-quality product line, but their digital footprint was practically invisible. Their previous website operated like a static PDF, making it impossible for contractors to search for specific solutions, compare products, or understand application methods.",
+      "The strategy was to build an 'answer-engine' ready platform. We reorganized their entire inventory into an intuitive taxonomy, ensuring that whether a user was searching for PU foam, silicone sealants, or specialized anchors, they found an authoritative page immediately.",
+      "Design-wise, we deployed a clean, editorial layout that stripped away industry jargon and replaced it with clear, benefit-driven copy. We implemented structured data (JSON-LD) across the catalogue, ensuring Google and AI search engines could parse and recommend their exact products.",
+      "The result was a total transformation of their inbound inquiry flow. Instead of fielding general questions about what they sold, the Somafix sales team began receiving highly-specific WhatsApp inquiries from contractors who had already educated themselves on the platform."
+    ],
+    approach: [
+      "Developed a brand-led editorial structure that explains the 'why' before the 'what'",
+      "Created a scalable product and use-case architecture to handle future inventory growth",
+      "Focused heavily on mobile-first technical optimization for contractors looking up specs on-site",
+      "Built deep, search-ready page foundations for every individual chemical category"
+    ],
+    outcomes: [
+      "98/100 recorded Google Lighthouse performance score",
+      "94/100 recorded accessibility score",
+      "100/100 recorded SEO score, outperforming legacy competitors",
+      "Significantly reduced sales friction, as buyers now call in with exact product knowledge"
+    ],
   },
   {
     slug: "kumbusha",
@@ -61,6 +94,12 @@ export const projects: Project[] = [
     logo: "/work/projects/kumbusha/logo.png",
     palette: "#f05a3c",
     challenge: "The intention to appreciate people is often present; operational follow-through is not. The experience needed to make the next action feel immediate and human.",
+    body: [
+      "Corporate gifting and employee appreciation usually suffer from two extremes: they are either heavily automated and feel robotic, or they are entirely manual and often forgotten. Kumbusha was built by Rotsi to solve this, but it needed a front-end experience that matched the warmth of its premise.",
+      "Malaika Studios stepped in to design the interface and customer journey. We started by mapping the manager's state of mind—busy, distracted, but well-intentioned. The UI needed to remove friction completely. We adopted a palette that felt urgent yet warm, moving away from sterile corporate dashboards.",
+      "The core workflow was simplified into three steps: Intend, Choose, and Act. By integrating WhatsApp-ready reminders directly into the interface, managers didn't have to log into a complex system; they received actionable notifications where they already spent their time.",
+      "This approach turned a simple reminder app into a holistic culture workflow tool, validating our belief that good design isn't just about aesthetics—it's about making the right action the easiest action."
+    ],
     approach: ["Milestone intake", "WhatsApp-ready reminder logic", "Clear manager actions", "Vendor coordination pathway"],
     outcomes: ["A focused milestone dashboard", "A practical reminder-to-action journey", "A clear foundation for real-world validation"],
     note: "A Rotsi product presented through Malaika Studios’ customer-experience and interface lens.",

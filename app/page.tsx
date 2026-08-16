@@ -72,6 +72,7 @@ export default function Home() {
           <a href="#work">Work</a>
           <Link href="/services">Services</Link>
           <Link href="/pricing">Pricing</Link>
+          
           <Link href="/contact">Contact</Link>
           <a href="#studio">Studio</a>
         </nav>

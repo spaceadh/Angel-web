@@ -1,6 +1,7 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- Local portfolio screenshots live in public/work for this standalone site. */
+
+import Image from "next/image";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./MalaikaLandingPage.module.css";
@@ -272,11 +273,12 @@ export default function MalaikaLandingPage() {
                 <div className={styles.browserPane}>
                   <div className={styles.browserViewport}>
                     {heroProjects.map((project, index) => (
-                      <img
+                      <Image
                         className={index === activeHeroProject ? styles.activeHeroImage : undefined}
                         key={project.label}
                         src={project.image}
                         alt=""
+                        fill
                       />
                     ))}
                   </div>
@@ -332,10 +334,11 @@ export default function MalaikaLandingPage() {
           <div className={styles.presenceGrid}>
             <span className={styles.sectionDivider} aria-hidden="true" />
             <div className={cx(styles.proofFrame, styles.reveal)} data-reveal data-parallax="0.1">
-              <img
+              <Image
                 data-parallax-image
                 src="/work/structure-corridor.jpg"
                 alt="A structured colonnade leading clearly toward a bright archway"
+                fill
               />
               <a
                 className={styles.proofCredit}
@@ -430,7 +433,7 @@ export default function MalaikaLandingPage() {
             {work.map((item, index) => (
               <article className={cx(styles.workItem, styles.reveal)} data-reveal key={item.label} style={{ "--card-index": index } as React.CSSProperties}>
                 <div className={styles.workImage}>
-                  <img src={item.image} alt={`${item.label} website screenshot`} />
+                  <Image src={item.image} alt={`${item.label} website screenshot`} fill />
                   <span className={styles.workHover} aria-hidden="true">
                     View project
                   </span>
