@@ -15,80 +15,7 @@ export const metadata: Metadata = {
   },
 };
 
-const priceBands = [
-  {
-    name: "Digital Presence Check",
-    price: "KES 15,000",
-    numericPrice: 15000,
-    range: "Small package",
-    summary: "A focused review of your website, search presence, social proof, customer journey, and inquiry path.",
-    bestFor: "Budget-conscious founders who need to know what is wrong before spending more.",
-    includes: ["Website/search/social review", "Homepage clarity check", "Inquiry path review", "SEO basics check", "Short action report"],
-  },
-  {
-    name: "Website Refresh Audit",
-    price: "KES 25,000",
-    numericPrice: 25000,
-    range: "Small package",
-    summary: "A deeper audit for existing websites that need a serious fix plan before redesign or marketing.",
-    bestFor: "Businesses with a site that looks outdated, unclear, slow, or weak on inquiries.",
-    includes: ["Full website audit", "SEO and content review", "Trust/proof review", "Mobile review", "Prioritized fix plan"],
-  },
-  {
-    name: "Client Magnet Starter Page",
-    price: "From KES 45,000",
-    numericPrice: 45000,
-    range: "Starter build",
-    summary: "One polished page built to explain your offer clearly and guide visitors to WhatsApp, email, booking, or a form.",
-    bestFor: "Lean founders, campaigns, launches, and service offers that need one strong action path.",
-    includes: ["1-page website or landing page", "Responsive design", "Copy cleanup", "WhatsApp/email CTA", "Contact form", "Basic SEO", "Analytics setup", "Launch support"],
-  },
-  {
-    name: "Business Website Refresh",
-    price: "From KES 85,000",
-    numericPrice: 85000,
-    range: "Refresh build",
-    summary: "A sharper version of your current website with stronger structure, copy, design, SEO foundations, and inquiry paths.",
-    bestFor: "Growing SMEs with real proof and an existing presence that no longer reflects the business.",
-    includes: ["4-7 page refresh", "Homepage/service/contact pages", "Copy restructuring", "Responsive design", "Image optimization", "Basic schema", "SEO metadata", "Analytics"],
-  },
-  {
-    name: "Full Business Website",
-    price: "From KES 120,000",
-    numericPrice: 120000,
-    range: "Full website",
-    summary: "A complete multi-page business website with service pages, inquiry paths, social links, email capture, SEO setup, and launch support.",
-    bestFor: "Serious SMEs that need a proper business website, not only a digital brochure.",
-    includes: ["5-10 pages", "Content structure", "Custom design direction", "Service pages", "Contact/inquiry paths", "Social media integration", "Email capture", "SEO foundations", "Schema", "Analytics"],
-  },
-  {
-    name: "E-commerce / Product Catalogue",
-    price: "From KES 150,000",
-    numericPrice: 150000,
-    range: "Product build",
-    summary: "Product or catalogue websites with product structure, quote or checkout flow, payment support where scoped, and SEO foundations.",
-    bestFor: "Product-based businesses that need catalogue, quote, checkout, or M-Pesa/payment support.",
-    includes: ["Product/catalogue structure", "Product pages", "Quote or cart flow", "Payment/M-Pesa support where scoped", "Customer inquiry path", "Analytics", "SEO foundations"],
-  },
-  {
-    name: "Full Client Magnet Website",
-    price: "From KES 180,000",
-    numericPrice: 180000,
-    range: "Strategic website",
-    summary: "Strategy, copy direction, custom page structure, proof sections, SEO foundations, email marketing readiness, and conversion flow.",
-    bestFor: "Businesses that need the website to actively support trust, inquiries, and growth.",
-    includes: ["Strategy and copy direction", "7-12 pages", "Service/pricing/proof pages", "Social media integration", "Lead capture", "Email marketing readiness", "Advanced SEO foundations", "Schema", "Conversion flow"],
-  },
-  {
-    name: "Website + Follow-Up System",
-    price: "From KES 250,000",
-    numericPrice: 250000,
-    range: "Connected system",
-    summary: "A website connected to CRM/contact capture, WhatsApp flows, email marketing, booking, lead routing, and automation planning with Rotsi.",
-    bestFor: "Teams that lose opportunities after the first inquiry or need follow-up built into the journey.",
-    includes: ["Website plus CRM/contact capture", "WhatsApp flow", "Forms or booking", "Lead routing", "Email marketing setup where scoped", "Automation planning", "Reporting handoff"],
-  },
-];
+import { priceBands } from "./pricingData";
 
 const operationalExtras = [
   "DNS guidance or DNS management",
@@ -239,19 +166,27 @@ export default function PricingPage() {
         </p>
       </section>
 
-      <section className="pricing-grid" aria-label="Website pricing scope bands">
+      <section className="pricing-grid" aria-label="Website pricing scope bands" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px', margin: '40px 3.25vw 80px' }}>
         {priceBands.map((band, index) => (
-          <article key={band.name}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <small>{band.range}</small>
-            <h2>{band.name}</h2>
-            <p className="pricing-price">{band.price}</p>
-            <p>{band.summary}</p>
-            <strong>{band.bestFor}</strong>
-            <ul className="pricing-list">
-              {band.includes.map((item) => <li key={item}>{item}</li>)}
-            </ul>
-          </article>
+          <Link href={`/pricing/${band.slug}`} key={band.name} style={{ display: 'block' }}>
+            <article className="malaika-card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <span className="malaika-signature" style={{ width: '24px', height: '2px', marginBottom: '16px' }}>
+                <span className="malaika-signature-color"></span>
+                <span className="malaika-signature-color"></span>
+                <span className="malaika-signature-color"></span>
+              </span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--muted)' }}>{String(index + 1).padStart(2, "0")}</span>
+                <small style={{ fontSize: '10px', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--orange)' }}>{band.range}</small>
+              </div>
+              <h2 style={{ fontSize: '24px', margin: '0 0 8px 0', fontFamily: 'var(--sans)', fontWeight: 600 }}>{band.name}</h2>
+              <p className="pricing-price" style={{ fontSize: '18px', fontWeight: 600, margin: '0 0 16px 0' }}>{band.price}</p>
+              <p style={{ fontSize: '14px', lineHeight: 1.5, color: '#5f5d57', marginBottom: '24px', flexGrow: 1 }}>{band.summary}</p>
+              <div style={{ borderTop: '1px solid var(--line)', paddingTop: '16px' }}>
+                <span style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase' }}>View details &rarr;</span>
+              </div>
+            </article>
+          </Link>
         ))}
       </section>
 
