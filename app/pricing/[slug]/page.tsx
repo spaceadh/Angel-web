@@ -12,8 +12,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const band = priceBands.find((b) => b.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const band = priceBands.find((b) => b.slug === resolvedParams.slug);
   if (!band) return {};
 
   const title = `${band.name} Pricing | Malaika Studios by Rotsi`;
@@ -32,8 +33,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function PricingDetailPage({ params }: { params: { slug: string } }) {
-  const band = priceBands.find((b) => b.slug === params.slug);
+export default async function PricingDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const band = priceBands.find((b) => b.slug === resolvedParams.slug);
   if (!band) return notFound();
 
   const serviceJsonLd = {
@@ -96,7 +98,7 @@ export default function PricingDetailPage({ params }: { params: { slug: string }
           <h2 style={{ fontSize: '20px', fontFamily: 'var(--sans)', fontWeight: 600, marginBottom: '16px' }}>Best For</h2>
           <p style={{ fontSize: '16px', lineHeight: 1.6, marginBottom: '32px' }}>{band.bestFor}</p>
 
-          <h2 style={{ fontSize: '20px', fontFamily: 'var(--sans)', fontWeight: 600, marginBottom: '16px' }}>What's Included</h2>
+          <h2 style={{ fontSize: '20px', fontFamily: 'var(--sans)', fontWeight: 600, marginBottom: '16px' }}>What is Included ?</h2>
           <ul className="pricing-list" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {band.includes.map((item) => (
               <li key={item} style={{ padding: '12px 0', borderTop: '1px solid var(--line)', display: 'flex', alignItems: 'center', gap: '12px' }}>

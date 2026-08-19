@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   },
 };
 
-const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
-  <span aria-hidden="true" className="arrow">
-    {diagonal ? "↗" : "→"}
-  </span>
-);
+// const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
+//   <span aria-hidden="true" className="arrow">
+//     {diagonal ? "↗" : "→"}
+//   </span>
+// );
 
 export default function ProjectsPage() {
   return (
