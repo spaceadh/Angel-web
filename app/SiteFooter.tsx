@@ -12,7 +12,7 @@ export default function SiteFooter() {
         <span className="brand-name">Malaika Studios<small>by Rotsi</small></span>
       </Link>
       <div className="footer-links">
-        <Link href="/#work">Work</Link>
+        <Link href="/projects">Work</Link>
         <Link href="/services">Services</Link>
         <Link href="/pricing">Pricing</Link>
         <Link href="/insights">Insights</Link>

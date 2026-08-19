@@ -45,6 +45,12 @@ export const routeMeta = {
       "Insights, answers, and strategies on website design, client magnet systems, and digital presence for growing businesses.",
     path: "/insights",
   },
+  projects: {
+    title: "Selected Work & Projects | Malaika Studios",
+    description:
+      "Explore selected website design, client magnet systems, and digital presence projects by Malaika Studios in Nairobi, Kenya.",
+    path: "/projects",
+  },
 };
 
 export function absoluteUrl(path = "/") {

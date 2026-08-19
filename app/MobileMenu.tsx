@@ -28,7 +28,7 @@ export default function MobileMenu() {
     <details className="menu" ref={menuRef}>
       <summary aria-label="Open navigation">Menu</summary>
       <nav aria-label="Mobile navigation">
-        <a href="#work" onClick={handleLinkClick}>Work</a>
+        <Link href="/projects" onClick={handleLinkClick}>Work</Link>
         <Link href="/services" onClick={handleLinkClick}>Services</Link>
         <Link href="/pricing" onClick={handleLinkClick}>Pricing</Link>
         <a href="#studio" onClick={handleLinkClick}>Studio</a>

@@ -69,7 +69,7 @@ export default function Home() {
         </a>
 
         <nav className="desktop-nav" aria-label="Main navigation">
-          <a href="#work">Work</a>
+          <Link href="/projects">Work</Link>
           <Link href="/services">Services</Link>
           <Link href="/pricing">Pricing</Link>
           
