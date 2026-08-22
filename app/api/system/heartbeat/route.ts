@@ -48,8 +48,8 @@ async function getLocation(ip: string): Promise<{ city: string; country: string 
 }
 
 // ─── Supabase REST helpers (no SDK needed) ─────────────────────────────────────
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+const SUPABASE_URL = process.env.NEXT_SUPABASE_URL ?? "";
+const SUPABASE_ANON_KEY = process.env.NEXT_SUPABASE_ANON_KEY ?? "";
 
 async function upsertSession(payload: Record<string, unknown>) {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) return;
@@ -86,8 +86,8 @@ async function updateDuration(sessionId: string, durationSeconds: number) {
 
 // ─── Telegram notification ─────────────────────────────────────────────────────
 async function sendTelegramAlert(message: string) {
-  const token = process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID;
+  const token = process.env.NEXT_TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.NEXT_TELEGRAM_CHAT_ID;
   console.log("[heartbeat] Sending Telegram alert:", message);
   console.log("[heartbeat] Telegram bot token:", token ? "present" : "missing");
   console.log("[heartbeat] Telegram chat ID:", chatId ? "present" : "missing");
