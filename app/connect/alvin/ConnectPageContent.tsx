@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 import { Project } from "../../projects/connectProjectData";
 import { FaWhatsapp, FaInstagram, FaLinkedinIn, FaTwitter, FaFacebook } from "react-icons/fa";
 import { FiMail, FiCalendar, FiMapPin, FiChevronDown, FiChevronUp, FiExternalLink } from "react-icons/fi";
+import { usePageAnalytics } from "./hooks/usePageAnalytics";
 
 type FilterType = "all" | "commissioned" | "products" | "concepts";
 
@@ -22,6 +23,9 @@ interface ConnectPageContentProps {
 }
 
 export default function ConnectPageContent({ projects }: ConnectPageContentProps) {
+  // Analytics — tracks visits, time on page, and sends Telegram alerts
+  usePageAnalytics("/connect/alvin");
+
   // State for project filtering
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
   // State for inline project details expansion
