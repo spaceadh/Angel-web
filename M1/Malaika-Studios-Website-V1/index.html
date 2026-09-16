@@ -8,7 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
   <style>
+    /* Hallmark · pre-emit critique: P4 H5 E5 S5 R4 V5 · macrostructure: Portfolio Grid · tone: playful editorial · anchor hue: Malaika primary · nav: N1b · footer: Ft5 */
     :root{
       --ink:#101b1b;
       --cream:#f7f5ee;
@@ -147,6 +149,32 @@
       .benefits{padding-left:0;border-left:0}.footer-links{gap:12px}
       .actions .btn-dark,.actions .btn-outline{width:100%;text-align:center}
     }
+
+    /* V1 variation — uses the main page's navigation and hero image with the reference's type rhythm. */
+    html,body{overflow-x:clip}
+    .nav{height:88px;display:grid;grid-template-columns:1fr auto 1fr;gap:22px}
+    .brand{justify-self:start}.navlinks{justify-self:center;gap:24px}.nav-cta{justify-self:end;white-space:nowrap}
+    .mobile-menu[data-open="true"]{display:grid}
+    h1,h2{min-width:0;overflow-wrap:anywhere}
+    button:disabled,a[aria-disabled="true"]{cursor:not-allowed;opacity:.55;pointer-events:none}
+    .nav-cta,.btn-dark,.btn-outline{min-height:44px;white-space:nowrap;transition:transform 120ms cubic-bezier(.16,1,.3,1),background-color 220ms cubic-bezier(.16,1,.3,1),color 220ms cubic-bezier(.16,1,.3,1)}
+    .nav-cta:hover,.btn-dark:hover{background:var(--ink);transform:translateY(-1px)}
+    .btn-outline:hover{background:var(--ink);color:var(--paper);transform:translateY(-1px)}
+    .nav-cta:active,.btn-dark:active,.btn-outline:active{transform:translateY(1px)}
+    a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+    .hero{min-height:680px;grid-template-columns:1fr 1fr;gap:20px;padding:38px 0 78px}
+    .hero h1{font-size:clamp(67px,7.3vw,108px);max-width:7.8ch;margin:17px 0 25px}
+    .hero-copy{padding-top:48px}.hero-copy .eyebrow{color:var(--muted)}
+    .hero-script{right:3%;top:2%;font-size:37px}.hero-art{min-height:555px}.hero-photo{width:88%;height:555px;max-height:none;object-position:center;box-shadow:0 24px 55px rgba(0,0,0,.14)}
+    .work{padding:92px 0 110px}.work-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;margin-bottom:32px}.work h2{max-width:570px}.work-head .work-copy{font-size:15px;color:var(--muted);max-width:430px;margin:18px 0 0}
+    .work-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:start}
+    .work-card{position:relative;min-width:0;border-radius:12px;overflow:hidden;background:var(--ink);height:360px;color:#fff}.work-card:nth-child(2){margin-top:32px}.work-card:nth-child(3){margin-top:8px}.work-card:nth-child(4){margin-top:25px}
+    .work-card img{width:100%;height:100%;object-fit:cover;transition:transform 420ms cubic-bezier(.16,1,.3,1)}.work-card:before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(7,20,20,.86),rgba(7,20,20,0) 65%);z-index:1}.work-card:hover img{transform:scale(1.025)}
+    .work-card__meta{position:absolute;z-index:2;left:16px;right:16px;bottom:16px;display:flex;align-items:end;justify-content:space-between;gap:8px}.work-card__meta strong{font-family:var(--display);font-size:24px;line-height:.91;letter-spacing:-.045em;display:block}.work-card__meta span{font-size:10px;line-height:1.35;display:block;margin-top:6px}.work-card__link{width:35px;height:35px;border:1px solid rgba(255,255,255,.8);border-radius:50%;display:grid;place-items:center;flex:none;font-weight:700;transition:transform 120ms cubic-bezier(.16,1,.3,1),background-color 220ms cubic-bezier(.16,1,.3,1),color 220ms cubic-bezier(.16,1,.3,1)}.work-card__link:hover{background:var(--yellow);color:var(--ink);transform:translateY(-1px)}.work-card__link:active{transform:translateY(1px)}
+    footer{padding:68px 0 26px;background:#071414}.footer-statement{font-family:var(--display);font-size:clamp(43px,5vw,73px);line-height:.91;letter-spacing:-.05em;max-width:13ch;margin:0}.footer-statement em{font-style:normal;color:var(--yellow);position:relative}.footer-statement em:after{content:"";position:absolute;height:5px;border-radius:99px;background:var(--yellow);left:0;right:0;bottom:-7px;transform:rotate(-2deg)}.footer-top{margin-top:55px;grid-template-columns:1fr auto 1fr;align-items:end}.footer-links{justify-content:center}.footer-contact{text-align:right}.footer-bottom{margin-top:28px;padding-top:17px}
+    @media(max-width:900px){.nav{display:flex;justify-content:space-between}.navlinks,.nav-cta{display:none}.menu-btn{display:block}.hero{grid-template-columns:1fr}.hero-copy{padding-top:0}.hero-art{min-height:460px}.hero-photo{height:460px;max-width:510px}.work-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.work-card:nth-child(2),.work-card:nth-child(4){margin-top:30px}.work-card:nth-child(3){margin-top:0}.footer-top{grid-template-columns:1fr;align-items:start}.footer-links{justify-content:flex-start}.footer-contact{text-align:left}}
+    @media(max-width:560px){.nav{height:74px}.hero{padding:22px 0 66px}.hero h1{font-size:61px}.hero-script{position:relative;right:auto;top:auto;margin:26px 0 0 auto}.hero-art{min-height:350px}.hero-photo{width:100%;height:350px}.work{padding:74px 0}.work-head{grid-template-columns:1fr;gap:20px}.work-grid{gap:10px}.work-card{height:300px}.work-card:nth-child(2),.work-card:nth-child(4){margin-top:17px}.work-card__meta{left:11px;right:11px;bottom:11px}.work-card__meta strong{font-size:19px}.work-card__meta span{font-size:9px}.footer-statement{font-size:48px}.footer-top{margin-top:42px}.footer-bottom{flex-direction:column;gap:8px}.footer-links{gap:12px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:150ms!important;animation-iteration-count:1!important;transition-duration:150ms!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
@@ -161,9 +189,9 @@
       <a href="#why">Why Malaika</a><a href="#process">Process</a><a href="#contact">Contact</a>
     </nav>
     <a class="nav-cta" href="https://wa.me/254712345678">Talk to Malaika</a>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    <button class="menu-btn" id="menuBtn" aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu">☰</button>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true" data-open="false">
     <a href="#home">Home</a><a href="#system">What we do</a><a href="#work">Our work</a>
     <a href="#why">Why Malaika</a><a href="#process">Process</a><a href="#contact">Contact</a>
     <a class="nav-cta" href="https://wa.me/254712345678">Talk to Malaika</a>
@@ -184,7 +212,7 @@
     </div>
     <div class="hero-art">
       <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
-      <img class="hero-photo" src="assets/hero-reference.png" alt="Malaika Studios visual reference">
+      <img class="hero-photo" src="assets/hero-visual.png" alt="Malaika Studios digital presence visual" width="736" height="914" fetchpriority="high">
     </div>
     <div class="scroll-note">Scroll to explore ↓</div>
   </section>
@@ -212,17 +240,28 @@
     <div class="container">
       <div class="work-head">
         <div>
-          <div class="section-label">Our work</div>
           <h2 class="display">GOOD-LOOKING BUSINESSES WE'VE WORKED ON.</h2>
+          <p class="work-copy">Real brands. Real results. From websites to WhatsApp automations, email campaigns and full digital presence systems.</p>
         </div>
         <a href="#contact" class="btn-outline">View all work →</a>
       </div>
-      <div class="work-image">
-        <img src="assets/brand-showcase.png" alt="Malaika Studios brand applications and portfolio reference">
-        <div class="work-overlay">
-          <div><strong>Real brands.<br>Real presence.</strong><span>Websites · Branding · WhatsApp · Email · Automation · Growth</span></div>
-          <span class="work-tag">Explore the work ↗</span>
-        </div>
+      <div class="work-grid">
+        <article class="work-card">
+          <img src="assets/work-neighborhood.png" alt="Neighbourhood Cocktails brand work" loading="lazy" width="620" height="760">
+          <div class="work-card__meta"><div><strong>Neighbourhood<br>Cocktails</strong><span>Website / Branding / Digital Presence</span></div><a class="work-card__link" href="#contact" aria-label="Ask about Neighbourhood Cocktails work">↗</a></div>
+        </article>
+        <article class="work-card">
+          <img src="assets/work-beads.png" alt="Beats Wild Africa digital work" loading="lazy" width="620" height="760">
+          <div class="work-card__meta"><div><strong>Beats Wild<br>Africa</strong><span>E-commerce / Email / WhatsApp</span></div><a class="work-card__link" href="#contact" aria-label="Ask about Beats Wild Africa work">↗</a></div>
+        </article>
+        <article class="work-card">
+          <img src="assets/work-digitally.png" alt="Digital Display Marketing work" loading="lazy" width="620" height="760">
+          <div class="work-card__meta"><div><strong>Digital Display<br>Marketing</strong><span>Website / Branding / Strategy</span></div><a class="work-card__link" href="#contact" aria-label="Ask about Digital Display Marketing work">↗</a></div>
+        </article>
+        <article class="work-card">
+          <img src="assets/work-polar.png" alt="Polar Bison brand work" loading="lazy" width="620" height="760">
+          <div class="work-card__meta"><div><strong>Polar Bison</strong><span>Website / Strategy / Growth</span></div><a class="work-card__link" href="#contact" aria-label="Ask about Polar Bison work">↗</a></div>
+        </article>
       </div>
     </div>
   </section>
@@ -275,6 +314,7 @@
 
 <footer>
   <div class="container">
+    <p class="footer-statement">Let’s make your business <em>look good.</em></p>
     <div class="footer-top">
       <div class="brand">
         <span class="spark-logo" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
@@ -293,14 +333,21 @@
 <script>
   const btn = document.getElementById('menuBtn');
   const menu = document.getElementById('mobileMenu');
+  const closeMenu = () => {
+    menu.dataset.open = 'false';
+    menu.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Open menu');
+  };
   btn.addEventListener('click', () => {
-    menu.classList.toggle('open');
-    menu.style.display = menu.classList.contains('open') ? 'grid' : 'none';
+    const isOpen = menu.dataset.open === 'true';
+    if (isOpen) { closeMenu(); return; }
+    menu.dataset.open = 'true';
+    menu.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.setAttribute('aria-label', 'Close menu');
   });
-  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    menu.classList.remove('open');
-    menu.style.display = 'none';
-  }));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 </script>
 </body>
 </html>
