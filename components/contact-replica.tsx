@@ -3,10 +3,14 @@ import { MobileMenuController } from "./mobile-menu-controller";
 
 export async function ContactReplica() {
   const document = await getV1Document("index.html");
+  const contactHeader = document.header
+    .replaceAll('href="#home"', 'href="/#home"')
+    .replaceAll('href="#process"', 'href="/#process"')
+    .replaceAll('href="#contact"', 'href="/contact"');
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: document.styles }} />
-      <div dangerouslySetInnerHTML={{ __html: document.header }} />
+      <header dangerouslySetInnerHTML={{ __html: contactHeader }} />
       <main className="contact-page">
         <section
           className="container contact-page__grid"
@@ -36,7 +40,7 @@ export async function ContactReplica() {
           </div>
         </section>
       </main>
-      <div dangerouslySetInnerHTML={{ __html: document.footer }} />
+      <footer dangerouslySetInnerHTML={{ __html: document.footer }} />
       <MobileMenuController />
     </>
   );
