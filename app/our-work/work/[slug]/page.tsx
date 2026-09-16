@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { V1ReferencePage } from "@/components/v1-reference-page";
+import { CaseStudyPage as CaseStudyContent } from "@/components/work/case-study-page";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -20,5 +20,5 @@ export async function generateMetadata({
 export default async function CaseStudyPage({ params }: PageProps) {
   const caseStudy = getCaseStudy((await params).slug);
   if (!caseStudy) notFound();
-  return <V1ReferencePage source={caseStudy.source} />;
+  return <CaseStudyContent caseStudy={caseStudy} />;
 }

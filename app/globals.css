@@ -1,4 +1,24 @@
 /* Hallmark · macrostructure: Portfolio Grid · tone: playful editorial · anchor hue: Malaika V1 yellow */
+:root {
+  --ink: #101b1b;
+  --cream: #f7f5ee;
+  --paper: #fffdf8;
+  --yellow: #ffd400;
+  --blue: #2563ff;
+  --coral: #ff5a5f;
+  --green: #16b88a;
+  --line: rgba(16, 27, 27, 0.14);
+  --muted: #657070;
+  --radius: 28px;
+  --display: "Fredoka", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, sans-serif;
+  --script: "Caveat", cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   overflow-x: clip;
@@ -6,6 +26,10 @@ body {
 
 body {
   margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.5;
 }
 
 .contact-page {

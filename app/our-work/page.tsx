@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { V1ReferencePage } from "@/components/v1-reference-page";
+import { OurWorkPage as OurWorkContent } from "@/components/work/our-work-page";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function OurWorkPage() {
-  return <V1ReferencePage source="our-work/index.html" />;
+  return <OurWorkContent />;
 }

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650">
+<rect width="900" height="650" fill="#152d29"/>
+<circle cx="120" cy="110" r="150" fill="#ff5a5f"/><circle cx="780" cy="540" r="190" fill="#ffd400"/>
+<path d="M220 350 C280 180 620 180 680 350 C620 520 280 520 220 350Z" fill="none" stroke="#b87333" stroke-width="48"/>
+<g fill="#22b7a0" stroke="#101b1b" stroke-width="5"><circle cx="285" cy="250" r="31"/><circle cx="355" cy="212" r="31"/><circle cx="450" cy="205" r="31"/><circle cx="545" cy="220" r="31"/><circle cx="625" cy="270" r="31"/></g>
+<g fill="#ffd400"><circle cx="320" cy="475" r="28"/><circle cx="405" cy="500" r="28"/><circle cx="500" cy="500" r="28"/><circle cx="585" cy="465" r="28"/></g>
+<text x="55" y="82" font-family="Arial" font-size="23" font-weight="700" fill="white">BEADS WORLD AFRICA</text>
+<text x="55" y="585" font-family="Arial" font-size="15" fill="white">E-commerce / Email / WhatsApp Automation</text>
+</svg>

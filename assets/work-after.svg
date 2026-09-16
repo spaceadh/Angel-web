@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+<rect width="1200" height="720" fill="#101b1b"/><rect x="65" y="48" width="1070" height="625" rx="16" fill="#f7f5ee"/>
+<text x="105" y="105" font-family="Arial" font-size="20" font-weight="700" fill="#101b1b">NEIGHBORHOOD COCKTAILS</text>
+<text x="105" y="240" font-family="Arial" font-size="66" font-weight="800" fill="#101b1b">Good drinks.</text><text x="105" y="310" font-family="Arial" font-size="66" font-weight="800" fill="#101b1b">Great company.</text>
+<circle cx="875" cy="310" r="155" fill="#ffd400"/><ellipse cx="875" cy="360" rx="105" ry="125" fill="#eaa44e"/>
+<rect x="105" y="365" width="170" height="48" rx="24" fill="#101b1b"/><text x="145" y="396" font-family="Arial" font-size="14" fill="white">Explore menu →</text>
+<text x="105" y="600" font-family="Arial" font-size="16" fill="#667171">Clear brand story · easy browsing · stronger conversion path</text>
+</svg>

@@ -1,5 +1,5 @@
-import { V1ReferencePage } from "@/components/v1-reference-page";
+import { HomePage } from "@/components/home/home-page";
 
-export default function HomePage() {
-  return <V1ReferencePage source="index.html" />;
+export default function Page() {
+  return <HomePage />;
 }

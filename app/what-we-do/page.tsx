@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { V1ReferencePage } from "@/components/v1-reference-page";
+import { WhatWeDoPage as WhatWeDoContent } from "@/components/what-we-do/what-we-do-page";
 
 export const metadata: Metadata = {
   title: "What We Do",
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function WhatWeDoPage() {
-  return <V1ReferencePage source="what-we-do/index.html" />;
+  return <WhatWeDoContent />;
 }

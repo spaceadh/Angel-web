@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { V1ReferencePage } from "@/components/v1-reference-page";
+import { WhyMalaikaPage as WhyMalaikaContent } from "@/components/why-malaika/why-malaika-page";
 
 export const metadata: Metadata = {
   title: "Why Malaika",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function WhyMalaikaPage() {
-  return <V1ReferencePage source="what-we-do/why-malaika.html" />;
+  return <WhyMalaikaContent />;
 }
