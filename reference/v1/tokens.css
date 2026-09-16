@@ -1,0 +1,21 @@
+/* Shared V1 tokens. The existing page keeps its established colour variables; these make its typography and motion portable. */
+:root {
+  --ms-font-display: "Fredoka", system-ui, sans-serif;
+  --ms-font-body: "DM Sans", system-ui, sans-serif;
+  --ms-font-script: "Caveat", cursive;
+  --ms-paper: oklch(97% 0.009 95);
+  --ms-ink: oklch(15% 0.022 185);
+  --ms-yellow: oklch(85% 0.18 88);
+  --ms-blue: oklch(57% 0.23 260);
+  --ms-coral: oklch(64% 0.22 22);
+  --ms-green: oklch(66% 0.16 160);
+  --ms-space-xs: 0.5rem;
+  --ms-space-sm: 0.75rem;
+  --ms-space-md: 1rem;
+  --ms-space-lg: 1.5rem;
+  --ms-space-xl: 2.5rem;
+  --ms-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ms-dur-micro: 120ms;
+  --ms-dur-short: 220ms;
+  --ms-dur-long: 420ms;
+}
