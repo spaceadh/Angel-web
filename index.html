@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Malaika Studios — Digital Presence</title>
+  <meta name="description" content="Malaika Studios makes businesses look good through strategy, branding, websites, WhatsApp, email, automation and growth.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#101b1b;
+      --cream:#f7f5ee;
+      --paper:#fffdf8;
+      --yellow:#ffd400;
+      --blue:#2563ff;
+      --coral:#ff5a5f;
+      --green:#16b88a;
+      --muted:#667171;
+      --line:rgba(16,27,27,.14);
+      --display:"Fredoka",system-ui,sans-serif;
+      --body:"DM Sans",system-ui,sans-serif;
+      --script:"Caveat",cursive;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--body);line-height:1.45}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    img{max-width:100%}
+
+    .container{width:min(1320px,calc(100% - 72px));margin:auto}
+    .display{font-family:var(--display);letter-spacing:-.055em;line-height:.9}
+    .section-label,.eyebrow{
+      font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase
+    }
+    .script{font-family:var(--script);line-height:.9}
+
+    /* NAV */
+    header{position:relative;z-index:20}
+    .nav{
+      height:92px;display:grid;grid-template-columns:260px 1fr 190px;
+      align-items:center;gap:25px
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .spark-logo{width:44px;height:44px;display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:none}
+    .spark-logo span{display:block;border-radius:11px 7px 11px 7px}
+    .spark-logo span:nth-child(1){background:var(--yellow);transform:rotate(-2deg)}
+    .spark-logo span:nth-child(2){background:var(--blue);transform:rotate(2deg)}
+    .spark-logo span:nth-child(3){background:var(--coral);transform:rotate(2deg)}
+    .spark-logo span:nth-child(4){background:var(--green);transform:rotate(-2deg)}
+    .wordmark{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-1px;line-height:.78}
+    .wordmark small{display:block;font-family:var(--body);font-weight:600;font-size:10px;letter-spacing:5px;margin-top:9px}
+    .navlinks{display:flex;justify-content:center;align-items:center;gap:34px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+    .navlinks a{padding:10px 0;border-bottom:2px solid transparent}
+    .navlinks a:first-child,.navlinks a:hover{border-color:var(--yellow)}
+    .nav-cta,.btn-dark{
+      display:inline-flex;justify-content:center;align-items:center;gap:9px;
+      background:var(--ink);color:#fff;border:0;border-radius:999px;
+      padding:14px 22px;font-weight:700;font-size:12px
+    }
+    .nav-cta{justify-self:end;white-space:nowrap}
+    .menu-btn,.mobile-menu{display:none}
+
+    /* HERO */
+    .hero{
+      min-height:690px;display:grid;grid-template-columns:46% 54%;
+      align-items:center;position:relative;overflow:visible;padding:38px 0 68px
+    }
+    .hero-copy{position:relative;z-index:3;padding-right:20px}
+    .eyebrow{margin-bottom:22px}
+    .hero h1{
+      font-size:clamp(76px,7.25vw,112px);margin:0 0 25px;
+      max-width:700px;line-height:.79
+    }
+    .hero h1 .good{position:relative;display:inline-block;color:var(--blue)}
+    .hero h1 .good:after{
+      content:"";position:absolute;left:3%;right:-4%;height:8px;bottom:-13px;
+      background:var(--yellow);border-radius:99px;transform:rotate(-2deg)
+    }
+    .hero p{font-size:15px;color:#364343;max-width:420px;margin:0 0 25px}
+    .actions{display:flex;gap:12px;align-items:center}
+    .btn-outline{
+      display:inline-flex;align-items:center;justify-content:center;
+      border:1.5px solid var(--ink);border-radius:999px;padding:13px 21px;
+      font-weight:700;font-size:12px;background:transparent
+    }
+    .hero-script{
+      position:absolute;right:-28px;top:55px;width:190px;font-size:34px;
+      transform:rotate(-5deg);z-index:5
+    }
+    .hero-script:after{
+      content:"";display:block;width:105px;height:5px;background:var(--yellow);
+      border-radius:99px;transform:rotate(-7deg);margin:11px 0 0 35px
+    }
+
+    .hero-art{
+      min-height:565px;position:relative;display:flex;align-items:end;justify-content:flex-end;
+      margin-right:-35px
+    }
+    .hero-art:before{
+      content:"";position:absolute;width:430px;height:375px;right:45px;top:15px;
+      background:var(--yellow);border-radius:46% 54% 48% 52%;transform:rotate(8deg)
+    }
+    .hero-art:after{
+      content:"";position:absolute;width:330px;height:270px;left:80px;bottom:65px;
+      background:var(--blue);border-radius:55% 45% 50% 50%;transform:rotate(-12deg)
+    }
+    .hero-visual{
+      width:100%;height:565px;object-fit:cover;object-position:center;
+      position:relative;z-index:2;border-radius:0 0 0 38px;
+      mix-blend-mode:multiply
+    }
+    .scroll-note{
+      position:absolute;left:0;bottom:5px;font-size:9px;letter-spacing:.22em;
+      text-transform:uppercase;display:flex;gap:12px;align-items:center
+    }
+    .scroll-note:before{content:"";width:42px;height:1px;background:var(--ink)}
+
+    /* SYSTEM */
+    section{padding:78px 0}
+    .system{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .system-head{
+      display:grid;grid-template-columns:29% 71%;gap:45px;align-items:end;margin-bottom:35px
+    }
+    .system h2{font-size:48px;margin:12px 0 15px;max-width:390px}
+    .system-intro{font-size:15px;color:#4f5a5a;max-width:380px;margin:0}
+    .note{font-family:var(--script);font-size:27px;display:block;transform:rotate(-4deg);margin-top:18px}
+    .note:after{content:"";display:block;height:4px;background:var(--yellow);border-radius:99px;width:70%;transform:rotate(-3deg)}
+    .journey{
+      position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;
+      padding-top:12px
+    }
+    .journey-line{
+      position:absolute;left:35px;right:35px;top:47px;height:3px;background:var(--yellow);z-index:0
+    }
+    .step{position:relative;z-index:1}
+    .step-icon{
+      width:70px;height:70px;border-radius:50%;display:grid;place-items:center;
+      font-size:24px;font-weight:800;border:7px solid var(--cream);margin-bottom:14px
+    }
+    .yellow{background:var(--yellow)} .blue{background:var(--blue);color:#fff}
+    .coral{background:var(--coral);color:#fff} .green{background:var(--green);color:#fff}
+    .step h3{font-size:14px;margin:0 0 5px;letter-spacing:.11em;text-transform:uppercase}
+    .step p{margin:0;color:#5d6868;font-size:12px;line-height:1.55}
+    .step .aside{font-family:var(--script);font-size:20px;display:block;margin-top:8px;line-height:.9}
+
+    /* WORK */
+    .work{background:var(--paper)}
+    .work-head{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;margin-bottom:34px}
+    .work h2{font-size:49px;margin:12px 0 0;max-width:600px}
+    .work-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+    .work-card{
+      min-height:330px;border-radius:6px;overflow:hidden;position:relative;
+      background:#17201f;box-shadow:0 14px 30px rgba(0,0,0,.1)
+    }
+    .work-card img{width:100%;height:100%;min-height:330px;object-fit:cover;display:block}
+    .work-card:after{
+      content:"";position:absolute;inset:35% 0 0;
+      background:linear-gradient(transparent,rgba(0,0,0,.82))
+    }
+    .work-meta{position:absolute;left:17px;right:17px;bottom:16px;color:#fff;z-index:2}
+    .work-meta strong{font-family:var(--display);font-size:25px;line-height:.9;display:block}
+    .work-meta span{font-size:9px;display:block;margin-top:7px;opacity:.9}
+    .work-arrow{
+      position:absolute;right:15px;bottom:15px;z-index:3;width:31px;height:31px;
+      border:1px solid rgba(255,255,255,.75);border-radius:50%;display:grid;place-items:center
+    }
+
+    /* WHY */
+    .why{
+      padding:0;background:var(--ink);color:#fff;min-height:335px;overflow:hidden
+    }
+    .why-grid{display:grid;grid-template-columns:46% 54%;min-height:335px}
+    .why-visual{position:relative;overflow:hidden}
+    .why-visual img{width:100%;height:100%;min-height:335px;object-fit:cover;display:block}
+    .why-panel{
+      padding:58px 65px;display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center
+    }
+    .why h2{font-size:49px;margin:12px 0 0;max-width:420px}
+    .why-copy p{color:#cbd3d2;font-size:13px;max-width:410px;margin:0 0 12px}
+    .benefits{border-left:1px solid rgba(255,255,255,.25);padding-left:34px;display:grid;gap:18px}
+    .benefit{display:flex;gap:12px;align-items:center;font-size:12px;font-weight:600}
+    .mini-spark{width:26px;height:26px;border-radius:8px;background:var(--yellow);flex:none}
+    .mini-spark.blue{background:var(--blue)} .mini-spark.coral{background:var(--coral)} .mini-spark.green{background:var(--green)}
+
+    /* PROCESS */
+    .process{background:var(--cream)}
+    .process h2{font-size:48px;margin:12px 0 34px}
+    .process-grid{
+      display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line)
+    }
+    .process-item{padding:22px 22px 25px;border-right:1px solid var(--line)}
+    .process-item:first-child{padding-left:0}
+    .process-item:last-child{border-right:0}
+    .num{
+      display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;
+      font-size:9px;font-weight:800;background:var(--yellow);margin-bottom:20px
+    }
+    .process-item:nth-child(2) .num{background:var(--blue);color:#fff}
+    .process-item:nth-child(3) .num{background:var(--coral);color:#fff}
+    .process-item:nth-child(4) .num{background:var(--green);color:#fff}
+    .process-item:nth-child(5) .num{background:var(--ink);color:#fff}
+    .process-item h3{margin:0 0 7px;font-family:var(--display);font-size:25px}
+    .process-item p{font-size:11px;color:#667171;margin:0;max-width:175px}
+
+    /* CTA */
+    .cta{background:var(--ink);color:#fff;padding:0;overflow:hidden}
+    .cta-grid{display:grid;grid-template-columns:57% 43%;min-height:235px}
+    .cta-copy{padding:45px 0}
+    .cta h2{font-size:64px;margin:7px 0 10px}
+    .cta p{color:#cbd3d2;font-size:13px;margin:0 0 10px}
+    .cta .btn{display:inline-flex;background:var(--yellow);color:var(--ink);padding:13px 21px;border-radius:999px;font-weight:800;font-size:12px}
+    .cta-art{position:relative;overflow:hidden}
+    .cta-art img{width:100%;height:100%;object-fit:cover;object-position:center 74%}
+    .cta-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink),transparent 38%)}
+    .cta-art .script{position:absolute;right:8%;bottom:18%;font-size:27px;z-index:2}
+
+    /* FOOTER */
+    footer{background:#071414;color:#fff;padding:28px 0 20px}
+    .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;align-items:center}
+    .footer-tag{font-family:var(--script);font-size:26px;color:var(--yellow)}
+    .footer-contact{text-align:right;color:#b8c2c0;font-size:11px;line-height:1.7}
+    .footer-links{display:flex;gap:16px;flex-wrap:wrap;font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-top:20px}
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,.16);margin-top:20px;padding-top:14px;
+      display:flex;justify-content:space-between;color:#899694;font-size:9px
+    }
+
+    @media(max-width:1000px){
+      .container{width:min(100% - 40px,1320px)}
+      .nav{grid-template-columns:220px 1fr 160px}
+      .navlinks{gap:18px;font-size:9px}
+      .hero{grid-template-columns:1fr 1fr}
+      .hero h1{font-size:72px}
+      .hero-script{right:-5px}
+      .system-head{grid-template-columns:1fr}
+      .why-panel{padding:45px 35px;gap:25px}
+    }
+    @media(max-width:760px){
+      .nav{height:76px;display:flex;justify-content:space-between}
+      .navlinks,.nav-cta{display:none}.menu-btn{display:block;border:0;background:transparent;font-size:27px}
+      .hero{grid-template-columns:1fr;padding:35px 0 75px}
+      .hero-art{order:2;min-height:420px;margin:35px -20px 0}
+      .hero-copy{order:1}
+      .hero-script{position:relative;right:auto;top:auto;margin:20px 0 0 auto}
+      .journey{grid-template-columns:1fr;gap:22px}
+      .journey-line{left:34px;right:auto;top:34px;bottom:34px;width:3px;height:auto}
+      .work-grid{grid-template-columns:1fr 1fr}
+      .why-grid,.cta-grid{grid-template-columns:1fr}
+      .why-panel{grid-template-columns:1fr;padding:50px 30px}
+      .why-visual{min-height:280px}
+      .process-grid{grid-template-columns:1fr}
+      .process-item,.process-item:first-child{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+      .process-item:last-child{border-bottom:0}
+      .footer-top{grid-template-columns:1fr}.footer-contact{text-align:left}
+    }
+    @media(max-width:520px){
+      .container{width:calc(100% - 30px)}
+      .hero h1{font-size:58px}
+      .work-grid{grid-template-columns:1fr}
+      .work-card{min-height:380px}
+      .work-card img{min-height:380px}
+      .cta h2{font-size:52px}
+      .footer-bottom{flex-direction:column;gap:8px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home" aria-label="Malaika Studios home">
+      <span class="spark-logo" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+      <span class="wordmark">MALAIKA<small>STUDIOS</small></span>
+    </a>
+
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#system">What we do</a>
+      <a href="#work">Our work</a>
+      <a href="#why">Why Malaika</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a class="nav-cta" href="https://wa.me/254712345678">◉ &nbsp; Talk to Malaika</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu"></div>
+</header>
+
+<main id="home">
+
+  <section class="container hero">
+    <div class="hero-copy">
+      <div class="eyebrow">Digital presence agency</div>
+      <h1>WE MAKE<br>BUSINESSES<br>LOOK <span class="good">GOOD.</span></h1>
+      <p>Websites, WhatsApp, email, strategy and automation — built into a digital presence people trust.</p>
+      <div class="actions">
+        <a class="btn-dark" href="#system">↗ &nbsp; See what we do</a>
+        <a class="btn-outline" href="https://wa.me/254712345678">◉ &nbsp; Talk to Malaika</a>
+      </div>
+      <span class="script hero-script">I make you<br>look good.</span>
+    </div>
+
+    <div class="hero-art">
+      <img class="hero-visual" src="assets/hero-visual.png" alt="Malaika Studios digital presence visual">
+    </div>
+
+    <div class="scroll-note">Scroll to explore ↓</div>
+  </section>
+
+  <section class="system" id="system">
+    <div class="container">
+      <div class="system-head">
+        <div>
+          <div class="section-label">The Malaika system</div>
+          <h2 class="display">YOUR CUSTOMER SEES ONE BUSINESS.</h2>
+          <p class="system-intro">So why should your digital presence feel like five different ones?</p>
+          <span class="note">Your website isn't your digital presence.<br>It's one part of it.</span>
+        </div>
+        <div class="journey">
+          <div class="journey-line"></div>
+          <article class="step">
+            <div class="step-icon yellow">✦</div>
+            <h3>01 — Get noticed</h3>
+            <p>Brand · Social · Strategy</p>
+            <span class="aside">Make them stop.</span>
+          </article>
+          <article class="step">
+            <div class="step-icon blue">▣</div>
+            <h3>02 — Look good</h3>
+            <p>Website · Content · Design</p>
+            <span class="aside">Give them something worth remembering.</span>
+          </article>
+          <article class="step">
+            <div class="step-icon coral">◉</div>
+            <h3>03 — Make it easy</h3>
+            <p>WhatsApp · Email · CRM</p>
+            <span class="aside">Remove the friction.</span>
+          </article>
+          <article class="step">
+            <div class="step-icon green">⚙</div>
+            <h3>04 — Make it work</h3>
+            <p>Automation · Integrations · Systems</p>
+            <span class="aside">Less manual work. More momentum.</span>
+          </article>
+          <article class="step">
+            <div class="step-icon blue">↗</div>
+            <h3>05 — Grow</h3>
+            <p>Analytics · Campaigns · Strategy</p>
+            <span class="aside">Turn attention into opportunity.</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <div class="container">
+      <div class="work-head">
+        <div>
+          <div class="section-label">Our work</div>
+          <h2 class="display">GOOD-LOOKING BUSINESSES WE'VE WORKED ON.</h2>
+        </div>
+        <a href="#contact" class="btn-outline">View all work →</a>
+      </div>
+
+      <div class="work-grid">
+        <article class="work-card">
+          <img src="assets/work-neighborhood.png" alt="Neighborhood Cocktails digital presence">
+          <div class="work-meta"><strong>Neighborhood<br>Cocktails</strong><span>Website / Branding / Digital Presence</span></div>
+          <span class="work-arrow">↗</span>
+        </article>
+
+        <article class="work-card">
+          <img src="assets/work-beads.png" alt="Beads World Africa brand work">
+          <div class="work-meta"><strong>Beads World<br>Africa</strong><span>E-commerce / Email / WhatsApp Automation</span></div>
+          <span class="work-arrow">↗</span>
+        </article>
+
+        <article class="work-card">
+          <img src="assets/work-digitally.png" alt="Digitally Sly digital presence work">
+          <div class="work-meta"><strong>Digitally<br>Sly</strong><span>Website / Branding / Strategy</span></div>
+          <span class="work-arrow">↗</span>
+        </article>
+
+        <article class="work-card">
+          <img src="assets/work-polar.png" alt="Polar Bison brand work">
+          <div class="work-meta"><strong>Polar<br>Bison</strong><span>Website / Strategy / Growth</span></div>
+          <span class="work-arrow">↗</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="why" id="why">
+    <div class="container why-grid">
+      <div class="why-visual">
+        <img src="assets/brand-showcase.png" alt="Malaika Studios brand system and applications">
+      </div>
+      <div class="why-panel">
+        <div>
+          <div class="section-label">Why Malaika</div>
+          <h2 class="display">WE CARE HOW YOUR BUSINESS SHOWS UP.</h2>
+        </div>
+        <div class="why-copy">
+          <p>Your customers don't separate your website from your brand, your WhatsApp from your service, or your emails from your reputation. They experience one business.</p>
+          <p><strong>So we build one coherent presence.</strong></p>
+          <div class="benefits">
+            <div class="benefit"><span class="mini-spark"></span>Stronger trust.</div>
+            <div class="benefit"><span class="mini-spark blue"></span>More engagement.</div>
+            <div class="benefit"><span class="mini-spark coral"></span>Higher conversions.</div>
+            <div class="benefit"><span class="mini-spark green"></span>Lasting growth.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-label">Our process</div>
+      <h2 class="display">SIMPLE. CLEAR. EFFECTIVE.</h2>
+      <div class="process-grid">
+        <article class="process-item"><span class="num">01</span><h3>See it.</h3><p>We understand the business, audience and ambition.</p></article>
+        <article class="process-item"><span class="num">02</span><h3>Shape it.</h3><p>We define the brand, positioning and digital experience.</p></article>
+        <article class="process-item"><span class="num">03</span><h3>Build it.</h3><p>We create the website, automations, campaigns and systems.</p></article>
+        <article class="process-item"><span class="num">04</span><h3>Launch it.</h3><p>Everything goes live as one coherent presence.</p></article>
+        <article class="process-item"><span class="num">05</span><h3>Grow it.</h3><p>We keep improving what happens after the customer finds you.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="container cta-grid">
+      <div class="cta-copy">
+        <div class="section-label">Let's make you</div>
+        <h2 class="display">LOOK GOOD.</h2>
+        <p>Ready to build a digital presence that actually works?</p>
+        <a class="btn" href="https://wa.me/254712345678">◉ &nbsp; Talk to Malaika →</a>
+      </div>
+      <div class="cta-art">
+        <img src="assets/brand-showcase.png" alt="Malaika Studios workspace and brand showcase">
+        <span class="script">If you want it<br>done properly,<br>talk to Malaika.</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="brand">
+        <span class="spark-logo" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        <span class="wordmark">MALAIKA<small>STUDIOS</small></span>
+      </div>
+      <div class="footer-tag">I make you look good.</div>
+      <div class="footer-contact">hello@malaikastudios.com<br>Nairobi / Remote / Global</div>
+    </div>
+    <div class="footer-links">
+      <a href="#system">Websites</a><a href="#system">WhatsApp</a><a href="#system">Email</a>
+      <a href="#system">Social</a><a href="#system">Automation</a><a href="#system">Growth</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Malaika Studios. All rights reserved.</span>
+      <span>Made with the Spark ✦</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Lightweight mobile menu; desktop is the primary layout for this V2.
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  const links = ['Home','What we do','Our work','Why Malaika','Process','Contact'];
+  const ids = ['#home','#system','#work','#why','#process','#contact'];
+
+  menu.innerHTML = links.map((label,i) => `<a href="${ids[i]}">${label}</a>`).join('') +
+    `<a class="nav-cta" href="https://wa.me/254712345678">Talk to Malaika</a>`;
+
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    menu.style.cssText = open
+      ? 'display:grid;position:absolute;left:15px;right:15px;top:76px;background:#fffdf8;padding:18px;border:1px solid rgba(16,27,27,.14);border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,.12);gap:14px;z-index:50'
+      : 'display:none';
+  });
+</script>
+</body>
+</html>
