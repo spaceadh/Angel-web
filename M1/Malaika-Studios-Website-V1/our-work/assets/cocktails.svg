@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650">
+<defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#173b35"/><stop offset="1" stop-color="#081313"/></linearGradient></defs>
+<rect width="900" height="650" fill="url(#g)"/>
+<circle cx="750" cy="110" r="180" fill="#ffd400" opacity=".96"/><circle cx="160" cy="550" r="210" fill="#2563ff" opacity=".92"/>
+<rect x="54" y="48" width="792" height="554" rx="20" fill="#f7f5ee"/>
+<text x="90" y="118" font-family="Arial" font-size="22" font-weight="700" fill="#101b1b">NEIGHBORHOOD COCKTAILS</text>
+<text x="90" y="205" font-family="Arial" font-size="68" font-weight="800" fill="#101b1b">Good drinks.</text>
+<text x="90" y="275" font-family="Arial" font-size="68" font-weight="800" fill="#101b1b">Great company.</text>
+<rect x="90" y="320" width="155" height="44" rx="22" fill="#101b1b"/><text x="125" y="349" font-family="Arial" font-size="14" fill="white">Explore menu →</text>
+<ellipse cx="660" cy="410" rx="105" ry="125" fill="#eaa44e"/><rect x="585" y="285" width="150" height="180" rx="20" fill="#f0a94c" opacity=".85"/>
+<circle cx="660" cy="285" r="54" fill="#f8c16d"/><path d="M610 235 Q660 190 710 235" fill="none" stroke="#101b1b" stroke-width="9"/>
+<text x="90" y="555" font-family="Arial" font-size="15" fill="#667171">Website / Branding / Digital Presence</text>
+</svg>

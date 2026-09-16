@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650">
+<rect width="900" height="650" fill="#f1eee5"/>
+<circle cx="120" cy="110" r="170" fill="#2563ff"/><circle cx="760" cy="120" r="145" fill="#ffd400"/><circle cx="760" cy="570" r="180" fill="#ff5a5f"/>
+<rect x="290" y="70" width="320" height="520" rx="38" fill="#101b1b"/>
+<rect x="310" y="98" width="280" height="465" rx="25" fill="#fffdf8"/>
+<text x="340" y="160" font-family="Arial" font-size="18" font-weight="700">DIGITALLY SLY</text>
+<text x="340" y="260" font-family="Arial" font-size="37" font-weight="800">Digital</text><text x="340" y="300" font-family="Arial" font-size="37" font-weight="800">presence</text><text x="340" y="340" font-family="Arial" font-size="37" font-weight="800">for real</text><text x="340" y="380" font-family="Arial" font-size="37" font-weight="800">businesses.</text>
+<rect x="340" y="430" width="140" height="38" rx="19" fill="#ffd400"/><text x="365" y="455" font-family="Arial" font-size="12" font-weight="700">See the work →</text>
+</svg>

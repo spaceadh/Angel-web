@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720">
+<rect width="1200" height="720" fill="#e7e7e7"/><rect x="70" y="55" width="1060" height="610" rx="12" fill="white" stroke="#c9c9c9"/>
+<rect x="70" y="55" width="1060" height="65" fill="#d9d9d9"/><circle cx="100" cy="87" r="8" fill="#aaa"/><circle cx="126" cy="87" r="8" fill="#aaa"/>
+<text x="120" y="205" font-family="Arial" font-size="48" font-weight="700" fill="#333">Cocktails for</text><text x="120" y="260" font-family="Arial" font-size="48" font-weight="700" fill="#333">every mood.</text>
+<rect x="120" y="305" width="160" height="42" rx="4" fill="#555"/><text x="150" y="332" font-family="Arial" font-size="13" fill="white">View Menu</text>
+<rect x="650" y="185" width="350" height="300" fill="#ddd"/><text x="730" y="350" font-family="Arial" font-size="18" fill="#888">OLD WEBSITE</text>
+<text x="120" y="580" font-family="Arial" font-size="16" fill="#777">Basic navigation · weak hierarchy · dated visual identity</text>
+</svg>
