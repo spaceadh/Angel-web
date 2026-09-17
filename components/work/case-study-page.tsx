@@ -1,24 +1,112 @@
 import Link from "next/link";
 import after from "@/assets/work-after.svg";
 import before from "@/assets/work-before.svg";
+import neighborhoodLanding from "@/assets/neighbourhood-landing-page.png";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
-import type { CaseStudy } from "@/content/case-studies";
+import type {
+  CaseStudy,
+  CaseStudyImage,
+  CaseStudySection,
+} from "@/content/case-studies";
 import { workArtwork } from "./artwork";
 import { Footer } from "./our-work-page";
 import styles from "./work.module.css";
 
-const solution = [
-  "Modern, fast and responsive website",
-  "Bold, on-brand visual identity",
-  "Clear menu, story and contact paths",
-  "Simple UX for browsing and ordering",
-];
-const results = [
-  ["★", "Clearer", "Brand story and visual hierarchy"],
-  ["↗", "Faster", "Path from discovery to action"],
-  ["♥", "Stronger", "Perceived quality and consistency"],
-  ["▥", "Ready", "Foundation for future campaigns and growth"],
-] as const;
+const sectionImages: Record<CaseStudyImage, { src: string }> = {
+  "generic-before": before,
+  "generic-after": after,
+  "neighborhood-landing": neighborhoodLanding,
+};
+
+function StorySection({ section }: { section: CaseStudySection }) {
+  if (section.type === "challenge") {
+    return (
+      <div className={styles.split}>
+        <div>
+          <div className={styles.eyebrow}>{section.eyebrow}</div>
+          <h2 className={`${styles.display} ${styles.sectionTitle}`}>
+            {section.title}
+          </h2>
+          <p>{section.copy}</p>
+        </div>
+        {section.aside ? (
+          <div className={styles.solution}>
+            <div className={styles.eyebrow}>{section.aside.eyebrow}</div>
+            {section.aside.title ? (
+              <h3 className={`${styles.display} ${styles.solutionTitle}`}>
+                {section.aside.title}
+              </h3>
+            ) : null}
+            {section.aside.items.map((item) => (
+              <div className={styles.check} key={item}>
+                <b>✓</b>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  if (section.type === "comparison") {
+    return (
+      <div className={styles.transform}>
+        <div className={styles.eyebrow}>{section.eyebrow}</div>
+        <h2 className={`${styles.display} ${styles.sectionTitle}`}>
+          {section.title}
+        </h2>
+        <div className={styles.beforeAfter}>
+          <ComparisonCard side={section.before} />
+          <div className={styles.swap}>→</div>
+          <ComparisonCard side={section.after} />
+        </div>
+      </div>
+    );
+  }
+
+  const isCapability = section.type === "capabilities";
+  return (
+    <div className={isCapability ? styles.capabilities : styles.results}>
+      <div className={styles.eyebrow}>{section.eyebrow}</div>
+      <h2 className={`${styles.display} ${styles.sectionTitle}`}>
+        {section.title}
+      </h2>
+      <div className={styles.resultGrid}>
+        {section.items.map((item) => (
+          <div className={styles.result} key={item.title}>
+            <div className={styles.icon}>{item.icon}</div>
+            <strong>{item.title}</strong>
+            <span>{item.copy}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ComparisonCard({
+  side,
+}: {
+  side: Extract<CaseStudySection, { type: "comparison" }>["before"];
+}) {
+  const image = side.image ? sectionImages[side.image] : undefined;
+
+  return (
+    <article
+      className={`${styles.shot} ${image ? "" : styles.shotWithoutImage}`}
+    >
+      <div className={styles.shotLabel}>{side.label}</div>
+      {image ? (
+        <img src={image.src} alt={`${side.label}: ${side.title}`} />
+      ) : null}
+      <div className={styles.shotCopy}>
+        <h3 className={styles.display}>{side.title}</h3>
+        <p>{side.copy}</p>
+      </div>
+    </article>
+  );
+}
 
 export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
   const art = workArtwork[caseStudy.art];
@@ -51,58 +139,9 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
           </div>
         </section>
         <section className={`${styles.container} ${styles.section}`}>
-          <div className={styles.split}>
-            <div>
-              <div className={styles.eyebrow}>01 / The challenge</div>
-              <h2 className={styles.display}>
-                GOOD PRODUCT.
-                <br />
-                QUIET PRESENCE.
-              </h2>
-              <p>{caseStudy.challenge}</p>
-            </div>
-            <div className={styles.solution}>
-              <div className={styles.eyebrow}>02 / The solution</div>
-              {solution.map((item) => (
-                <div className={styles.check} key={item}>
-                  <b>✓</b>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={styles.transform}>
-            <div className={styles.eyebrow}>03 / The transformation</div>
-            <h2 className={styles.display}>BEFORE → AFTER.</h2>
-            <div className={styles.beforeAfter}>
-              <div className={styles.shot}>
-                <div className={styles.shotLabel}>Before</div>
-                <img src={before.src} alt="Before website" />
-              </div>
-              <div className={styles.swap}>→</div>
-              <div className={styles.shot}>
-                <div className={styles.shotLabel}>After</div>
-                <img src={after.src} alt="After website" />
-              </div>
-            </div>
-          </div>
-          <div className={styles.results}>
-            <div className={styles.eyebrow}>04 / What changed</div>
-            <h2 className={styles.display}>
-              FROM PRESENCE
-              <br />
-              TO EXPERIENCE.
-            </h2>
-            <div className={styles.resultGrid}>
-              {results.map(([icon, title, copy]) => (
-                <div className={styles.result} key={title}>
-                  <div className={styles.icon}>{icon}</div>
-                  <strong>{title}</strong>
-                  <span>{copy}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          {caseStudy.sections.map((section, index) => (
+            <StorySection key={`${section.type}-${index}`} section={section} />
+          ))}
         </section>
         <section className={styles.caseCta}>
           <div className={`${styles.container} ${styles.caseCtaGrid}`}>

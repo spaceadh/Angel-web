@@ -29,7 +29,7 @@ export function ContactPageContent() {
               </a>
               <a
                 className={styles.secondaryAction}
-                href="mailto:hello@malaikastudios.com"
+                href="mailto:malaikastudios.rotsi.co.ke"
               >
                 Email Malaika →
               </a>

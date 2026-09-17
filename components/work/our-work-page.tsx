@@ -13,6 +13,7 @@ const navItems = [
   ["/#process", "Process"],
   ["/contact", "Contact"],
 ] as const;
+import { FaWhatsapp } from "react-icons/fa";
 
 export function OurWorkPage() {
   return (
@@ -40,7 +41,7 @@ export function OurWorkPage() {
             ))}
           </nav>
           <a className={styles.navCta} href="https://wa.me/254712345678">
-            ◉ &nbsp; Talk to Malaika
+            <FaWhatsapp /> &nbsp; Talk to Malaika
           </a>
         </div>
       </header>
@@ -104,7 +105,7 @@ export function OurWorkPage() {
               </p>
             </div>
             <a className={styles.buttonDark} href="https://wa.me/254712345678">
-              ◉ &nbsp; Talk to Malaika →
+              <FaWhatsapp /> &nbsp; Talk to Malaika →
             </a>
           </div>
         </section>
@@ -149,7 +150,7 @@ export function Footer({ logoIcon }: { logoIcon: typeof fullLogo }) {
             ))}
           </div>
           <div className={styles.footerContact}>
-            hello@malaikastudios.com
+            malaikastudios.rotsi.co.ke
             <br />
             Nairobi / Remote / Global
           </div>

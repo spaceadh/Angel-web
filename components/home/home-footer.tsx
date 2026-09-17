@@ -24,7 +24,7 @@ export function HomeFooter() {
           </div>
           <div className={styles.footerTag}>I make you look good.</div>
           <div className={styles.footerContact}>
-            hello@malaikastudios.com
+            malaikastudios.rotsi.co.ke
             <br />
             Nairobi / Remote / Global
           </div>

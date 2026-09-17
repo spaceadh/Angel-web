@@ -1,9 +1,9 @@
 import Link from "next/link";
-import brandShowcase from "@/assets/brand-showcase.png";
+import brandShowcase from "@/assets/why-malaika-image.png";
 import heroVisual from "@/assets/hero-visual.png";
 import workBeads from "@/assets/work-beads.png";
 import workDigitally from "@/assets/work-digitally.png";
-import workNeighborhood from "@/assets/work-neighborhood.png";
+import workNeighborhood from "@/assets/neighbourhood-cocktails-logo.png";
 import workPolar from "@/assets/work-polar.png";
 import { HomeFooter } from "./home-footer";
 import { HomeNavigation } from "./home-navigation";

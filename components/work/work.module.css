@@ -355,11 +355,10 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 75px;
 }
-.split h2,
-.transform h2,
-.results h2 {
+.sectionTitle {
   font-size: 48px;
   margin: 0 0 20px;
+  white-space: pre-line;
 }
 .split p {
   color: #566262;
@@ -369,6 +368,11 @@
   background: #faf8f0;
   border-radius: 10px;
   padding: 30px;
+}
+.solutionTitle {
+  font-size: 32px;
+  line-height: 0.92;
+  margin: 14px 0 18px;
 }
 .check {
   display: flex;
@@ -380,6 +384,7 @@
   color: var(--green);
 }
 .transform,
+.capabilities,
 .results {
   padding-top: 70px;
 }
@@ -398,12 +403,38 @@
 .shot img {
   width: 100%;
 }
+.shotWithoutImage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: #faf8f0;
+}
 .shotLabel {
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   padding: 13px 16px;
+}
+.shotCopy {
+  padding: 20px 18px 22px;
+}
+.shotWithoutImage .shotCopy {
+  display: grid;
+  align-content: end;
+  flex: 1;
+  min-height: 230px;
+}
+.shotCopy h3 {
+  font-size: 32px;
+  line-height: 0.9;
+  white-space: pre-line;
+  margin: 0 0 12px;
+}
+.shotCopy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
 }
 .swap {
   width: 50px;
@@ -614,9 +645,7 @@
     display: block;
   }
   .sectionHead h2,
-  .split h2,
-  .transform h2,
-  .results h2 {
+  .sectionTitle {
     font-size: 38px;
   }
   .resultGrid {

@@ -1,4 +1,4 @@
-import cocktails from "@/assets/work-cocktails.svg";
+import cocktails from "@/assets/neighbourhood-landing-page.png";
 import beads from "@/assets/work-beads-showcase.svg";
 import digitallySly from "@/assets/work-digitally-sly.svg";
 import polar from "@/assets/work-polar-showcase.svg";
