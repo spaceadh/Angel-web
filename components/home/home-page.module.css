@@ -119,14 +119,15 @@
   color: var(--muted);
 }
 .hero h1 {
-  min-width: 0;
-  overflow-wrap: anywhere;
   font-family: var(--display);
   font-size: clamp(67px, 7.3vw, 108px);
   line-height: 0.82;
   letter-spacing: -0.065em;
-  max-width: 7.8ch;
   margin: 17px 0 25px;
+}
+.heroLine {
+  display: block;
+  white-space: nowrap;
 }
 .good {
   color: var(--blue);

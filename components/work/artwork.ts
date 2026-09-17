@@ -1,5 +1,5 @@
-import cocktails from "@/assets/neighbourhood-landing-page.png";
-import beads from "@/assets/beads-world-africa-logo.png";
+import cocktails from "@/assets/neighbourhood-cocktails/neighbourhood-landing-page.png";
+import beads from "@/assets/beads-world/beads-world-africa-logo.png";
 import digitallySly from "@/assets/work-digitally-sly.svg";
 import polar from "@/assets/work-polar-showcase.svg";
 import type { WorkArtwork } from "@/content/case-studies";

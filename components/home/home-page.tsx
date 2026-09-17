@@ -1,9 +1,9 @@
 import Link from "next/link";
 import brandShowcase from "@/assets/why-malaika-image.png";
 import heroVisual from "@/assets/hero-visual.png";
-import workBeads from "@/assets/beads-world-africa-logo.png";
-import workDigitally from "@/assets/work-digitally.png";
-import workNeighborhood from "@/assets/neighbourhood-cocktails-logo.png";
+import workBeads from "@/assets/beads-world/beads-world-africa-logo.png";
+import workDigitally from "@/assets/digitally-sly/digitaly-sly-logo.png";
+import workNeighborhood from "@/assets/neighbourhood-cocktails/neighbourhood-cocktails-logo.png";
 import workPolar from "@/assets/work-polar.png";
 import { HomeFooter } from "./home-footer";
 import { HomeNavigation } from "./home-navigation";
@@ -121,11 +121,11 @@ export function HomePage() {
           <div className={styles.heroCopy}>
             <div className={styles.eyebrow}>Digital presence agency</div>
             <h1>
-              WE MAKE
-              <br />
-              BUSINESSES
-              <br />
-              LOOK <span className={styles.good}>GOOD.</span>
+              <span className={styles.heroLine}>WE MAKE</span>
+              <span className={styles.heroLine}>BUSINESSES</span>
+              <span className={styles.heroLine}>
+                LOOK <span className={styles.good}>GOOD.</span>
+              </span>
             </h1>
             <p>
               Websites, WhatsApp, email, strategy and automation — built into a
