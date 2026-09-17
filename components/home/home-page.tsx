@@ -1,7 +1,7 @@
 import Link from "next/link";
 import brandShowcase from "@/assets/why-malaika-image.png";
 import heroVisual from "@/assets/hero-visual.png";
-import workBeads from "@/assets/work-beads.png";
+import workBeads from "@/assets/beads-world-africa-logo.png";
 import workDigitally from "@/assets/work-digitally.png";
 import workNeighborhood from "@/assets/neighbourhood-cocktails-logo.png";
 import workPolar from "@/assets/work-polar.png";
@@ -145,9 +145,9 @@ export function HomePage() {
               </a>
             </div>
             {/* <span className={`${styles.script} ${styles.heroScript}`}> */}
-              {/* I make you */}
-              {/* <br /> */}
-              {/* look good. */}
+            {/* I make you */}
+            {/* <br /> */}
+            {/* look good. */}
             {/* </span> */}
           </div>
           <div className={styles.heroArt}>

@@ -1,98 +1,30 @@
 import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 import after from "@/assets/work-after.svg";
+import beadsLanding from "@/assets/beads-world-africa-landing.png";
 import before from "@/assets/work-before.svg";
-import neighborhoodLanding from "@/assets/neighbourhood-landing-page.png";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
+import neighborhoodLanding from "@/assets/neighbourhood-landing-page.png";
+import visual from "@/assets/why-malaika-image.png";
 import type {
   CaseStudy,
+  CaseStudyCard,
   CaseStudyImage,
-  CaseStudySection,
 } from "@/content/case-studies";
 import { workArtwork } from "./artwork";
 import { Footer } from "./our-work-page";
 import styles from "./work.module.css";
-import { FaWhatsapp } from "react-icons/fa";
 
 const sectionImages: Record<CaseStudyImage, { src: string }> = {
   "generic-before": before,
   "generic-after": after,
   "neighborhood-landing": neighborhoodLanding,
+  "beads-landing": beadsLanding,
 };
 
 const whatsappLink = "https://wa.me/254745474586";
 
-function StorySection({ section }: { section: CaseStudySection }) {
-  if (section.type === "challenge") {
-    return (
-      <div className={styles.split}>
-        <div>
-          <div className={styles.eyebrow}>{section.eyebrow}</div>
-          <h2 className={`${styles.display} ${styles.sectionTitle}`}>
-            {section.title}
-          </h2>
-          <p>{section.copy}</p>
-        </div>
-        {section.aside ? (
-          <div className={styles.solution}>
-            <div className={styles.eyebrow}>{section.aside.eyebrow}</div>
-            {section.aside.title ? (
-              <h3 className={`${styles.display} ${styles.solutionTitle}`}>
-                {section.aside.title}
-              </h3>
-            ) : null}
-            {section.aside.items.map((item) => (
-              <div className={styles.check} key={item}>
-                <b>✓</b>
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    );
-  }
-
-  if (section.type === "comparison") {
-    return (
-      <div className={styles.transform}>
-        <div className={styles.eyebrow}>{section.eyebrow}</div>
-        <h2 className={`${styles.display} ${styles.sectionTitle}`}>
-          {section.title}
-        </h2>
-        <div className={styles.beforeAfter}>
-          <ComparisonCard side={section.before} />
-          <div className={styles.swap}>→</div>
-          <ComparisonCard side={section.after} />
-        </div>
-      </div>
-    );
-  }
-
-  const isCapability = section.type === "capabilities";
-  return (
-    <div className={isCapability ? styles.capabilities : styles.results}>
-      <div className={styles.eyebrow}>{section.eyebrow}</div>
-      <h2 className={`${styles.display} ${styles.sectionTitle}`}>
-        {section.title}
-      </h2>
-      <div className={styles.resultGrid}>
-        {section.items.map((item) => (
-          <div className={styles.result} key={item.title}>
-            <div className={styles.icon}>{item.icon}</div>
-            <strong>{item.title}</strong>
-            <span>{item.copy}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ComparisonCard({
-  side,
-}: {
-  side: Extract<CaseStudySection, { type: "comparison" }>["before"];
-}) {
+function ComparisonCard({ side }: { side: CaseStudy["comparison"]["before"] }) {
   const image = side.image ? sectionImages[side.image] : undefined;
 
   return (
@@ -111,8 +43,36 @@ function ComparisonCard({
   );
 }
 
+function CardSection({
+  section,
+  className,
+}: {
+  section: { eyebrow: string; title: string; items: readonly CaseStudyCard[] };
+  className: string;
+}) {
+  return (
+    <div className={className}>
+      <div className={styles.eyebrow}>{section.eyebrow}</div>
+      <h2 className={`${styles.display} ${styles.sectionTitle}`}>
+        {section.title}
+      </h2>
+      <div className={styles.resultGrid}>
+        {section.items.map((item) => (
+          <div className={styles.result} key={item.title}>
+            <div className={styles.icon}>{item.icon}</div>
+            <strong>{item.title}</strong>
+            <span>{item.copy}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
   const art = workArtwork[caseStudy.art];
+  const { challenge, comparison, hero, outcomes, system } = caseStudy;
+
   return (
     <div className={styles.page}>
       <main>
@@ -123,12 +83,12 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
             </Link>
             <div className={styles.caseLayout}>
               <div>
-                <span className={styles.pill}>{caseStudy.pill}</span>
+                <span className={styles.pill}>{hero.pill}</span>
                 <h1 className={`${styles.display} ${styles.caseTitle}`}>
                   {caseStudy.title}.
                 </h1>
-                <p className={styles.caseCopy}>{caseStudy.serviceLine}</p>
-                <div className={styles.caseTags}>{caseStudy.tags}</div>
+                <p className={styles.caseCopy}>{hero.intro}</p>
+                <div className={styles.caseTags}>{hero.tags}</div>
               </div>
               <div className={styles.caseArt}>
                 <img
@@ -140,9 +100,50 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
           </div>
         </section>
         <section className={`${styles.container} ${styles.section}`}>
-          {caseStudy.sections.map((section, index) => (
-            <StorySection key={`${section.type}-${index}`} section={section} />
-          ))}
+          <div className={styles.split}>
+            <div>
+              <div className={styles.eyebrow}>{challenge.eyebrow}</div>
+              <h2 className={`${styles.display} ${styles.sectionTitle}`}>
+                {challenge.title}
+              </h2>
+              <p>{challenge.copy}</p>
+            </div>
+            {challenge.keyPoints ? (
+              <div className={styles.solution}>
+                <div className={styles.eyebrow}>
+                  {challenge.keyPoints.eyebrow}
+                </div>
+                {challenge.keyPoints.title ? (
+                  <h3 className={`${styles.display} ${styles.solutionTitle}`}>
+                    {challenge.keyPoints.title}
+                  </h3>
+                ) : null}
+                {challenge.keyPoints.items.map((item) => (
+                  <div className={styles.check} key={item}>
+                    <b>✓</b>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          <div className={styles.transform}>
+            <div className={styles.eyebrow}>{comparison.eyebrow}</div>
+            <h2 className={`${styles.display} ${styles.sectionTitle}`}>
+              {comparison.title}
+            </h2>
+            <div className={styles.beforeAfter}>
+              <ComparisonCard side={comparison.before} />
+              <div className={styles.swap}>→</div>
+              <ComparisonCard side={comparison.after} />
+            </div>
+          </div>
+
+          {system ? (
+            <CardSection section={system} className={styles.capabilities} />
+          ) : null}
+          <CardSection section={outcomes} className={styles.results} />
         </section>
         <section className={styles.caseCta}>
           <div className={`${styles.container} ${styles.caseCtaGrid}`}>
@@ -160,7 +161,7 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
               </a>
             </div>
             <div className={styles.caseCtaArt}>
-              <img src={art.src} alt="" />
+              <img src={visual.src} alt="" />
             </div>
           </div>
         </section>

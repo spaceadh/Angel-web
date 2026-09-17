@@ -10,13 +10,18 @@
   --line: rgba(16, 27, 27, 0.14);
   --muted: #657070;
   --radius: 28px;
-  --display: "Lilita One", system-ui, sans-serif;
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
   --body: "DM Sans", system-ui, sans-serif;
   --script: "Caveat", cursive;
 }
 
 * {
   box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 html,

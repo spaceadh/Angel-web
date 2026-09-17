@@ -15,39 +15,14 @@ const navItems = [
 ] as const;
 import { FaWhatsapp } from "react-icons/fa";
 
-
 const whatsappLink = "https://wa.me/254745474586";
+
+import { HomeNavigation } from "@/components/home/home-navigation";
 
 export function OurWorkPage() {
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={`${styles.container} ${styles.nav}`}>
-          <Link
-            className={styles.brand}
-            href="/#home"
-            aria-label="Malaika Studios home"
-          >
-            <img
-              className={styles.brandLogo}
-              src={fullLogo.src}
-              alt="Malaika Studios"
-              width="515"
-              height="170"
-            />
-          </Link>
-          <nav className={styles.navLinks} aria-label="Primary navigation">
-            {navItems.map(([href, label]) => (
-              <Link href={href} key={href}>
-                {label}
-              </Link>
-            ))}
-          </nav>
-          <a className={styles.navCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            <FaWhatsapp /> &nbsp; Talk to Malaika
-          </a>
-        </div>
-      </header>
+      <HomeNavigation />
       <main>
         <section className={`${styles.container} ${styles.hero}`}>
           <div className={styles.eyebrow}>Selected work / digital presence</div>
@@ -91,9 +66,9 @@ export function OurWorkPage() {
                   alt={`${study.title} project`}
                 />
                 <div className={styles.cardMeta}>
-                  <span className={styles.pill}>{study.pill}</span>
+                  <span className={styles.pill}>{study.hero.pill}</span>
                   <h2>{study.title}</h2>
-                  <p>{study.serviceLine}</p>
+                  <p>{study.hero.intro}</p>
                 </div>
                 <span className={styles.arrow}>↗</span>
               </Link>
@@ -103,11 +78,18 @@ export function OurWorkPage() {
             <div>
               <h3 className={styles.display}>Have a project in mind?</h3>
               <p>
-                Let&apos;s build something together — and make sure your
-                business shows up properly.
+                Let&apos;s build something together and make sure your business
+                look good online. From websites to WhatsApp automations, email
+                campaigns and full digital presence systems, we&apos;ve got you
+                covered.
               </p>
             </div>
-            <a className={styles.buttonDark} href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            <a
+              className={styles.buttonDark}
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <FaWhatsapp /> &nbsp; Talk to Malaika →
             </a>
           </div>

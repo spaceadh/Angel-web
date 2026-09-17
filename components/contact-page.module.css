@@ -5,6 +5,10 @@
   color: var(--ink);
   font-family: var(--body);
 }
+.page a {
+  color: inherit;
+  text-decoration: none;
+}
 .main {
   min-height: 66vh;
   padding: 92px 0 108px;

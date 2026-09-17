@@ -22,42 +22,12 @@ const journey = ["DISCOVER", "UNDERSTAND", "TRUST", "CONTACT", "BUY", "RETURN"];
 
 const whatsappLink = "https://wa.me/254745474586";
 
+import { HomeNavigation } from "@/components/home/home-navigation";
+
 export function WhyMalaikaPage() {
   return (
     <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={`${styles.container} ${styles.nav}`}>
-          <Link
-            className={styles.brand}
-            href="/#home"
-            aria-label="Malaika Studios home"
-          >
-            <img
-              className={styles.brandLogo}
-              src={fullLogo.src}
-              alt="Malaika Studios"
-              width="515"
-              height="170"
-            />
-          </Link>
-          <nav className={styles.navLinks} aria-label="Primary navigation">
-            {navItems.map(([href, label]) => (
-              <Link
-                className={
-                  href === "/what-we-do/why-malaika" ? styles.active : undefined
-                }
-                href={href}
-                key={href}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-          <a className={styles.navCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
-            <FaWhatsapp /> &nbsp; Talk to Malaika
-          </a>
-        </div>
-      </header>
+      <HomeNavigation />
       <main>
         <section className={`${styles.container} ${styles.hero}`}>
           <div className={styles.heroGrid}>
@@ -280,7 +250,12 @@ export function WhyMalaikaPage() {
                 Build one coherent digital presence around the business you
                 already have.
               </p>
-              <a className={styles.finalCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              <a
+                className={styles.finalCta}
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <FaWhatsapp /> &nbsp; Talk to Malaika →
               </a>
             </div>
