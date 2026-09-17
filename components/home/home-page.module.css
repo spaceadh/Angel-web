@@ -14,6 +14,12 @@
   width: min(1180px, calc(100% - 48px));
   margin: auto;
 }
+
+@media (min-width: 901px) {
+  .container {
+    width: min(1720px, calc(100% - 64px));
+  }
+}
 .header {
   background: var(--cream);
 }
@@ -731,7 +737,15 @@
   display: flex;
   justify-content: space-between;
   color: #899694;
+  font-size: 20px;
+}
+
+.footerSocial {
+  display: flex;
+  gap: 18px;
   font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 900px) {
@@ -947,6 +961,10 @@
     flex-direction: column;
     gap: 8px;
   }
+  .footerSocial {
+    justify-content: center;
+  }
+
   .footerLinks {
     gap: 12px;
   }

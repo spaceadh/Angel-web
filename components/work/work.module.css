@@ -17,6 +17,12 @@
   width: min(1320px, calc(100% - 72px));
   margin: auto;
 }
+
+@media (min-width: 901px) {
+  .container {
+    width: min(1720px, calc(100% - 64px));
+  }
+}
 .header {
   position: relative;
   z-index: 10;

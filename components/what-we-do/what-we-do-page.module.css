@@ -13,6 +13,12 @@
   width: min(1320px, calc(100% - 72px));
   margin: auto;
 }
+
+@media (min-width: 901px) {
+  .container {
+    width: min(1720px, calc(100% - 64px));
+  }
+}
 .header {
   position: relative;
   z-index: 20;
@@ -722,6 +728,13 @@
   justify-content: space-between;
   color: #899694;
   font-size: 10px;
+}
+.footerSocial {
+  display: flex;
+  gap: 18px;
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 @media (max-width: 1000px) {
   .container {
