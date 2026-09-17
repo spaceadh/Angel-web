@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import logo from "@/assets/malaika-full-logo.svg";
 import styles from "./home-page.module.css";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const navigation = [
   { href: "/#home", label: "Home" },
@@ -13,6 +14,8 @@ const navigation = [
   { href: "/#process", label: "Process" },
   { href: "/contact", label: "Contact" },
 ];
+
+const whatsappLink = "https://wa.me/254745474586";
 
 export function HomeNavigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,8 +44,8 @@ export function HomeNavigation() {
             </Link>
           ))}
         </nav>
-        <a className={styles.navCta} href="https://wa.me/254712345678">
-          Talk to Malaika
+        <a className={styles.navCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
+          <FaWhatsapp /> &nbsp; Talk to Malaika
         </a>
         <button
           className={styles.menuButton}
@@ -69,10 +72,12 @@ export function HomeNavigation() {
         ))}
         <a
           className={styles.navCta}
-          href="https://wa.me/254712345678"
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
           onClick={closeMenu}
         >
-          Talk to Malaika
+          <FaWhatsapp /> &nbsp;  Talk to Malaika
         </a>
       </nav>
     </header>

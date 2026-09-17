@@ -9,9 +9,9 @@ import { HomeFooter } from "./home-footer";
 import { HomeNavigation } from "./home-navigation";
 import styles from "./home-page.module.css";
 import { FaWhatsapp, FaLongArrowAltRight } from "react-icons/fa";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa6";
 
-const whatsappUrl = "https://wa.me/254712345678";
+const whatsappUrl = "https://wa.me/254745474586";
 
 const systemSteps = [
   {
@@ -144,17 +144,13 @@ export function HomePage() {
                 <FaWhatsapp /> &nbsp; Talk to Malaika
               </a>
             </div>
-            <span className={`${styles.script} ${styles.heroScript}`}>
-              I make you
-              <br />
-              look good.
-            </span>
+            {/* <span className={`${styles.script} ${styles.heroScript}`}> */}
+              {/* I make you */}
+              {/* <br /> */}
+              {/* look good. */}
+            {/* </span> */}
           </div>
           <div className={styles.heroArt}>
-            <div className={`${styles.blob} ${styles.b1}`} />
-            <div className={`${styles.blob} ${styles.b2}`} />
-            <div className={`${styles.blob} ${styles.b3}`} />
-            <div className={`${styles.blob} ${styles.b4}`} />
             <img
               className={styles.heroPhoto}
               src={heroVisual.src}

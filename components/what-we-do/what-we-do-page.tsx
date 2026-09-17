@@ -1,8 +1,9 @@
 import Link from "next/link";
 import fullLogo from "@/assets/malaika-full-logo.svg";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
-import visual from "@/assets/what-we-do-visual.svg";
+import visual from "@/assets/why-malaika-image.png";
 import styles from "./what-we-do-page.module.css";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const systemSteps = [
   [
@@ -98,6 +99,9 @@ const navItems = [
   ["/contact", "Contact"],
 ] as const;
 
+
+const whatsappLink = "https://wa.me/254745474586";
+
 export function WhatWeDoPage() {
   return (
     <div className={styles.page}>
@@ -127,8 +131,8 @@ export function WhatWeDoPage() {
               </Link>
             ))}
           </nav>
-          <a className={styles.navCta} href="https://wa.me/254712345678">
-            ◉ &nbsp; Talk to Malaika
+          <a className={styles.navCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            <FaWhatsapp /> &nbsp; Talk to Malaika
           </a>
         </div>
       </header>
@@ -152,10 +156,6 @@ export function WhatWeDoPage() {
               </div>
             </div>
             <div className={styles.visual}>
-              <div className={`${styles.blob} ${styles.yellow}`} />
-              <div className={`${styles.blob} ${styles.blue}`} />
-              <div className={`${styles.blob} ${styles.coral}`} />
-              <div className={`${styles.blob} ${styles.green}`} />
               <img
                 className={styles.photo}
                 src={visual.src}
@@ -290,8 +290,8 @@ export function WhatWeDoPage() {
               </div>
               <h2 className={styles.display}>LET&apos;S MAKE IT LOOK GOOD.</h2>
               <p>Ready to build a digital presence that actually works?</p>
-              <a className={styles.finalCta} href="https://wa.me/254712345678">
-                ◉ &nbsp; Talk to Malaika →
+              <a className={styles.finalCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <FaWhatsapp /> &nbsp; Talk to Malaika →
               </a>
             </div>
             <div className={styles.finalArt}>

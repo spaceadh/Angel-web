@@ -15,6 +15,9 @@ const navItems = [
 ] as const;
 import { FaWhatsapp } from "react-icons/fa";
 
+
+const whatsappLink = "https://wa.me/254745474586";
+
 export function OurWorkPage() {
   return (
     <div className={styles.page}>
@@ -40,7 +43,7 @@ export function OurWorkPage() {
               </Link>
             ))}
           </nav>
-          <a className={styles.navCta} href="https://wa.me/254712345678">
+          <a className={styles.navCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
             <FaWhatsapp /> &nbsp; Talk to Malaika
           </a>
         </div>
@@ -104,7 +107,7 @@ export function OurWorkPage() {
                 business shows up properly.
               </p>
             </div>
-            <a className={styles.buttonDark} href="https://wa.me/254712345678">
+            <a className={styles.buttonDark} href={whatsappLink} target="_blank" rel="noopener noreferrer">
               <FaWhatsapp /> &nbsp; Talk to Malaika →
             </a>
           </div>

@@ -11,12 +11,15 @@ import type {
 import { workArtwork } from "./artwork";
 import { Footer } from "./our-work-page";
 import styles from "./work.module.css";
+import { FaWhatsapp } from "react-icons/fa";
 
 const sectionImages: Record<CaseStudyImage, { src: string }> = {
   "generic-before": before,
   "generic-after": after,
   "neighborhood-landing": neighborhoodLanding,
 };
+
+const whatsappLink = "https://wa.me/254745474586";
 
 function StorySection({ section }: { section: CaseStudySection }) {
   if (section.type === "challenge") {
@@ -128,8 +131,6 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
                 <div className={styles.caseTags}>{caseStudy.tags}</div>
               </div>
               <div className={styles.caseArt}>
-                <div className={styles.shape1} />
-                <div className={styles.shape2} />
                 <img
                   src={art.src}
                   alt={`${caseStudy.title} website presentation`}
@@ -151,9 +152,11 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
               <p>Ready to build a digital presence that actually works?</p>
               <a
                 className={styles.caseCtaButton}
-                href="https://wa.me/254712345678"
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                ◉ &nbsp; Talk to Malaika →
+                <FaWhatsapp /> &nbsp; Talk to Malaika →
               </a>
             </div>
             <div className={styles.caseCtaArt}>

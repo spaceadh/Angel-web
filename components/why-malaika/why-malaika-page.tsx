@@ -1,8 +1,9 @@
 import Link from "next/link";
 import fullLogo from "@/assets/malaika-full-logo.svg";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
-import visual from "@/assets/what-we-do-visual.svg";
+import visual from "@/assets/why-malaika-image.png";
 import styles from "@/components/what-we-do/what-we-do-page.module.css";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const navItems = [
   ["/what-we-do", "What We Do"],
@@ -18,6 +19,8 @@ const principles = [
   ["Credible", "The experience feels trustworthy."],
 ] as const;
 const journey = ["DISCOVER", "UNDERSTAND", "TRUST", "CONTACT", "BUY", "RETURN"];
+
+const whatsappLink = "https://wa.me/254745474586";
 
 export function WhyMalaikaPage() {
   return (
@@ -50,8 +53,8 @@ export function WhyMalaikaPage() {
               </Link>
             ))}
           </nav>
-          <a className={styles.navCta} href="https://wa.me/254712345678">
-            ◉ &nbsp; Talk to Malaika
+          <a className={styles.navCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            <FaWhatsapp /> &nbsp; Talk to Malaika
           </a>
         </div>
       </header>
@@ -79,9 +82,6 @@ export function WhyMalaikaPage() {
               </div>
             </div>
             <div className={styles.visual}>
-              <div className={`${styles.blob} ${styles.yellow}`} />
-              <div className={`${styles.blob} ${styles.blue}`} />
-              <div className={`${styles.blob} ${styles.coral}`} />
               <img
                 className={styles.photo}
                 src={visual.src}
@@ -280,8 +280,8 @@ export function WhyMalaikaPage() {
                 Build one coherent digital presence around the business you
                 already have.
               </p>
-              <a className={styles.finalCta} href="https://wa.me/254712345678">
-                ◉ &nbsp; Talk to Malaika →
+              <a className={styles.finalCta} href={whatsappLink} target="_blank" rel="noopener noreferrer">
+                <FaWhatsapp /> &nbsp; Talk to Malaika →
               </a>
             </div>
             <div className={styles.finalArt}>

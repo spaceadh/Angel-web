@@ -3,6 +3,9 @@ import { HomeFooter } from "./home/home-footer";
 import { HomeNavigation } from "./home/home-navigation";
 import homeStyles from "./home/home-page.module.css";
 import styles from "./contact-page.module.css";
+import { FaWhatsapp } from "react-icons/fa6";
+
+const whatsappUrl = "https://wa.me/254745474586";
 
 export function ContactPageContent() {
   return (
@@ -23,9 +26,11 @@ export function ContactPageContent() {
             <div className={styles.actions}>
               <a
                 className={styles.primaryAction}
-                href="https://wa.me/254712345678"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                ◉ &nbsp; Talk to Malaika →
+                <FaWhatsapp /> &nbsp; Talk to Malaika →
               </a>
               <a
                 className={styles.secondaryAction}
