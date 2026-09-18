@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
+import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 import after from "@/assets/work-after.svg";
 import beadsLanding from "@/assets/beads-world/beads-world-africa-landing.png";
+import digitallySlyLogo from "@/assets/digitally-sly/digitaly-sly-logo.png";
+import polarBisonLogo from "@/assets/polarbison/StackedLogowithtagline-Orange-Black.png";
 import before from "@/assets/work-before.svg";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
 import neighborhoodLanding from "@/assets/neighbourhood-cocktails/neighbourhood-landing-page.png";
@@ -20,6 +23,8 @@ const sectionImages: Record<CaseStudyImage, { src: string }> = {
   "generic-after": after,
   "neighborhood-landing": neighborhoodLanding,
   "beads-landing": beadsLanding,
+  "polar-logo": polarBisonLogo,
+  "digitally-sly-logo": digitallySlyLogo,
 };
 
 const whatsappLink = "https://wa.me/254745474586";
@@ -151,14 +156,12 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
               <div className={styles.eyebrow}>Let&apos;s make</div>
               <h2 className={styles.display}>YOU LOOK GOOD.</h2>
               <p>Ready to build a digital presence that actually works?</p>
-              <a
+              <TrackedWhatsappLink
                 className={styles.caseCtaButton}
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                placement="case_study_cta"
               >
                 <FaWhatsapp /> &nbsp; Talk to Malaika →
-              </a>
+              </TrackedWhatsappLink>
             </div>
             <div className={styles.caseCtaArt}>
               <img src={visual.src} alt="" />

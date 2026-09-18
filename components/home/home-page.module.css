@@ -740,6 +740,20 @@
   text-transform: uppercase;
   margin-top: 35px;
 }
+
+.footerLinks button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-align: left;
+}
+.footerLinks button:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
 .footerBottom {
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   margin-top: 28px;

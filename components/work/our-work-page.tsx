@@ -14,6 +14,7 @@ const navItems = [
   ["/contact", "Contact"],
 ] as const;
 import { FaWhatsapp } from "react-icons/fa";
+import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 
 const whatsappLink = "https://wa.me/254745474586";
 
@@ -84,14 +85,12 @@ export function OurWorkPage() {
                 covered.
               </p>
             </div>
-            <a
+            <TrackedWhatsappLink
               className={styles.buttonDark}
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
+              placement="our_work_final_cta"
             >
               <FaWhatsapp /> &nbsp; Talk to Malaika →
-            </a>
+            </TrackedWhatsappLink>
           </div>
         </section>
       </main>

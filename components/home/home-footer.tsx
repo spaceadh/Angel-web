@@ -1,7 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
 import styles from "./home-page.module.css";
 import { FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa6";
+import { site } from "@/lib/site";
 
 export function HomeFooter() {
   return (
@@ -25,24 +28,25 @@ export function HomeFooter() {
           </div>
           <div className={styles.footerTag}>I make you look good.</div>
           <div className={styles.footerContact}>
-            malaikastudios.rotsi.co.ke
+            <a href={`mailto:${site.email}`}>{site.email}</a>
             <br />
             Nairobi / Remote / Global
           </div>
         </div>
         <div className={styles.footerLinks}>
-          {[
-            "Websites",
-            "WhatsApp",
-            "Email",
-            "Social",
-            "Automation",
-            "Growth",
-          ].map((item) => (
-            <Link href="/what-we-do" key={item}>
-              {item}
-            </Link>
-          ))}
+          <Link href="/services/website-design-development">Websites</Link>
+          <Link href="/services/brand-identity-digital-design">Branding</Link>
+          <Link href="/services/whatsapp-email-crm-automation">Automation</Link>
+          <Link href="/services/digital-growth-strategy-analytics">Growth</Link>
+          <Link href="/privacy">Privacy</Link>
+          <button
+            type="button"
+            onClick={() =>
+              window.dispatchEvent(new Event("malaika:open-consent"))
+            }
+          >
+            Cookie settings
+          </button>
         </div>
         {/* Add social media links */}
         <div className={styles.footerSocial}>

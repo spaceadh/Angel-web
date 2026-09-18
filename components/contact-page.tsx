@@ -4,6 +4,10 @@ import { HomeNavigation } from "./home/home-navigation";
 import homeStyles from "./home/home-page.module.css";
 import styles from "./contact-page.module.css";
 import { FaWhatsapp } from "react-icons/fa6";
+import {
+  TrackedEmailLink,
+  TrackedWhatsappLink,
+} from "@/components/analytics/tracked-links";
 
 const whatsappUrl = "https://wa.me/254745474586";
 
@@ -24,20 +28,15 @@ export function ContactPageContent() {
               conversation on WhatsApp or email Malaika Studios.
             </p>
             <div className={styles.actions}>
-              <a
+              <TrackedWhatsappLink
                 className={styles.primaryAction}
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                placement="contact_page"
               >
                 <FaWhatsapp /> &nbsp; Talk to Malaika →
-              </a>
-              <a
-                className={styles.secondaryAction}
-                href="mailto:malaikastudios.rotsi.co.ke"
-              >
+              </TrackedWhatsappLink>
+              <TrackedEmailLink className={styles.secondaryAction}>
                 Email Malaika →
-              </a>
+              </TrackedEmailLink>
             </div>
           </div>
           <div className={styles.art} aria-hidden="true">

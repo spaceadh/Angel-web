@@ -4,6 +4,7 @@ import logoIcon from "@/assets/malaika-logo-icon.svg";
 import visual from "@/assets/why-malaika-image.png";
 import styles from "./what-we-do-page.module.css";
 import { FaWhatsapp } from "react-icons/fa6";
+import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 
 const systemSteps = [
   [
@@ -261,14 +262,12 @@ export function WhatWeDoPage() {
               </div>
               <h2 className={styles.display}>LET&apos;S MAKE IT LOOK GOOD.</h2>
               <p>Ready to build a digital presence that actually works?</p>
-              <a
+              <TrackedWhatsappLink
                 className={styles.finalCta}
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                placement="what_we_do_final_cta"
               >
                 <FaWhatsapp /> &nbsp; Talk to Malaika →
-              </a>
+              </TrackedWhatsappLink>
             </div>
             <div className={styles.finalArt}>
               <img src={visual.src} alt="" />

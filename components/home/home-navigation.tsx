@@ -6,10 +6,12 @@ import { useState } from "react";
 import logo from "@/assets/malaika-full-logo.svg";
 import styles from "./home-page.module.css";
 import { FaWhatsapp } from "react-icons/fa6";
+import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 
 const navigation = [
   { href: "/#home", label: "Home" },
   { href: "/what-we-do", label: "What We Do" },
+  { href: "/services/website-design-development", label: "Services" },
   { href: "/our-work", label: "Our Work" },
   { href: "/what-we-do/why-malaika", label: "Why Malaika" },
   { href: "/#process", label: "Process" },
@@ -32,6 +34,9 @@ export function HomeNavigation() {
     }
     if (href === "/what-we-do/why-malaika") {
       return pathname === "/what-we-do/why-malaika";
+    }
+    if (href === "/services/website-design-development") {
+      return pathname?.startsWith("/services/") ?? false;
     }
     if (href === "/our-work") {
       return pathname === "/our-work" || pathname?.startsWith("/our-work/");
@@ -69,14 +74,9 @@ export function HomeNavigation() {
             </Link>
           ))}
         </nav>
-        <a
-          className={styles.navCta}
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <TrackedWhatsappLink className={styles.navCta} placement="navigation">
           <FaWhatsapp /> &nbsp; Talk to Malaika
-        </a>
+        </TrackedWhatsappLink>
         <button
           className={styles.menuButton}
           type="button"
@@ -105,15 +105,13 @@ export function HomeNavigation() {
             {item.label}
           </Link>
         ))}
-        <a
+        <TrackedWhatsappLink
           className={styles.navCta}
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
+          placement="mobile_navigation"
           onClick={closeMenu}
         >
           <FaWhatsapp /> &nbsp; Talk to Malaika
-        </a>
+        </TrackedWhatsappLink>
       </nav>
     </header>
   );

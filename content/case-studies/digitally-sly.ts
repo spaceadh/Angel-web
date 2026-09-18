@@ -38,7 +38,7 @@ export const digitallySly: CaseStudy = {
       label: "After",
       title: "A CLEARER WAY IN.",
       copy: "A focused digital experience that gives people a route from discovery to action.",
-      image: "generic-after",
+      image: "digitally-sly-logo",
     },
   },
   outcomes: {

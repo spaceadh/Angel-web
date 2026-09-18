@@ -4,11 +4,12 @@ import heroVisual from "@/assets/hero-visual.png";
 import workBeads from "@/assets/beads-world/beads-world-africa-logo.png";
 import workDigitally from "@/assets/digitally-sly/digitaly-sly-logo.png";
 import workNeighborhood from "@/assets/neighbourhood-cocktails/neighbourhood-cocktails-logo.png";
-import workPolar from "@/assets/work-polar.png";
+import workPolar from "@/assets/polarbison/LogoIconwithtagline-Orange-Black.png";
 import { HomeFooter } from "./home-footer";
 import { HomeNavigation } from "./home-navigation";
 import styles from "./home-page.module.css";
 import { FaWhatsapp, FaLongArrowAltRight } from "react-icons/fa";
+import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 import { FaArrowRight } from "react-icons/fa6";
 
 const whatsappUrl = "https://wa.me/254745474586";
@@ -135,14 +136,12 @@ export function HomePage() {
               <Link className={styles.buttonDark} href="/what-we-do">
                 See what we do <FaLongArrowAltRight />
               </Link>
-              <a
+              <TrackedWhatsappLink
                 className={styles.buttonOutline}
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                placement="home_hero"
               >
                 <FaWhatsapp /> &nbsp; Talk to Malaika
-              </a>
+              </TrackedWhatsappLink>
             </div>
             {/* <span className={`${styles.script} ${styles.heroScript}`}> */}
             {/* I make you */}
@@ -307,14 +306,12 @@ export function HomePage() {
               <div className={styles.sectionLabel}>Let&apos;s make you</div>
               <h2 className={styles.display}>LOOK GOOD.</h2>
               <p>Ready to build a digital presence that actually works?</p>
-              <a
+              <TrackedWhatsappLink
                 className={styles.button}
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                placement="home_final_cta"
               >
                 Talk to Malaika <FaArrowRight />
-              </a>
+              </TrackedWhatsappLink>
             </div>
             <div className={styles.ctaArt}>
               <img

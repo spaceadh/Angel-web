@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "format": "prettier --write app components content lib reference",
-    "format:check": "prettier --check app components content lib reference"
+    "format": "prettier --write app components content lib reference scripts malaika_portfolio",
+    "format:check": "prettier --check app components content lib reference scripts malaika_portfolio",
+    "indexnow:submit": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "next": "^16.0.0",
