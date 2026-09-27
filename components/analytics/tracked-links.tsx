@@ -1,7 +1,11 @@
 "use client";
 
 import type { AnchorHTMLAttributes } from "react";
-import { trackEvent, trackWhatsappLead } from "./consent-and-analytics";
+import {
+  getPageContext,
+  trackEvent,
+  trackWhatsappLead,
+} from "./consent-and-analytics";
 import { site } from "@/lib/site";
 
 type Props = AnchorHTMLAttributes<HTMLAnchorElement> & { placement: string };
@@ -32,7 +36,10 @@ export function TrackedEmailLink({
       onClick={(event) => {
         onClick?.(event);
         if (!event.defaultPrevented)
-          trackEvent("email_click", { lead_channel: "email" });
+          trackEvent("email_click", {
+            ...getPageContext(),
+            lead_channel: "email",
+          });
       }}
     />
   );

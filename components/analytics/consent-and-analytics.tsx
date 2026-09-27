@@ -12,8 +12,11 @@ declare global {
 }
 
 const consentKey = "malaika-analytics-consent";
-const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+// A GA measurement ID is public by design. The environment variable lets each
+// deployment override this value while keeping production measurement active.
+const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-MYY8S3XWWE";
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+let analyticsInitialised = false;
 
 function loadScript(id: string, src: string) {
   if (document.getElementById(id)) return;
@@ -25,11 +28,16 @@ function loadScript(id: string, src: string) {
 }
 
 function initialiseAnalytics() {
+  if (analyticsInitialised) return;
+  analyticsInitialised = true;
+
   if (gaId) {
     window.dataLayer = window.dataLayer || [];
     window.gtag = (...args) => window.dataLayer?.push(args);
     window.gtag("js", new Date());
-    window.gtag("config", gaId, { anonymize_ip: true });
+    // Route changes are reported explicitly in AnalyticsPageViews. This avoids
+    // GA4 counting the initial page twice after a visitor grants consent.
+    window.gtag("config", gaId, { anonymize_ip: true, send_page_view: false });
     loadScript(
       "malaika-ga4",
       `https://www.googletagmanager.com/gtag/js?id=${gaId}`,
@@ -70,6 +78,8 @@ function initialiseAnalytics() {
       "https://connect.facebook.net/en_US/fbevents.js",
     );
   }
+
+  window.dispatchEvent(new Event("malaika:analytics-ready"));
 }
 
 export function hasAnalyticsConsent() {
@@ -87,10 +97,36 @@ export function trackEvent(
   window.gtag?.("event", name, parameters);
 }
 
+export function getPageContext() {
+  const path = location.pathname;
+  const context: Record<string, string> = {
+    page_path: path,
+    page_title: document.title,
+    page_type: path.startsWith("/services/")
+      ? "service"
+      : path.startsWith("/our-work/work/")
+        ? "case_study"
+        : path === "/contact"
+          ? "contact"
+          : "site_page",
+  };
+  if (path.startsWith("/services/")) {
+    context.service_slug = path.split("/").at(-1) ?? "";
+  }
+  if (path.startsWith("/our-work/work/")) {
+    context.case_study_slug = path.split("/").at(-1) ?? "";
+  }
+  return context;
+}
+
 export async function trackWhatsappLead(placement: string) {
   if (!hasAnalyticsConsent()) return;
   const eventId = crypto.randomUUID();
-  const parameters = { lead_channel: "whatsapp", cta_placement: placement };
+  const parameters = {
+    ...getPageContext(),
+    lead_channel: "whatsapp",
+    cta_placement: placement,
+  };
   trackEvent("generate_lead", parameters);
   window.fbq?.("track", "Contact", parameters, { eventID: eventId });
   await fetch("/api/meta/events", {
@@ -141,7 +177,6 @@ export function ConsentAndAnalytics() {
   const save = (value: "granted" | "denied") => {
     localStorage.setItem(consentKey, value);
     setChoice(value);
-    if (value === "granted") initialiseAnalytics();
   };
 
   if (choice !== "unknown") return null;
