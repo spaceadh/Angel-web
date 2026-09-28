@@ -1,3 +1,4 @@
+import Link from "next/link";
 import brandShowcase from "@/assets/brand-showcase.png";
 import { HomeFooter } from "./home/home-footer";
 import { HomeNavigation } from "./home/home-navigation";
@@ -28,15 +29,18 @@ export function ContactPageContent() {
               conversation on WhatsApp or email Malaika Studios.
             </p>
             <div className={styles.actions}>
-              <TrackedWhatsappLink
+              <Link
+                href="/match?source=contact_page"
                 className={styles.primaryAction}
+              >
+                Get An Instant Estimate →
+              </Link>
+              <TrackedWhatsappLink
+                className={styles.secondaryAction}
                 placement="contact_page"
               >
-                <FaWhatsapp /> &nbsp; Talk to Malaika →
+                <FaWhatsapp /> &nbsp; Talk on WhatsApp
               </TrackedWhatsappLink>
-              <TrackedEmailLink className={styles.secondaryAction}>
-                Email Malaika →
-              </TrackedEmailLink>
             </div>
           </div>
           <div className={styles.art} aria-hidden="true">

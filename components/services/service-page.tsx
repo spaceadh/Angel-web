@@ -34,12 +34,12 @@ export function ServicePage({ service }: { service: Service }) {
             <p className={styles.kicker}>Malaika Studios / {service.title}</p>
             <h1>{service.hero}</h1>
             <p className={styles.lede}>{service.introduction}</p>
-            <TrackedWhatsappLink
+            <Link
+              href={`/match?source=service_${service.slug}`}
               className={styles.cta}
-              placement={`service_${service.slug}_hero`}
             >
-              <FaWhatsapp /> Talk to Malaika
-            </TrackedWhatsappLink>
+              Calculate Scope &amp; Pricing →
+            </Link>
           </div>
         </section>
         <section className={`${styles.container} ${styles.section}`}>

@@ -46,7 +46,8 @@ export async function POST(req: Request) {
 
     // Optional Brevo API Integration
     const brevoApiKey = process.env.BREVO_API_KEY;
-    if (brevoApiKey) {
+    const environment = process.env.NODE_ENV || "production";
+    if (brevoApiKey && environment === "production") {
       try {
         const [firstName, ...lastNameParts] = contact.name.trim().split(" ");
         const lastName = lastNameParts.join(" ");

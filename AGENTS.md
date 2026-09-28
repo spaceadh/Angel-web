@@ -74,3 +74,29 @@ When completing any modification, task, or iteration in this codebase, the agent
 - **Verification & Status:**
   - Executed `pnpm build` — compiled successfully with zero errors.
   - Route `/match` and API routes `/api/match` and `/api/match/response` verified.
+
+### [2026-09-28 05:51:00 +03:00] — Gemini 3.6 Flash / Antigravity (Lead AI Coding Assistant)
+
+- **Timestamp:** 2026-09-28T05:51:00+03:00
+- **Model / Assistant:** Gemini 3.6 Flash (Antigravity CLI)
+- **Role:** Lead AI Coding Assistant
+- **Task / Scope:** Updated topbar logo styling to render `assets/malaika-full-logo.svg`, updated site-wide CTAs across navigation, homepage, services, why-malaika, and contact pages to point to `/match` with clear non-technical estimate copy, and authored testing/operations guide.
+- **Files Modified / Created:**
+  - `components/match/match.module.css` (Updated — brand logo styles)
+  - `components/match/malaika-match-flow.tsx` (Updated — topbar logo image rendering)
+  - `reference/the-malaika-match-v6.html` (Updated — brand logo image rendering)
+  - `components/home/home-navigation.tsx` (Updated — added `Estimate & Pricing` nav link and `Get Instant Estimate →` header CTA button)
+  - `components/home/home-page.tsx` (Updated — hero button `Calculate Scope & Pricing →` and final CTA `Get An Instant Estimate →`)
+  - `components/services/service-page.tsx` (Updated — service CTA `Calculate Scope & Pricing →`)
+  - `components/what-we-do/what-we-do-page.tsx` (Updated — final CTA `Get An Instant Estimate →`)
+  - `components/why-malaika/why-malaika-page.tsx` (Updated — final CTA `Calculate Scope & Pricing →`)
+  - `components/work/our-work-page.tsx` (Updated — final CTA `Calculate Your Project Scope →`)
+  - `components/contact-page.tsx` (Updated — added `Get An Instant Estimate →` primary CTA)
+  - `docs/malaika-match-testing-and-operations-guide.md` (Created — full end-to-end testing, Brevo/Turnstile/GA4 setup & config customization guide)
+  - `AGENTS.md` (Updated)
+- **Key Decisions & Implementation Details:**
+  - Replaced internal jargon ("The Match") on public CTAs with intuitive, benefit-driven copy (*"Get Instant Estimate →"*, *"Calculate Scope & Pricing →"*, *"Estimate & Pricing"* nav item) understandable by technical and non-technical visitors.
+  - Included source tracking parameters (`/match?source=nav`, `home_hero`, `services`, etc.) for funnel analytics.
+  - Confirmed Brevo automation plan availability (Brevo Free Plan includes 2,000 automation contacts and 300 emails/day for free).
+- **Verification & Status:**
+  - `pnpm build` verified — zero compilation or type errors.

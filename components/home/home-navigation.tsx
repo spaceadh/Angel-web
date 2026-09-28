@@ -10,11 +10,11 @@ import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 
 const navigation = [
   { href: "/#home", label: "Home" },
+  { href: "/match", label: "Estimate & Pricing" },
   { href: "/what-we-do", label: "What We Do" },
   { href: "/services/website-design-development", label: "Services" },
   { href: "/our-work", label: "Our Work" },
   { href: "/what-we-do/why-malaika", label: "Why Malaika" },
-  { href: "/#process", label: "Process" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -28,6 +28,9 @@ export function HomeNavigation() {
   const isActive = (href: string) => {
     if (href === "/#home" || href === "/") {
       return pathname === "/";
+    }
+    if (href === "/match") {
+      return pathname === "/match";
     }
     if (href === "/what-we-do") {
       return pathname === "/what-we-do";
@@ -74,9 +77,9 @@ export function HomeNavigation() {
             </Link>
           ))}
         </nav>
-        <TrackedWhatsappLink className={styles.navCta} placement="navigation">
-          <FaWhatsapp /> &nbsp; Talk to Malaika
-        </TrackedWhatsappLink>
+        <Link href="/match?source=nav" className={styles.navCta}>
+          Get Instant Estimate →
+        </Link>
         <button
           className={styles.menuButton}
           type="button"
@@ -105,13 +108,13 @@ export function HomeNavigation() {
             {item.label}
           </Link>
         ))}
-        <TrackedWhatsappLink
+        <Link
+          href="/match?source=mobile_nav"
           className={styles.navCta}
-          placement="mobile_navigation"
           onClick={closeMenu}
         >
-          <FaWhatsapp /> &nbsp; Talk to Malaika
-        </TrackedWhatsappLink>
+          Get Instant Estimate →
+        </Link>
       </nav>
     </header>
   );

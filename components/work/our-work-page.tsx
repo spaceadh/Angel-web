@@ -85,12 +85,12 @@ export function OurWorkPage() {
                 covered.
               </p>
             </div>
-            <TrackedWhatsappLink
+            <Link
+              href="/match?source=our_work"
               className={styles.buttonDark}
-              placement="our_work_final_cta"
             >
-              <FaWhatsapp /> &nbsp; Talk to Malaika →
-            </TrackedWhatsappLink>
+              Calculate Your Project Scope →
+            </Link>
           </div>
         </section>
       </main>

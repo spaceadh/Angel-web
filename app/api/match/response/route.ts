@@ -14,7 +14,8 @@ export async function POST(req: Request) {
     }
 
     const brevoApiKey = process.env.BREVO_API_KEY;
-    if (brevoApiKey && email) {
+    const environment = process.env.NODE_ENV || "production";
+    if (brevoApiKey && environment === "production" && email) {
       try {
         await fetch("https://api.brevo.com/v3/events", {
           method: "POST",

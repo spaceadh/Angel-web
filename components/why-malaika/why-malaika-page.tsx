@@ -251,12 +251,12 @@ export function WhyMalaikaPage() {
                 Build one coherent digital presence around the business you
                 already have.
               </p>
-              <TrackedWhatsappLink
+              <Link
+                href="/match?source=why_malaika"
                 className={styles.finalCta}
-                placement="why_malaika_final_cta"
               >
-                <FaWhatsapp /> &nbsp; Talk to Malaika →
-              </TrackedWhatsappLink>
+                Calculate Scope &amp; Pricing →
+              </Link>
             </div>
             <div className={styles.finalArt}>
               <img src={visual.src} alt="" />

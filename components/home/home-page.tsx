@@ -136,12 +136,12 @@ export function HomePage() {
               <Link className={styles.buttonDark} href="/what-we-do">
                 See what we do <FaLongArrowAltRight />
               </Link>
-              <TrackedWhatsappLink
+              <Link
+                href="/match?source=home_hero"
                 className={styles.buttonOutline}
-                placement="home_hero"
               >
-                <FaWhatsapp /> &nbsp; Talk to Malaika
-              </TrackedWhatsappLink>
+                Calculate Scope & Pricing →
+              </Link>
             </div>
             {/* <span className={`${styles.script} ${styles.heroScript}`}> */}
             {/* I make you */}
@@ -306,12 +306,9 @@ export function HomePage() {
               <div className={styles.sectionLabel}>Let&apos;s make you</div>
               <h2 className={styles.display}>LOOK GOOD.</h2>
               <p>Ready to build a digital presence that actually works?</p>
-              <TrackedWhatsappLink
-                className={styles.button}
-                placement="home_final_cta"
-              >
-                Talk to Malaika <FaArrowRight />
-              </TrackedWhatsappLink>
+              <Link href="/match?source=home_cta" className={styles.button}>
+                Get An Instant Estimate <FaArrowRight />
+              </Link>
             </div>
             <div className={styles.ctaArt}>
               <img
