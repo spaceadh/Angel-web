@@ -42,7 +42,8 @@ export async function POST(req: Request) {
           body: JSON.stringify({
             email: email.toLowerCase().trim(),
             attributes: {
-              MATCH_PRICE_RESPONSE: priceResponse
+              MATCH_PRICE_RESPONSE: priceResponse,
+              MATCH_PRICE_RESPONSE_AT: new Date().toISOString()
             },
             updateEnabled: true
           })

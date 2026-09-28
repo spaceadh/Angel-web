@@ -100,3 +100,41 @@ When completing any modification, task, or iteration in this codebase, the agent
   - Confirmed Brevo automation plan availability (Brevo Free Plan includes 2,000 automation contacts and 300 emails/day for free).
 - **Verification & Status:**
   - `pnpm build` verified — zero compilation or type errors.
+
+### [2026-09-28 06:17:00 +03:00] — Gemini 3.6 Flash / Antigravity (Lead AI Coding Assistant)
+
+- **Timestamp:** 2026-09-28T06:17:00+03:00
+- **Model / Assistant:** Gemini 3.6 Flash (Antigravity CLI)
+- **Role:** Lead AI Coding Assistant
+- **Task / Scope:** Implemented Brevo 3-branch email automation system for post-estimate price response follow-up. Enhanced price response API, built 3 branded HTML email templates, and authored full Brevo setup + verification guide.
+- **Files Modified / Created:**
+  - `app/api/match/response/route.ts` (Updated — added `MATCH_PRICE_RESPONSE_AT` timestamp to Brevo contact update)
+  - `docs/brevo-email-templates/good-start.html` (Created — `good_start` branch email)
+  - `docs/brevo-email-templates/shape-scope.html` (Created — `shape_scope` branch email)
+  - `docs/brevo-email-templates/not-right-yet.html` (Created — `not_right_yet` branch email)
+  - `docs/brevo-automation-setup.md` (Created — full Brevo setup + 8-step verification checklist)
+  - `AGENTS.md` (Updated)
+- **Key Decisions & Implementation Details:**
+  - Automation delays tuned to intent: `good_start` 1hr, `shape_scope` 30min, `not_right_yet` 2hrs.
+  - Brevo gated by `NODE_ENV === 'production'` — dev never pollutes contacts.
+  - Templates use `{{ params.variable_name }}` Brevo dynamic syntax mapped to stored contact attributes.
+- **Verification & Status:**
+  - `pnpm build` — exit code 0, zero errors.
+
+### [2026-09-28 06:26:00 +03:00] — Gemini 3.6 Flash / Antigravity (Lead AI Coding Assistant)
+
+- **Timestamp:** 2026-09-28T06:26:00+03:00
+- **Model / Assistant:** Gemini 3.6 Flash (Antigravity CLI)
+- **Role:** Lead AI Coding Assistant
+- **Task / Scope:** Enhanced HTML email templates styling with Malaika Studios vibrant brand color system, integrated official brand logo assets from `malaikastudios.rotsi.co.ke`, and updated static public assets.
+- **Files Modified / Created:**
+  - `public/malaika-full-logo.svg` (Created — copied from `assets/malaika-full-logo.svg` for public root serving)
+  - `docs/brevo-email-templates/good-start.html` (Updated — vibrant Malaika color palette `#2563ff`, `#ffd400`, `#ff5a5f`, `#101b1b`, hosted logo integration, styled score badge & recommendation card)
+  - `docs/brevo-email-templates/shape-scope.html` (Updated — vibrant color system, option cards with accent edges, logo integration, callout boxes)
+  - `docs/brevo-email-templates/not-right-yet.html` (Updated — vibrant brand accents, styled step cards, soft outline CTA button, logo header)
+  - `AGENTS.md` (Updated)
+- **Key Decisions & Implementation Details:**
+  - Integrated `https://malaikastudios.rotsi.co.ke/icon-512.png` and `https://malaikastudios.rotsi.co.ke/malaika-full-logo.svg` for cross-client email rendering compatibility.
+  - Aligned email template design token values with `app/globals.css`: Ink (`#101b1b`), Cream (`#f7f5ee`), Paper (`#fffdf8`), Electric Blue (`#2563ff`), Yellow (`#ffd400`), Coral (`#ff5a5f`), Green (`#16b88a`).
+- **Verification & Status:**
+  - `pnpm build` verified — exit code 0.
