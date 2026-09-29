@@ -26,6 +26,9 @@ export async function POST(req: Request) {
           body: JSON.stringify({
             event_name: "malaika_match_price_response",
             email: email.toLowerCase().trim(),
+            identifiers: {
+              email: email.toLowerCase().trim()
+            },
             event_properties: {
               price_response: priceResponse,
               match_session_id: sessionId

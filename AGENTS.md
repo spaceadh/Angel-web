@@ -138,3 +138,28 @@ When completing any modification, task, or iteration in this codebase, the agent
   - Aligned email template design token values with `app/globals.css`: Ink (`#101b1b`), Cream (`#f7f5ee`), Paper (`#fffdf8`), Electric Blue (`#2563ff`), Yellow (`#ffd400`), Coral (`#ff5a5f`), Green (`#16b88a`).
 - **Verification & Status:**
   - `pnpm build` verified — exit code 0.
+
+### [2026-09-28 13:20:00 +03:00] — Gemini 3.6 Flash / Antigravity (Lead AI Coding Assistant)
+
+- **Timestamp:** 2026-09-28T13:20:00+03:00
+- **Model / Assistant:** Gemini 3.6 Flash (Antigravity CLI)
+- **Role:** Lead AI Coding Assistant
+- **Task / Scope:** Enhanced Brevo v3 Events API payloads across match submit and price response endpoints to include both top-level `email` and nested `identifiers: { email }` objects for full compliance with Brevo's REST API schema.
+- **Files Modified / Created:**
+  - `app/api/match/route.ts` (Updated — added `identifiers: { email }` to `malaika_match_completed` event POST payload)
+  - `app/api/match/response/route.ts` (Updated — added `identifiers: { email }` to `malaika_match_price_response` event POST payload)
+  - `AGENTS.md` (Updated)
+- **Verification & Status:**
+  - `pnpm build` verified — exit code 0.
+
+### [2026-09-28 13:31:00 +03:00] — Gemini 3.6 Flash / Antigravity (Lead AI Coding Assistant)
+
+- **Timestamp:** 2026-09-28T13:31:00+03:00
+- **Model / Assistant:** Gemini 3.6 Flash (Antigravity CLI)
+- **Role:** Lead AI Coding Assistant
+- **Task / Scope:** Updated Brevo setup guide (`docs/brevo-automation-setup.md`) to document the Contact Attribute Updated trigger as the primary automation setup method.
+- **Files Modified / Created:**
+  - `docs/brevo-automation-setup.md` (Updated — Part 4 updated with exact step-by-step instructions for Contact Attribute Updated trigger across all 3 branches)
+  - `AGENTS.md` (Updated)
+- **Verification & Status:**
+  - Documentation updated and verified.

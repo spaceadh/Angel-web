@@ -75,6 +75,21 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@10..48,75..100,200..800&family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Version: 2.0
+              window.Brevo = window.Brevo || [];
+              Brevo.push([
+                "init",
+                {
+                  client_key: "v2b1m4jxleys2rcw6pf0bfqb",
+                },
+              ]);
+            `,
+          }}
+        />
       </head>
       <body>
         <JsonLd

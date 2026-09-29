@@ -90,6 +90,9 @@ export async function POST(req: Request) {
           body: JSON.stringify({
             event_name: "malaika_match_completed",
             email: contact.email.toLowerCase().trim(),
+            identifiers: {
+              email: contact.email.toLowerCase().trim()
+            },
             event_properties: {
               match_session_id: matchSessionId,
               score: result.score,
