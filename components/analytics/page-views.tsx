@@ -11,7 +11,8 @@ export function AnalyticsPageViews() {
   useEffect(() => {
     const handleReady = () => setIsAnalyticsReady(true);
     window.addEventListener("malaika:analytics-ready", handleReady);
-    return () => window.removeEventListener("malaika:analytics-ready", handleReady);
+    return () =>
+      window.removeEventListener("malaika:analytics-ready", handleReady);
   }, []);
 
   useEffect(() => {

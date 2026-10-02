@@ -85,10 +85,7 @@ export function OurWorkPage() {
                 covered.
               </p>
             </div>
-            <Link
-              href="/match?source=our_work"
-              className={styles.buttonDark}
-            >
+            <Link href="/match?source=our_work" className={styles.buttonDark}>
               Calculate Your Project Scope →
             </Link>
           </div>

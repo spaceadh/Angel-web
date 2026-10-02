@@ -19,15 +19,19 @@ export function MatchQuiz({
   answers,
   onSelectOption,
   onNext,
-  onBack
+  onBack,
 }: MatchQuizProps) {
   const currentQuestion = questions[currentIndex];
   const total = questions.length;
 
-  const currentAnswer = currentQuestion ? answers[currentQuestion.key] : undefined;
+  const currentAnswer = currentQuestion
+    ? answers[currentQuestion.key]
+    : undefined;
   const isMulti = currentQuestion?.multi;
   const selectedValues = isMulti
-    ? (Array.isArray(currentAnswer) ? currentAnswer : [])
+    ? Array.isArray(currentAnswer)
+      ? currentAnswer
+      : []
     : currentAnswer;
 
   useEffect(() => {
@@ -58,7 +62,8 @@ export function MatchQuiz({
       <div className={styles.quizWrap}>
         <div className={styles.progressRow}>
           <div className={styles.progressBadge}>
-            {String(currentIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            {String(currentIndex + 1).padStart(2, "0")} /{" "}
+            {String(total).padStart(2, "0")}
           </div>
           <div className={styles.progressTrack}>
             <div
@@ -66,7 +71,10 @@ export function MatchQuiz({
               style={{ width: `${progressPercent}%` }}
             />
           </div>
-          <div className={styles.tip} style={{ fontSize: "12px", fontWeight: 600 }}>
+          <div
+            className={styles.tip}
+            style={{ fontSize: "12px", fontWeight: 600 }}
+          >
             Question {currentIndex + 1} of {total}
           </div>
         </div>
@@ -76,9 +84,15 @@ export function MatchQuiz({
             Question {String(currentIndex + 1).padStart(2, "0")}
           </div>
           <h2 className={styles.question}>{currentQuestion.title}</h2>
-          {currentQuestion.help && <p className={styles.qHelp}>{currentQuestion.help}</p>}
+          {currentQuestion.help && (
+            <p className={styles.qHelp}>{currentQuestion.help}</p>
+          )}
 
-          <div className={styles.options} role="group" aria-label={currentQuestion.title}>
+          <div
+            className={styles.options}
+            role="group"
+            aria-label={currentQuestion.title}
+          >
             {currentQuestion.options.map((opt, idx) => {
               const isSelected = isMulti
                 ? (selectedValues as string[]).includes(opt.value)
@@ -89,7 +103,11 @@ export function MatchQuiz({
                   key={opt.value}
                   className={`${styles.option} ${isSelected ? styles.selected : ""}`}
                   onClick={() => {
-                    onSelectOption(currentQuestion.key, opt.value, currentQuestion.multi);
+                    onSelectOption(
+                      currentQuestion.key,
+                      opt.value,
+                      currentQuestion.multi,
+                    );
                     if (!currentQuestion.multi) {
                       onNext();
                     }
@@ -102,7 +120,9 @@ export function MatchQuiz({
                   </div>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <span className={styles.keyHint}>Key {idx + 1}</span>
-                    <span className={styles.optionArrow}>{isMulti ? "+" : "→"}</span>
+                    <span className={styles.optionArrow}>
+                      {isMulti ? "+" : "→"}
+                    </span>
                   </div>
                 </button>
               );
@@ -132,7 +152,9 @@ export function MatchQuiz({
               >
                 ← Back
               </button>
-              <div className={styles.tip}>💡 Press number keys or click an option</div>
+              <div className={styles.tip}>
+                💡 Press number keys or click an option
+              </div>
             </div>
           )}
         </div>

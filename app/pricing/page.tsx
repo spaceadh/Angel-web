@@ -5,7 +5,8 @@ import { absoluteUrl, site } from "@/lib/site";
 const url = absoluteUrl("/pricing");
 
 export const metadata: Metadata = {
-  title: "Pricing — Website Design, SEO & Digital Marketing in Kenya | Malaika Studios",
+  title:
+    "Pricing — Website Design, SEO & Digital Marketing in Kenya | Malaika Studios",
   description:
     "Transparent pricing for website design, email marketing, SEO, digital growth and social content in Nairobi, Kenya. Configurations from KSh 25,000. Get an instant estimate.",
   alternates: { canonical: url },

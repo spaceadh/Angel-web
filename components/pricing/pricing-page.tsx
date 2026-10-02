@@ -34,10 +34,14 @@ function buildJsonLd() {
           "@type": "LocalBusiness",
           name: site.name,
           url: site.url,
-          address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Nairobi",
+            addressCountry: "KE",
+          },
         },
-      }))
-    )
+      })),
+    ),
   );
 
   return {
@@ -68,7 +72,8 @@ export function PricingPage() {
         <div className={styles.container}>
           <p className={styles.kicker}>Malaika Studios / Pricing</p>
           <h1>
-            Transparent pricing<br />
+            Transparent pricing
+            <br />
             for <em>every</em> stage.
           </h1>
           <p className={styles.lede}>
@@ -77,7 +82,10 @@ export function PricingPage() {
             business, or browse everything below.
           </p>
           <div className={styles.heroActions}>
-            <Link href="/match?source=pricing_hero" className={styles.ctaPrimary}>
+            <Link
+              href="/match?source=pricing_hero"
+              className={styles.ctaPrimary}
+            >
               Get Your Instant Estimate →
             </Link>
             <a
@@ -149,7 +157,10 @@ export function PricingPage() {
                         }`}
                       >
                         {cfg.tag === "Recommended" && (
-                          <div className={styles.recBadge} aria-label="Recommended configuration">
+                          <div
+                            className={styles.recBadge}
+                            aria-label="Recommended configuration"
+                          >
                             ★ Recommended
                           </div>
                         )}
@@ -186,10 +197,13 @@ export function PricingPage() {
           <p className={styles.bottomKicker}>Not sure which fits?</p>
           <h2>Let the tool do the thinking.</h2>
           <p>
-            Answer 8 questions about your business and get a configuration
-            built for your brief — with a price to match.
+            Answer 8 questions about your business and get a configuration built
+            for your brief — with a price to match.
           </p>
-          <Link href="/match?source=pricing_bottom" className={styles.ctaPrimary}>
+          <Link
+            href="/match?source=pricing_bottom"
+            className={styles.ctaPrimary}
+          >
             Get Your Instant Estimate →
           </Link>
         </div>

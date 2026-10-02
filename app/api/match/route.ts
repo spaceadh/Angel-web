@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { calculateMatchResult, MatchAnswers, ContactInfo } from "@/lib/malaika-match/config";
+import {
+  calculateMatchResult,
+  MatchAnswers,
+  ContactInfo,
+} from "@/lib/malaika-match/config";
 
 export async function POST(req: Request) {
   try {
@@ -13,7 +17,7 @@ export async function POST(req: Request) {
     if (!contact || !contact.name || !contact.email) {
       return NextResponse.json(
         { error: "Please provide your name and a valid email address." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -24,15 +28,18 @@ export async function POST(req: Request) {
         const formData = new URLSearchParams();
         formData.append("secret", turnstileSecret);
         formData.append("response", turnstileToken);
-        const cfRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-          method: "POST",
-          body: formData
-        });
+        const cfRes = await fetch(
+          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
         const cfData = await cfRes.json();
         if (!cfData.success) {
           return NextResponse.json(
             { error: "Security check failed. Please try submitting again." },
-            { status: 400 }
+            { status: 400 },
           );
         }
       } catch (err) {
@@ -66,18 +73,18 @@ export async function POST(req: Request) {
             MATCH_CATEGORY: result.category,
             MATCH_ESTIMATE_RANGE: result.recommendation.price,
             MATCH_COMPLETED_AT: new Date().toISOString(),
-            MATCH_SESSION_ID: matchSessionId
+            MATCH_SESSION_ID: matchSessionId,
           },
-          updateEnabled: true
+          updateEnabled: true,
         };
 
         await fetch("https://api.brevo.com/v3/contacts", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "api-key": brevoApiKey
+            "api-key": brevoApiKey,
           },
-          body: JSON.stringify(brevoPayload)
+          body: JSON.stringify(brevoPayload),
         });
 
         // Track custom event in Brevo
@@ -85,22 +92,22 @@ export async function POST(req: Request) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "api-key": brevoApiKey
+            "api-key": brevoApiKey,
           },
           body: JSON.stringify({
             event_name: "malaika_match_completed",
             email: contact.email.toLowerCase().trim(),
             identifiers: {
-              email: contact.email.toLowerCase().trim()
+              email: contact.email.toLowerCase().trim(),
             },
             event_properties: {
               match_session_id: matchSessionId,
               score: result.score,
               category: result.category,
               recommendation_name: result.recommendation.name,
-              recommendation_price: result.recommendation.price
-            }
-          })
+              recommendation_price: result.recommendation.price,
+            },
+          }),
         }).catch(() => {});
       } catch (brevoErr) {
         console.warn("Brevo contact submission warning:", brevoErr);
@@ -110,13 +117,13 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       sessionId: matchSessionId,
-      result
+      result,
     });
   } catch (error) {
     console.error("Match submission API error:", error);
     return NextResponse.json(
       { error: "An unexpected error occurred while calculating your match." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -4,7 +4,6 @@ export { CONFIGS, LABELS } from "@/lib/pricing";
 import { CONFIGS, LABELS } from "@/lib/pricing";
 import type { OfferingKey, BudgetBandId } from "@/lib/pricing";
 
-
 export interface MatchOption {
   value: string;
   label: string;
@@ -88,21 +87,41 @@ export const BASE_QUESTIONS: Question[] = [
       { value: "retail", label: "Retail & Products" },
       { value: "wellness", label: "Wellness & Lifestyle" },
       { value: "creative", label: "Creative & Cultural" },
-      { value: "other", label: "Other" }
-    ]
+      { value: "other", label: "Other" },
+    ],
   },
   {
     key: "offering",
     title: "What would you like Malaika to help you improve?",
     help: "Pick the area where you’d like to make the biggest difference.",
     options: [
-      { value: "website", label: "Websites & Digital Experiences", description: "Build or improve the digital experience." },
-      { value: "email", label: "Email & Retention", description: "Turn attention into repeat business." },
-      { value: "seo", label: "SEO & Search Presence", description: "Help the right people find you." },
-      { value: "growth", label: "Digital Growth & Automation", description: "Connect leads, conversations and follow-up." },
-      { value: "social", label: "Social & Content", description: "Build a stronger, more consistent presence." }
-    ]
-  }
+      {
+        value: "website",
+        label: "Websites & Digital Experiences",
+        description: "Build or improve the digital experience.",
+      },
+      {
+        value: "email",
+        label: "Email & Retention",
+        description: "Turn attention into repeat business.",
+      },
+      {
+        value: "seo",
+        label: "SEO & Search Presence",
+        description: "Help the right people find you.",
+      },
+      {
+        value: "growth",
+        label: "Digital Growth & Automation",
+        description: "Connect leads, conversations and follow-up.",
+      },
+      {
+        value: "social",
+        label: "Social & Content",
+        description: "Build a stronger, more consistent presence.",
+      },
+    ],
+  },
 ];
 
 export const OFFERING_QUESTIONS: Record<string, Question[]> = {
@@ -116,8 +135,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "redesign", label: "An existing website needs a redesign" },
         { value: "improve", label: "An existing website needs improvement" },
         { value: "store", label: "An online store / e-commerce experience" },
-        { value: "custom", label: "Something more custom" }
-      ]
+        { value: "custom", label: "Something more custom" },
+      ],
     },
     {
       key: "websiteOutcome",
@@ -129,8 +148,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "bookings", label: "Drive bookings" },
         { value: "sell", label: "Sell products" },
         { value: "trust", label: "Build trust and authority" },
-        { value: "growth", label: "Become a serious digital growth channel" }
-      ]
+        { value: "growth", label: "Become a serious digital growth channel" },
+      ],
     },
     {
       key: "websiteNeeds",
@@ -148,9 +167,9 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "content", label: "Blog / content" },
         { value: "analytics", label: "Analytics" },
         { value: "seo", label: "Search visibility" },
-        { value: "interactions", label: "Custom interactions" }
-      ]
-    }
+        { value: "interactions", label: "Custom interactions" },
+      ],
+    },
   ],
   email: [
     {
@@ -162,8 +181,11 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "list", label: "We have a list but rarely use it" },
         { value: "manual", label: "We send campaigns manually" },
         { value: "automation", label: "We already have automated emails" },
-        { value: "improve", label: "We have a system but it needs improvement" }
-      ]
+        {
+          value: "improve",
+          label: "We have a system but it needs improvement",
+        },
+      ],
     },
     {
       key: "emailGoal",
@@ -173,10 +195,13 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "campaigns", label: "Run better campaigns" },
         { value: "retention", label: "Improve customer retention" },
         { value: "followup", label: "Automate follow-up" },
-        { value: "newsletter", label: "Build a newsletter / regular communication" },
+        {
+          value: "newsletter",
+          label: "Build a newsletter / regular communication",
+        },
         { value: "promotion", label: "Promote products or services" },
-        { value: "reengage", label: "Re-engage inactive customers" }
-      ]
+        { value: "reengage", label: "Re-engage inactive customers" },
+      ],
     },
     {
       key: "emailScope",
@@ -190,9 +215,9 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "campaigns", label: "Campaign production" },
         { value: "automation", label: "Automation" },
         { value: "reporting", label: "Reporting" },
-        { value: "optimisation", label: "Optimisation" }
-      ]
-    }
+        { value: "optimisation", label: "Optimisation" },
+      ],
+    },
   ],
   seo: [
     {
@@ -206,8 +231,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "products", label: "Specific products" },
         { value: "locations", label: "Specific locations" },
         { value: "discovery", label: "AI / search discovery" },
-        { value: "brand", label: "General brand visibility" }
-      ]
+        { value: "brand", label: "General brand visibility" },
+      ],
     },
     {
       key: "seoFoundation",
@@ -218,8 +243,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "search-console", label: "Google Search Console" },
         { value: "gbp", label: "Google Business Profile" },
         { value: "content", label: "Existing search content" },
-        { value: "seo", label: "An existing SEO programme" }
-      ]
+        { value: "seo", label: "An existing SEO programme" },
+      ],
     },
     {
       key: "seoFocus",
@@ -232,9 +257,9 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "keywords", label: "Keyword research" },
         { value: "local", label: "Local SEO" },
         { value: "content", label: "Content" },
-        { value: "competitors", label: "Competitor analysis" }
-      ]
-    }
+        { value: "competitors", label: "Competitor analysis" },
+      ],
+    },
   ],
   growth: [
     {
@@ -248,8 +273,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "whatsapp", label: "WhatsApp" },
         { value: "google", label: "Google" },
         { value: "email", label: "Email" },
-        { value: "multiple", label: "Multiple channels" }
-      ]
+        { value: "multiple", label: "Multiple channels" },
+      ],
     },
     {
       key: "growthDropoff",
@@ -260,8 +285,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "followup", label: "After enquiry / during follow-up" },
         { value: "booking", label: "During booking" },
         { value: "purchase", label: "After purchase" },
-        { value: "unknown", label: "We’re not sure yet" }
-      ]
+        { value: "unknown", label: "We’re not sure yet" },
+      ],
     },
     {
       key: "growthConnect",
@@ -276,9 +301,9 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "crm", label: "CRM" },
         { value: "booking", label: "Booking" },
         { value: "analytics", label: "Analytics" },
-        { value: "notifications", label: "Lead notifications" }
-      ]
-    }
+        { value: "notifications", label: "Lead notifications" },
+      ],
+    },
   ],
   social: [
     {
@@ -291,8 +316,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "authority", label: "Authority and trust" },
         { value: "leads", label: "Lead generation" },
         { value: "campaigns", label: "Campaigns" },
-        { value: "promotion", label: "Product / service promotion" }
-      ]
+        { value: "promotion", label: "Product / service promotion" },
+      ],
     },
     {
       key: "socialSupport",
@@ -306,8 +331,8 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "copy", label: "Copywriting" },
         { value: "publishing", label: "Publishing" },
         { value: "campaigns", label: "Campaigns" },
-        { value: "reporting", label: "Reporting" }
-      ]
+        { value: "reporting", label: "Reporting" },
+      ],
     },
     {
       key: "socialPlatforms",
@@ -319,10 +344,10 @@ export const OFFERING_QUESTIONS: Record<string, Question[]> = {
         { value: "facebook", label: "Facebook" },
         { value: "linkedin", label: "LinkedIn" },
         { value: "x", label: "X" },
-        { value: "multiple", label: "Multiple platforms" }
-      ]
-    }
-  ]
+        { value: "multiple", label: "Multiple platforms" },
+      ],
+    },
+  ],
 };
 
 export const COMMON_QUESTIONS: Question[] = [
@@ -331,11 +356,21 @@ export const COMMON_QUESTIONS: Question[] = [
     title: "How far do you want to take this?",
     help: "There’s no right answer. This simply tells us how much depth to design for.",
     options: [
-      { value: "foundation", label: "Foundation — get the essentials working properly." },
+      {
+        value: "foundation",
+        label: "Foundation — get the essentials working properly.",
+      },
       { value: "growth", label: "Growth — actively support the business." },
-      { value: "strategic", label: "Strategic — connect the work to a larger growth system." },
-      { value: "distinctive", label: "Distinctive — push the experience, sophistication and impact further." }
-    ]
+      {
+        value: "strategic",
+        label: "Strategic — connect the work to a larger growth system.",
+      },
+      {
+        value: "distinctive",
+        label:
+          "Distinctive — push the experience, sophistication and impact further.",
+      },
+    ],
   },
   {
     key: "timeline",
@@ -345,8 +380,8 @@ export const COMMON_QUESTIONS: Question[] = [
       { value: "exploring", label: "Just exploring" },
       { value: "three-months", label: "Within the next 3 months" },
       { value: "one-month", label: "Within the next 30 days" },
-      { value: "ready", label: "Ready to start" }
-    ]
+      { value: "ready", label: "Ready to start" },
+    ],
   },
   {
     key: "budget",
@@ -357,12 +392,15 @@ export const COMMON_QUESTIONS: Question[] = [
       { value: "50-100", label: "KSh 50k – 100k" },
       { value: "100-200", label: "KSh 100k – 200k" },
       { value: "200+", label: "KSh 200k+" },
-      { value: "unsure", label: "I’m not sure yet — I need guidance" }
-    ]
-  }
+      { value: "unsure", label: "I’m not sure yet — I need guidance" },
+    ],
+  },
 ];
 
-export function scoreMatch(a: MatchAnswers): { score: number; category: string } {
+export function scoreMatch(a: MatchAnswers): {
+  score: number;
+  category: string;
+} {
   let score = 70;
   if (a.offering) score += 6;
   if (a.business && a.business !== "other") score += 4;
@@ -372,35 +410,99 @@ export function scoreMatch(a: MatchAnswers): { score: number; category: string }
   if (a.timeline === "ready") score += 4;
   if (a.timeline === "one-month") score += 3;
   if (a.budget && a.budget !== "unsure") score += 4;
-  const multiCount = (a.websiteNeeds || a.emailScope || a.seoFocus || a.growthConnect || a.socialSupport || []).length;
+  const multiCount = (
+    a.websiteNeeds ||
+    a.emailScope ||
+    a.seoFocus ||
+    a.growthConnect ||
+    a.socialSupport ||
+    []
+  ).length;
   if (multiCount >= 3) score += 3;
-  
+
   const finalScore = Math.min(99, Math.max(35, score));
-  const category = finalScore >= 85 ? "Strong Match" : finalScore >= 70 ? "Good Match" : finalScore >= 55 ? "Potential Match" : "Let's Talk First";
+  const category =
+    finalScore >= 85
+      ? "Strong Match"
+      : finalScore >= 70
+        ? "Good Match"
+        : finalScore >= 55
+          ? "Potential Match"
+          : "Let's Talk First";
   return { score: finalScore, category };
 }
 
 export function offeringOutcome(a: MatchAnswers): string {
   const maps: Record<string, Record<string, string>> = {
-    website: { new: "New website", redesign: "Website redesign", improve: "Website improvement", store: "E-commerce experience", custom: "Custom digital experience" },
-    email: { campaigns: "Email campaigns", retention: "Customer retention", followup: "Automated follow-up", newsletter: "Regular communication", promotion: "Product / service promotion", reengage: "Re-engagement" },
-    seo: { google: "Google visibility", local: "Local search", services: "Service visibility", products: "Product visibility", locations: "Location visibility", discovery: "AI / search discovery", brand: "Brand visibility" },
-    growth: { enquiry: "Lead journey", followup: "Lead follow-up", booking: "Booking journey", purchase: "Customer journey", unknown: "Conversion journey" },
-    social: { consistent: "Consistent presence", awareness: "Brand awareness", authority: "Authority & trust", leads: "Lead generation", campaigns: "Campaigns", promotion: "Product / service promotion" }
+    website: {
+      new: "New website",
+      redesign: "Website redesign",
+      improve: "Website improvement",
+      store: "E-commerce experience",
+      custom: "Custom digital experience",
+    },
+    email: {
+      campaigns: "Email campaigns",
+      retention: "Customer retention",
+      followup: "Automated follow-up",
+      newsletter: "Regular communication",
+      promotion: "Product / service promotion",
+      reengage: "Re-engagement",
+    },
+    seo: {
+      google: "Google visibility",
+      local: "Local search",
+      services: "Service visibility",
+      products: "Product visibility",
+      locations: "Location visibility",
+      discovery: "AI / search discovery",
+      brand: "Brand visibility",
+    },
+    growth: {
+      enquiry: "Lead journey",
+      followup: "Lead follow-up",
+      booking: "Booking journey",
+      purchase: "Customer journey",
+      unknown: "Conversion journey",
+    },
+    social: {
+      consistent: "Consistent presence",
+      awareness: "Brand awareness",
+      authority: "Authority & trust",
+      leads: "Lead generation",
+      campaigns: "Campaigns",
+      promotion: "Product / service promotion",
+    },
   };
-  const keyMap: Record<string, string> = { website: "websiteOutcome", email: "emailGoal", seo: "seoVisibility", growth: "growthDropoff", social: "socialGoal" };
+  const keyMap: Record<string, string> = {
+    website: "websiteOutcome",
+    email: "emailGoal",
+    seo: "seoVisibility",
+    growth: "growthDropoff",
+    social: "socialGoal",
+  };
   const keyName = a.offering ? keyMap[a.offering] : undefined;
   const ansValue = keyName ? (a[keyName] as string) : undefined;
-  
-  if (a.offering && maps[a.offering] && ansValue && maps[a.offering][ansValue]) {
+
+  if (
+    a.offering &&
+    maps[a.offering] &&
+    ansValue &&
+    maps[a.offering][ansValue]
+  ) {
     return maps[a.offering][ansValue];
   }
-  return a.offering ? LABELS.offering[a.offering as keyof typeof LABELS.offering] || "your project" : "your project";
+  return a.offering
+    ? LABELS.offering[a.offering as keyof typeof LABELS.offering] ||
+        "your project"
+    : "your project";
 }
 
 export function buildConfigs(a: MatchAnswers): ConfigItem[] {
   const offering = (a.offering || "website") as OfferingKey;
-  const budget = ((a.budget && a.budget !== "unsure") ? a.budget : "50-100") as BudgetBandId;
+  const budget = (
+    a.budget && a.budget !== "unsure" ? a.budget : "50-100"
+  ) as BudgetBandId;
   const categoryConfigs = CONFIGS[offering] ?? CONFIGS.website;
   const list = categoryConfigs[budget] ?? categoryConfigs["50-100"];
 
@@ -408,17 +510,21 @@ export function buildConfigs(a: MatchAnswers): ConfigItem[] {
     name: x[0],
     price: x[1],
     items: x[2],
-    tag: i === 1 ? "Recommended" : i === 0 ? "Essential" : "Expanded"
+    tag: i === 1 ? "Recommended" : i === 0 ? "Essential" : "Expanded",
   }));
 }
 
 export function getRecommendationCopy(a: MatchAnswers): string {
   const names: Record<string, string> = {
-    website: "This gives your digital presence enough room to communicate clearly, support conversion and measure what happens after people arrive.",
-    email: "This gives your retention system enough room to move beyond isolated campaigns and start supporting repeat engagement.",
+    website:
+      "This gives your digital presence enough room to communicate clearly, support conversion and measure what happens after people arrive.",
+    email:
+      "This gives your retention system enough room to move beyond isolated campaigns and start supporting repeat engagement.",
     seo: "This gives your search presence enough room to build a real foundation while focusing on the visibility you actually want.",
-    growth: "This gives the customer journey enough room to connect the important touchpoints without adding automation for its own sake.",
-    social: "This gives your content presence enough room to establish a clear direction and produce consistently without turning it into noise."
+    growth:
+      "This gives the customer journey enough room to connect the important touchpoints without adding automation for its own sake.",
+    social:
+      "This gives your content presence enough room to establish a clear direction and produce consistently without turning it into noise.",
   };
   return a.offering && names[a.offering] ? names[a.offering] : names.website;
 }
@@ -429,7 +535,7 @@ export function getRecommendationReasons(a: MatchAnswers): string[] {
     `Built around your objective (${outcome})`,
     "Designed for clarity and customer conversion",
     "Measurement framework to track outcomes",
-    "Room for refinement without unnecessary complexity"
+    "Room for refinement without unnecessary complexity",
   ];
   if (a.ambition === "distinctive") {
     reasons[3] = "Scope to build a distinctive digital presence";
@@ -437,20 +543,32 @@ export function getRecommendationReasons(a: MatchAnswers): string[] {
   return reasons;
 }
 
-export function calculateMatchResult(answers: MatchAnswers): MatchResultPayload {
+export function calculateMatchResult(
+  answers: MatchAnswers,
+): MatchResultPayload {
   const { score, category } = scoreMatch(answers);
   const configs = buildConfigs(answers);
   const recommendation = configs[1] || configs[0];
-  const offering = answers.offering ? LABELS.offering[answers.offering as keyof typeof LABELS.offering] || "your project" : "your project";
-  const business = answers.business ? LABELS.business[answers.business as keyof typeof LABELS.business] || "your business" : "your business";
+  const offering = answers.offering
+    ? LABELS.offering[answers.offering as keyof typeof LABELS.offering] ||
+      "your project"
+    : "your project";
+  const business = answers.business
+    ? LABELS.business[answers.business as keyof typeof LABELS.business] ||
+      "your business"
+    : "your business";
   const outcome = offeringOutcome(answers);
-  const investment = answers.budget ? LABELS.budget[answers.budget as keyof typeof LABELS.budget] || "Not sure yet" : "Not sure yet";
+  const investment = answers.budget
+    ? LABELS.budget[answers.budget as keyof typeof LABELS.budget] ||
+      "Not sure yet"
+    : "Not sure yet";
 
-  const headline = score >= 80 
-    ? 'Looks like you’re building something <span class="blue">great.</span>' 
-    : score >= 60 
-    ? 'This looks <span class="blue">promising.</span>' 
-    : 'There’s something to <span class="blue">explore here.</span>';
+  const headline =
+    score >= 80
+      ? 'Looks like you’re building something <span class="blue">great.</span>'
+      : score >= 60
+        ? 'This looks <span class="blue">promising.</span>'
+        : 'There’s something to <span class="blue">explore here.</span>';
 
   const lede = `We understood what you’re trying to improve, what success looks like and how far you want to take it. Here’s what we’d build around your brief.`;
 
@@ -459,7 +577,10 @@ export function calculateMatchResult(answers: MatchAnswers): MatchResultPayload 
   const recSpecs: Array<[string, string]> = [
     [recommendation.items[0] || "Custom Scope", "Scope & Deliverables"],
     [recommendation.items[1] || "Custom Depth", "Structure & Depth"],
-    [recommendation.items[3] || recommendation.items[2] || "Included", "Analytics & Tracking"]
+    [
+      recommendation.items[3] || recommendation.items[2] || "Included",
+      "Analytics & Tracking",
+    ],
   ];
 
   const whatsappText = `Hi Malaika Studios, I completed The Malaika Match! Score: ${score}%. Focus: ${offering}. Recommended configuration: ${recommendation.name} (${recommendation.price}). I'd like to talk about the project and refine the scope.`;
@@ -474,13 +595,13 @@ export function calculateMatchResult(answers: MatchAnswers): MatchResultPayload 
       business,
       offering,
       outcome,
-      investment
+      investment,
     },
     configs,
     recommendation,
     recommendationCopy: recCopy,
     recommendationReasons: recReasons,
     recommendationSpecs: recSpecs,
-    whatsappUrl
+    whatsappUrl,
   };
 }

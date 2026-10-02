@@ -9,7 +9,10 @@ interface MatchContactProps {
   isSubmitting?: boolean;
 }
 
-export function MatchContact({ onSubmitContact, isSubmitting = false }: MatchContactProps) {
+export function MatchContact({
+  onSubmitContact,
+  isSubmitting = false,
+}: MatchContactProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -30,7 +33,7 @@ export function MatchContact({ onSubmitContact, isSubmitting = false }: MatchCon
     onSubmitContact({
       name: name.trim(),
       email: email.trim(),
-      phone: phone.trim() || undefined
+      phone: phone.trim() || undefined,
     });
   }
 
@@ -39,13 +42,19 @@ export function MatchContact({ onSubmitContact, isSubmitting = false }: MatchCon
       <div className={`${styles.transitionWrap} ${styles.fadeIn}`}>
         <div className={styles.qKicker}>ALMOST THERE</div>
         <h2>
-          Where should we send your <span style={{ color: "var(--blue, #2563ff)" }}>match details?</span>
+          Where should we send your{" "}
+          <span style={{ color: "var(--blue, #2563ff)" }}>match details?</span>
         </h2>
         <p>
-          We’ve calculated your project fit score and shaped three build options around your brief. Tell us who you are so we can reveal your breakdown.
+          We’ve calculated your project fit score and shaped three build options
+          around your brief. Tell us who you are so we can reveal your
+          breakdown.
         </p>
 
-        <form className={`${styles.form} ${isShaking ? styles.shake : ""}`} onSubmit={handleSubmit}>
+        <form
+          className={`${styles.form} ${isShaking ? styles.shake : ""}`}
+          onSubmit={handleSubmit}
+        >
           <div className={styles.field}>
             <label htmlFor="name">Your Name *</label>
             <input
@@ -84,11 +93,18 @@ export function MatchContact({ onSubmitContact, isSubmitting = false }: MatchCon
           {error && <div className={styles.error}>{error}</div>}
 
           <div className={styles.submitRow}>
-            <button type="submit" className={styles.cta} disabled={isSubmitting}>
-              {isSubmitting ? "Calculating Match..." : "Reveal My Match Results →"}
+            <button
+              type="submit"
+              className={styles.cta}
+              disabled={isSubmitting}
+            >
+              {isSubmitting
+                ? "Calculating Match..."
+                : "Reveal My Match Results →"}
             </button>
             <div className={styles.micro} style={{ justifyContent: "center" }}>
-              <span>🔒</span> We’ll email you a summary copy of your results as well.
+              <span>🔒</span> We’ll email you a summary copy of your results as
+              well.
             </div>
           </div>
         </form>

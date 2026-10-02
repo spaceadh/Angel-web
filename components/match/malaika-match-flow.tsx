@@ -8,7 +8,7 @@ import {
   Question,
   MatchAnswers,
   ContactInfo,
-  MatchResultPayload
+  MatchResultPayload,
 } from "@/lib/malaika-match/config";
 import { MatchHero } from "./match-hero";
 import { MatchQuiz } from "./match-quiz";
@@ -61,12 +61,19 @@ export function MalaikaMatchFlow() {
   const questions: Question[] = [
     ...BASE_QUESTIONS,
     ...(answers.offering ? OFFERING_QUESTIONS[answers.offering] || [] : []),
-    ...COMMON_QUESTIONS
+    ...COMMON_QUESTIONS,
   ];
 
   function trackGaEvent(eventName: string, params?: Record<string, unknown>) {
-    if (typeof window !== "undefined" && (window as unknown as { gtag?: Function }).gtag) {
-      (window as unknown as { gtag: Function }).gtag("event", eventName, params);
+    if (
+      typeof window !== "undefined" &&
+      (window as unknown as { gtag?: Function }).gtag
+    ) {
+      (window as unknown as { gtag: Function }).gtag(
+        "event",
+        eventName,
+        params,
+      );
     }
   }
 
@@ -79,7 +86,9 @@ export function MalaikaMatchFlow() {
   function handleSelectOption(key: string, value: string, isMulti?: boolean) {
     setAnswers((prev) => {
       if (isMulti) {
-        const currentArr = Array.isArray(prev[key]) ? (prev[key] as string[]) : [];
+        const currentArr = Array.isArray(prev[key])
+          ? (prev[key] as string[])
+          : [];
         const nextArr = currentArr.includes(value)
           ? currentArr.filter((v) => v !== value)
           : [...currentArr, value];
@@ -92,7 +101,7 @@ export function MalaikaMatchFlow() {
   function handleNextQuestion() {
     trackGaEvent("match_question_completed", {
       question_index: currentIndex,
-      total_questions: questions.length
+      total_questions: questions.length,
     });
 
     if (currentIndex < questions.length - 1) {
@@ -119,8 +128,8 @@ export function MalaikaMatchFlow() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             answers,
-            contact: contactData
-          })
+            contact: contactData,
+          }),
         });
 
         const data = await res.json();
@@ -130,17 +139,22 @@ export function MalaikaMatchFlow() {
           setScreen("result");
           trackGaEvent("match_result_revealed", {
             score: data.result.score,
-            category: data.result.category
+            category: data.result.category,
           });
           try {
             localStorage.removeItem(STORAGE_KEY);
           } catch {}
         } else {
-          alert(data.error || "Something went wrong calculating your match. Please try again.");
+          alert(
+            data.error ||
+              "Something went wrong calculating your match. Please try again.",
+          );
         }
       } catch (err) {
         console.error("Match submission error:", err);
-        alert("Unable to complete submission right now. Please check your network and try again.");
+        alert(
+          "Unable to complete submission right now. Please check your network and try again.",
+        );
       }
     });
   }
@@ -157,14 +171,20 @@ export function MalaikaMatchFlow() {
   }
 
   function handlePriceResponse(responseKey: string) {
-    trackGaEvent("match_price_response_selected", { price_response: responseKey });
+    trackGaEvent("match_price_response_selected", {
+      price_response: responseKey,
+    });
   }
 
   return (
     <div className={styles.shell}>
       <header className={styles.topbar}>
         <a href="/" className={styles.brand} aria-label="Malaika Studios home">
-          <img src={logo.src} alt="Malaika Studios" className={styles.brandLogo} />
+          <img
+            src={logo.src}
+            alt="Malaika Studios"
+            className={styles.brandLogo}
+          />
         </a>
         <div className={styles.topNote}>The Malaika Match</div>
       </header>

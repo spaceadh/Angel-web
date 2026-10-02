@@ -17,7 +17,7 @@ export function MatchResult({
   contactEmail,
   sessionId,
   onRestart,
-  onSelectPriceResponse
+  onSelectPriceResponse,
 }: MatchResultProps) {
   const [selectedResponse, setSelectedResponse] = useState<string | null>(null);
   const [responseLogged, setResponseLogged] = useState(false);
@@ -25,7 +25,7 @@ export function MatchResult({
   const priceResponseOptions = [
     { key: "good_start", label: "That feels like a good place to start" },
     { key: "shape_scope", label: "We’re close — can we shape the scope?" },
-    { key: "not_right_yet", label: "Not quite right for us yet" }
+    { key: "not_right_yet", label: "Not quite right for us yet" },
   ];
 
   async function handleResponseClick(key: string) {
@@ -42,8 +42,8 @@ export function MatchResult({
           body: JSON.stringify({
             email: contactEmail,
             priceResponse: key,
-            sessionId
-          })
+            sessionId,
+          }),
         });
       } catch (err) {
         console.warn("Failed to submit price response event:", err);
@@ -64,7 +64,10 @@ export function MatchResult({
               <h2 dangerouslySetInnerHTML={{ __html: result.headline }} />
               <p className={styles.revealLede}>{result.lede}</p>
             </div>
-            <div className={styles.matchScoreArt} aria-label="Malaika Match score">
+            <div
+              className={styles.matchScoreArt}
+              aria-label="Malaika Match score"
+            >
               <span className={styles.score}>{result.score}%</span>
               <span className={styles.scoreLabel}>{result.category}</span>
               <div className={styles.scribble} />
@@ -77,10 +80,12 @@ export function MatchResult({
               <i /> 02 · We understood your brief
             </div>
             <h3 className={styles.briefHeading}>
-              Here's what we know about <span className="blue">{result.brief.business}.</span>
+              Here's what we know about{" "}
+              <span className="blue">{result.brief.business}.</span>
             </h3>
             <p className={styles.briefSub}>
-              You told us what you're building. We translated that into a practical direction.
+              You told us what you're building. We translated that into a
+              practical direction.
             </p>
             <div className={styles.briefGrid}>
               <div className={styles.briefItem}>
@@ -113,7 +118,9 @@ export function MatchResult({
             </div>
             <div className={styles.configHeading}>
               <h3>Three tailored configurations.</h3>
-              <p>Same goal. Different levels of scope, detail and investment.</p>
+              <p>
+                Same goal. Different levels of scope, detail and investment.
+              </p>
             </div>
             <div className={styles.configGrid}>
               {result.configs.map((c, i) => {
@@ -123,7 +130,11 @@ export function MatchResult({
                     key={c.name}
                     className={`${styles.configCard} ${isRec ? styles.recommended : ""}`}
                   >
-                    {isRec && <span className={styles.recommendedBadge}>Recommended</span>}
+                    {isRec && (
+                      <span className={styles.recommendedBadge}>
+                        Recommended
+                      </span>
+                    )}
                     <div className={styles.configNum}>0{i + 1}</div>
                     <h4>{c.name}</h4>
                     <div className={styles.configPrice}>{c.price}</div>
@@ -131,8 +142,8 @@ export function MatchResult({
                       {i === 0
                         ? "The smallest sensible version."
                         : i === 1
-                        ? "The balanced version for your brief."
-                        : "More depth, sophistication and room to grow."}
+                          ? "The balanced version for your brief."
+                          : "More depth, sophistication and room to grow."}
                     </div>
                     <ul className={styles.configList}>
                       {c.items.map((item) => (
@@ -156,7 +167,9 @@ export function MatchResult({
                 <h3 className={styles.recTitle}>
                   {result.recommendation.name}
                   <br />
-                  <span className={styles.recPrice}>{result.recommendation.price}</span>
+                  <span className={styles.recPrice}>
+                    {result.recommendation.price}
+                  </span>
                 </h3>
                 <p className={styles.recCopy}>{result.recommendationCopy}</p>
               </div>
@@ -188,7 +201,9 @@ export function MatchResult({
             <h3>
               This feels like the <span className="blue">right direction.</span>
             </h3>
-            <p>Let's talk about the project and fine-tune the details together.</p>
+            <p>
+              Let's talk about the project and fine-tune the details together.
+            </p>
 
             <div className={styles.resultActions}>
               <a
@@ -199,14 +214,20 @@ export function MatchResult({
               >
                 Start the conversation →
               </a>
-              <button className={styles.secondaryBtn} onClick={onRestart} type="button">
+              <button
+                className={styles.secondaryBtn}
+                onClick={onRestart}
+                type="button"
+              >
                 Start over
               </button>
             </div>
 
             {/* Price response choices */}
             <div className={styles.priceResponses}>
-              <span className={styles.respTitle}>How does this direction feel to you?</span>
+              <span className={styles.respTitle}>
+                How does this direction feel to you?
+              </span>
               <div className={styles.respBtns}>
                 {priceResponseOptions.map((opt) => (
                   <button
@@ -223,7 +244,9 @@ export function MatchResult({
               </div>
             </div>
 
-            <p className={styles.finalNote}>No commitment. Just a conversation about the project.</p>
+            <p className={styles.finalNote}>
+              No commitment. Just a conversation about the project.
+            </p>
           </section>
         </div>
       </div>

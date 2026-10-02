@@ -33,17 +33,14 @@ export function PricingNav({ offerings }: PricingNavProps) {
       {
         threshold: 0,
         rootMargin: "-61px 0px -55% 0px",
-      }
+      },
     );
 
     sections.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [offerings]);
 
-  function handleClick(
-    e: React.MouseEvent<HTMLAnchorElement>,
-    key: string
-  ) {
+  function handleClick(e: React.MouseEvent<HTMLAnchorElement>, key: string) {
     e.preventDefault();
     const el = document.getElementById(`section-${key}`);
     if (el) {

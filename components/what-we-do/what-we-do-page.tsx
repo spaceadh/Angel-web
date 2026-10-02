@@ -262,10 +262,7 @@ export function WhatWeDoPage() {
               </div>
               <h2 className={styles.display}>LET&apos;S MAKE IT LOOK GOOD.</h2>
               <p>Ready to build a digital presence that actually works?</p>
-              <Link
-                href="/match?source=what_we_do"
-                className={styles.finalCta}
-              >
+              <Link href="/match?source=what_we_do" className={styles.finalCta}>
                 Get An Instant Estimate →
               </Link>
             </div>

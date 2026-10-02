@@ -14,11 +14,15 @@ export function MatchHero({ onStart }: MatchHeroProps) {
           <i /> The Malaika Match
         </div>
         <h1 className={styles.heroTitle}>
-          Are we a <span className={styles.accent}>match</span> for your project?
+          Are we a <span className={styles.accent}>match</span> for your
+          project?
           <span className={styles.scriptNote}>let's find out</span>
         </h1>
         <p className={styles.lede}>
-          Answer a few focused questions about what you’re building, what success looks like and the investment territory you’re comfortable working within. We’ll calculate your match score and shape three realistic ways to build it.
+          Answer a few focused questions about what you’re building, what
+          success looks like and the investment territory you’re comfortable
+          working within. We’ll calculate your match score and shape three
+          realistic ways to build it.
         </p>
 
         <div className={styles.heroFeatures}>
@@ -37,7 +41,8 @@ export function MatchHero({ onStart }: MatchHeroProps) {
           Start The Malaika Match →
         </button>
         <div className={styles.micro}>
-          <span>🔒</span> Your information is safe. We use your details strictly to share your results.
+          <span>🔒</span> Your information is safe. We use your details strictly
+          to share your results.
         </div>
       </div>
     </section>

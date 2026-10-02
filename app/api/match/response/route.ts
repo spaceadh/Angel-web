@@ -10,7 +10,10 @@ export async function POST(req: Request) {
     };
 
     if (!priceResponse) {
-      return NextResponse.json({ error: "Response key is required." }, { status: 400 });
+      return NextResponse.json(
+        { error: "Response key is required." },
+        { status: 400 },
+      );
     }
 
     const brevoApiKey = process.env.BREVO_API_KEY;
@@ -21,35 +24,35 @@ export async function POST(req: Request) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "api-key": brevoApiKey
+            "api-key": brevoApiKey,
           },
           body: JSON.stringify({
             event_name: "malaika_match_price_response",
             email: email.toLowerCase().trim(),
             identifiers: {
-              email: email.toLowerCase().trim()
+              email: email.toLowerCase().trim(),
             },
             event_properties: {
               price_response: priceResponse,
-              match_session_id: sessionId
-            }
-          })
+              match_session_id: sessionId,
+            },
+          }),
         });
 
         await fetch("https://api.brevo.com/v3/contacts", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "api-key": brevoApiKey
+            "api-key": brevoApiKey,
           },
           body: JSON.stringify({
             email: email.toLowerCase().trim(),
             attributes: {
               MATCH_PRICE_RESPONSE: priceResponse,
-              MATCH_PRICE_RESPONSE_AT: new Date().toISOString()
+              MATCH_PRICE_RESPONSE_AT: new Date().toISOString(),
             },
-            updateEnabled: true
-          })
+            updateEnabled: true,
+          }),
         });
       } catch (err) {
         console.warn("Brevo price response logging warning:", err);
@@ -59,6 +62,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true, priceResponse });
   } catch (error) {
     console.error("Match price response API error:", error);
-    return NextResponse.json({ error: "Failed to record response." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to record response." },
+      { status: 500 },
+    );
   }
 }

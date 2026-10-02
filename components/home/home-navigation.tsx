@@ -19,7 +19,6 @@ const navigation = [
   { href: "/contact", label: "Contact" },
 ];
 
-
 const whatsappLink = "https://wa.me/254745474586";
 
 export function HomeNavigation() {
