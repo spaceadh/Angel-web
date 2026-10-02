@@ -11,12 +11,14 @@ import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 const navigation = [
   { href: "/#home", label: "Home" },
   { href: "/match", label: "Get Your Estimate" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/what-we-do", label: "What We Do" },
   { href: "/services/website-design-development", label: "Services" },
   { href: "/our-work", label: "Our Work" },
   { href: "/what-we-do/why-malaika", label: "Why Malaika" },
   { href: "/contact", label: "Contact" },
 ];
+
 
 const whatsappLink = "https://wa.me/254745474586";
 
@@ -31,6 +33,9 @@ export function HomeNavigation() {
     }
     if (href === "/match") {
       return pathname === "/match";
+    }
+    if (href === "/pricing") {
+      return pathname === "/pricing";
     }
     if (href === "/what-we-do") {
       return pathname === "/what-we-do";

@@ -163,3 +163,30 @@ When completing any modification, task, or iteration in this codebase, the agent
   - `AGENTS.md` (Updated)
 - **Verification & Status:**
   - Documentation updated and verified.
+
+### [2026-10-02 13:04:00 +03:00] — Gemini 3.6 Flash / Antigravity (Lead AI Coding Assistant)
+
+- **Timestamp:** 2026-10-02T13:04:00+03:00
+- **Model / Assistant:** Gemini 3.6 Flash (Antigravity CLI)
+- **Role:** Lead AI Coding Assistant
+- **Task / Scope:** Centralized all pricing data into a canonical `lib/pricing.ts` and built the `/pricing` page — SEO-optimized, Malaika-themed, fully indexed, with a sticky service nav and 3-column config grid. All 60 configurations (5 services × 4 budget bands × 3 configs) are rendered in static HTML for Google. The match flow and pricing page now share a single source of truth for all prices.
+- **Files Modified / Created:**
+  - `lib/pricing.ts` (Created — canonical pricing source of truth: `OfferingKey`, `BudgetBandId`, `OFFERINGS`, `BUDGET_BANDS`, `LABELS`, `CONFIGS`, `getPricingConfigs()`, `extractPriceNumber()`)
+  - `lib/malaika-match/config.ts` (Updated — removed duplicate `LABELS` and `CONFIGS` definitions; now imports + re-exports both from `lib/pricing.ts`; added `OfferingKey`/`BudgetBandId` type casts in `buildConfigs()`)
+  - `components/pricing/pricing.module.css` (Created — full page styles: dark hero, sticky nav with per-service accent colors, budget band sections, 3-column config grid, dark/yellow recommended card, bottom CTA, mobile responsive)
+  - `components/pricing/pricing-nav.tsx` (Created — `"use client"` sticky nav using IntersectionObserver to highlight active service section as user scrolls; smooth-scroll on click)
+  - `components/pricing/pricing-page.tsx` (Created — server component; renders all 60 configs in static HTML for SEO; JSON-LD `ItemList` + `Offer` schema for Google rich results)
+  - `app/pricing/page.tsx` (Created — App Router page route at `/pricing`; full `Metadata` export with title, description, keywords, OG, canonical targeting Kenyan digital marketing price queries)
+  - `components/home/home-navigation.tsx` (Updated — added `/pricing` Pricing link + `isActive` check)
+  - `AGENTS.md` (Updated)
+- **Key Decisions & Implementation Details:**
+  - `lib/pricing.ts` is the **one place to update prices** — changes propagate to `/match` result screen and `/pricing` page with zero code duplication.
+  - All 60 configuration cards are rendered server-side in the HTML (not hidden by client-side state), ensuring Google crawls every price, deliverable, and config name.
+  - `PricingNav` is the only client island — it adds scrollspy/sticky behaviour without hiding content from crawlers.
+  - Recommended card (index 1 per band) styled dark ink + yellow — visually prominent on all screen sizes.
+  - Mobile: single column with recommended card moved to top via `order: -1`.
+  - Schema.org `ItemList` with per-config `Offer` items targeting `"website design price Kenya"`, `"digital marketing pricing Nairobi"` etc.
+- **Verification & Status:**
+  - `pnpm build` — exit code 0, zero type errors, zero compilation errors.
+  - `/pricing` confirmed in build output as static (`○`) prerendered page.
+  - All 27 pages built successfully.
