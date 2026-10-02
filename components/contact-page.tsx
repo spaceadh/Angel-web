@@ -1,5 +1,5 @@
 import Link from "next/link";
-import brandShowcase from "@/assets/brand-showcase.png";
+import brandShowcase from "@/assets/brand-showcase.webp";
 import { HomeFooter } from "./home/home-footer";
 import { HomeNavigation } from "./home/home-navigation";
 import homeStyles from "./home/home-page.module.css";

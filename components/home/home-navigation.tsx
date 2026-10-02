@@ -10,7 +10,7 @@ import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 
 const navigation = [
   { href: "/#home", label: "Home" },
-  { href: "/match", label: "Estimate & Pricing" },
+  { href: "/match", label: "Get Your Estimate" },
   { href: "/what-we-do", label: "What We Do" },
   { href: "/services/website-design-development", label: "Services" },
   { href: "/our-work", label: "Our Work" },

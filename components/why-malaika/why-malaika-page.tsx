@@ -1,7 +1,7 @@
 import Link from "next/link";
 import fullLogo from "@/assets/malaika-full-logo.svg";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
-import visual from "@/assets/why-malaika-image.png";
+import visual from "@/assets/why-malaika-image.webp";
 import styles from "@/components/what-we-do/what-we-do-page.module.css";
 import { FaWhatsapp } from "react-icons/fa6";
 import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";

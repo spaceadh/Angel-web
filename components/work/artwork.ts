@@ -1,4 +1,4 @@
-import cocktails from "@/assets/neighbourhood-cocktails/neighbourhood-landing-page.png";
+import cocktails from "@/assets/neighbourhood-cocktails/neighbourhood-landing-page.webp";
 import beads from "@/assets/beads-world/beads-world-africa-logo.png";
 import digitallySly from "@/assets/digitally-sly/digitaly-sly-logo.png";
 import polar from "@/assets/polarbison/StackedLogowithtagline-Orange-Black.png";
