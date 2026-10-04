@@ -14,7 +14,7 @@ declare global {
 const consentKey = "malaika-analytics-consent";
 // A GA measurement ID is public by design. The environment variable lets each
 // deployment override this value while keeping production measurement active.
-const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-MYY8S3XWWE";
+const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XHNJHFGC3B";
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 let analyticsInitialised = false;
 
