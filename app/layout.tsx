@@ -4,6 +4,7 @@ import { ConsentAndAnalytics } from "@/components/analytics/consent-and-analytic
 import { AnalyticsPageViews } from "@/components/analytics/page-views";
 import { JsonLd } from "@/components/seo/json-ld";
 import { site } from "@/lib/site";
+import Script from "next/dist/client/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -62,8 +63,21 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XHNJHFGC3B";
+
   return (
     <html lang="en">
+      {/* Google Analytics GA4 */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-XHNJHFGC3B"
+        strategy="afterInteractive"
+      />
+      <Script id="ga4-init" strategy="afterInteractive">{`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XHNJHFGC3B');
+      `}</Script>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
