@@ -4,7 +4,7 @@ export const digitallySly: CaseStudy = {
   slug: "digitally-sly",
   title: "Digitally Sly",
   description:
-    "Digitally Sly case study — website, branding and digital presence.",
+    "How Malaika Studios turned Digitally Sly’s quiet online presence into a clear website and email marketing system that matches the quality of the product.",
   art: "digitally-sly",
   hero: {
     pill: "Website · Email Marketing",

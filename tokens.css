@@ -5,8 +5,8 @@
   --color-accent: #ffd400;
   --color-link: #2563ff;
   --color-coral: #ff5a5f;
-  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+  --font-display: var(--nf-display), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: var(--nf-body), "DM Sans", system-ui, sans-serif;
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;

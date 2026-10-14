@@ -1,0 +1,374 @@
+/* Blog — follows the service-page editorial system (cream page, ink type, yellow CTA). */
+.page {
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+}
+.container {
+  margin: 0 auto;
+  max-width: 1240px;
+  padding-inline: clamp(20px, 4vw, 56px);
+}
+
+/* ── Heroes ───────────────────────────────────────── */
+.hero,
+.postHero {
+  border-bottom: 1px solid var(--line);
+  padding: clamp(64px, 10vw, 140px) 0 clamp(48px, 7vw, 96px);
+}
+.kicker,
+.breadcrumbs {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+.breadcrumbs a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.breadcrumbs a:hover {
+  color: var(--ink);
+}
+.hero h1,
+.postHero h1,
+.postCta h2,
+.related > h2 {
+  font-family: var(--display);
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  max-width: 980px;
+}
+.postHero h1 {
+  font-size: clamp(2.4rem, 5.6vw, 5rem);
+  max-width: 1000px;
+}
+.lede {
+  color: #364343;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.65;
+  margin: 28px 0;
+  max-width: 64ch;
+}
+
+/* ── Meta row ─────────────────────────────────────── */
+.meta {
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+  gap: 6px 16px;
+  margin: 0 0 14px;
+}
+.category {
+  background: var(--yellow);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 10px;
+  text-transform: uppercase;
+}
+
+/* ── Listing ──────────────────────────────────────── */
+.listing {
+  padding-block: clamp(48px, 7vw, 96px);
+}
+.empty {
+  font-size: 1.15rem;
+}
+.empty a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+}
+.card,
+.featured {
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(22px, 3vw, 32px);
+  position: relative;
+  transition:
+    transform 160ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover,
+.featured:hover {
+  box-shadow: 6px 6px 0 var(--ink);
+  transform: translate(-3px, -3px);
+}
+.featured {
+  background: var(--ink);
+  color: var(--cream);
+}
+.featured .meta {
+  color: #b9c2c2;
+}
+.card h2,
+.card h3,
+.featured h2 {
+  font-family: var(--display);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+.card h2,
+.card h3 {
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+}
+.featured h2 {
+  font-size: clamp(2rem, 4.4vw, 3.6rem);
+  max-width: 22ch;
+}
+/* Whole card is clickable via the heading link. */
+.card h2 a::after,
+.card h3 a::after,
+.featured h2 a::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+.card a:focus-visible,
+.featured a:focus-visible {
+  outline: none;
+}
+.card:has(a:focus-visible),
+.featured:has(a:focus-visible) {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+.excerpt {
+  color: inherit;
+  line-height: 1.6;
+  margin: 0 0 20px;
+  max-width: 62ch;
+  opacity: 0.85;
+}
+.readMore {
+  font-weight: 700;
+  margin-top: auto;
+}
+.featured .readMore {
+  color: var(--yellow);
+}
+
+/* ── Article ──────────────────────────────────────── */
+.postLayout {
+  display: grid;
+  gap: clamp(32px, 5vw, 72px);
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: clamp(40px, 6vw, 80px);
+}
+@media (min-width: 1000px) {
+  .postLayout:has(.toc) {
+    grid-template-columns: 240px minmax(0, 1fr);
+  }
+}
+.toc {
+  align-self: start;
+  border-left: 3px solid var(--yellow);
+  padding-left: 18px;
+}
+@media (min-width: 1000px) {
+  .toc {
+    position: sticky;
+    top: 110px;
+  }
+}
+.toc > p {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+.toc ol {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.toc a {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.35;
+}
+.toc a:hover {
+  color: var(--ink);
+}
+
+.prose {
+  font-size: clamp(1.05rem, 1.25vw, 1.15rem);
+  line-height: 1.75;
+  max-width: 72ch;
+}
+.prose > :first-child {
+  margin-top: 0;
+}
+.prose h2,
+.prose h3 {
+  font-family: var(--display);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  scroll-margin-top: 110px;
+}
+.prose h2 {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  margin: 2.2em 0 0.6em;
+}
+.prose h3 {
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  margin: 1.8em 0 0.5em;
+}
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 0 0 1.2em;
+}
+.prose li {
+  margin-bottom: 0.4em;
+}
+.prose a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose strong {
+  font-weight: 700;
+}
+.prose blockquote {
+  background: var(--paper);
+  border-left: 4px solid var(--yellow);
+  border-radius: 0 16px 16px 0;
+  margin: 1.6em 0;
+  padding: 16px 22px;
+}
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+.prose img {
+  border: 1.5px solid var(--ink);
+  border-radius: 20px;
+  height: auto;
+  max-width: 100%;
+}
+.prose code {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 0.9em;
+  padding: 1px 6px;
+}
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2.4em 0;
+}
+.prose table {
+  border-collapse: collapse;
+  display: block;
+  font-size: 0.95em;
+  margin: 1.6em 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.prose th,
+.prose td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+.prose th {
+  background: var(--ink);
+  color: var(--cream);
+  white-space: nowrap;
+}
+
+/* ── CTA + related ────────────────────────────────── */
+.postCta {
+  background: var(--yellow);
+  border-block: 1.5px solid var(--ink);
+  padding-block: clamp(56px, 8vw, 104px);
+}
+.postCta h2 {
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  max-width: 18ch;
+}
+.postCta .kicker {
+  color: var(--ink);
+}
+.postCta .lede {
+  color: var(--ink);
+}
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.cta,
+.ctaSecondary {
+  align-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  display: inline-flex;
+  font-weight: 700;
+  gap: 10px;
+  line-height: 1;
+  padding: 15px 20px;
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cta {
+  background: var(--ink);
+  color: var(--cream);
+}
+.ctaSecondary {
+  background: var(--paper);
+}
+.cta:hover,
+.ctaSecondary:hover {
+  transform: translateY(-2px);
+}
+.cta:focus-visible,
+.ctaSecondary:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+.related {
+  padding-block: clamp(56px, 8vw, 104px);
+}
+.related > h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .featured,
+  .cta,
+  .ctaSecondary {
+    transition: none;
+  }
+}

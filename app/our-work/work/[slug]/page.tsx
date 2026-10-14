@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CaseStudyPage as CaseStudyContent } from "@/components/work/case-study-page";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
-import { absoluteUrl, site } from "@/lib/site";
+import { absoluteUrl, defaultOgImage, site } from "@/lib/site";
 import { JsonLd } from "@/components/seo/json-ld";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -26,6 +26,7 @@ export async function generateMetadata({
       description: caseStudy.description,
       url,
       type: "article",
+      images: [defaultOgImage],
     },
   };
 }

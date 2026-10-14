@@ -12,6 +12,8 @@
     "indexnow:submit": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
+    "gray-matter": "4.0.3",
+    "marked": "15.0.12",
     "next": "^16.0.0",
     "prettier": "^3.9.6",
     "react": "^19.0.0",

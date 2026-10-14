@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServicePage } from "@/components/services/service-page";
 import { getService, services } from "@/content/services";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, defaultOgImage } from "@/lib/site";
 
 type PageProps = { params: Promise<{ slug: string }> };
 export function generateStaticParams() {
@@ -23,6 +23,7 @@ export async function generateMetadata({
       description: service.description,
       url,
       type: "website",
+      images: [defaultOgImage],
     },
   };
 }

@@ -8,6 +8,7 @@ declare global {
     gtag?: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
     _fbq?: (...args: unknown[]) => void;
+    Brevo?: unknown[];
   }
 }
 
@@ -16,6 +17,7 @@ const consentKey = "malaika-analytics-consent";
 // deployment override this value while keeping production measurement active.
 const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XHNJHFGC3B";
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const brevoClientKey = "v2b1m4jxleys2rcw6pf0bfqb";
 let analyticsInitialised = false;
 
 function loadScript(id: string, src: string) {
@@ -79,6 +81,11 @@ function initialiseAnalytics() {
     );
   }
 
+  // Brevo web tracking is a marketing tracker, so it waits for consent too.
+  window.Brevo = window.Brevo || [];
+  window.Brevo.push(["init", { client_key: brevoClientKey }]);
+  loadScript("malaika-brevo", "https://cdn.brevo.com/js/sdk-loader.js");
+
   window.dispatchEvent(new Event("malaika:analytics-ready"));
 }
 
@@ -106,9 +113,11 @@ export function getPageContext() {
       ? "service"
       : path.startsWith("/our-work/work/")
         ? "case_study"
-        : path === "/contact"
-          ? "contact"
-          : "site_page",
+        : path.startsWith("/blog/")
+          ? "blog_post"
+          : path === "/contact"
+            ? "contact"
+            : "site_page",
   };
   if (path.startsWith("/services/")) {
     context.service_slug = path.split("/").at(-1) ?? "";

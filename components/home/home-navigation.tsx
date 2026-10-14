@@ -9,13 +9,12 @@ import { FaWhatsapp } from "react-icons/fa6";
 import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 
 const navigation = [
-  { href: "/#home", label: "Home" },
-  { href: "/match", label: "Get Your Estimate" },
   { href: "/pricing", label: "Pricing" },
   { href: "/what-we-do", label: "What We Do" },
   { href: "/services/website-design-development", label: "Services" },
   { href: "/our-work", label: "Our Work" },
   { href: "/what-we-do/why-malaika", label: "Why Malaika" },
+  { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -47,6 +46,9 @@ export function HomeNavigation() {
     }
     if (href === "/our-work") {
       return pathname === "/our-work" || pathname?.startsWith("/our-work/");
+    }
+    if (href === "/blog") {
+      return pathname === "/blog" || pathname?.startsWith("/blog/");
     }
     if (href === "/contact") {
       return pathname === "/contact";

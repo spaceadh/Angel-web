@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ContactPageContent } from "@/components/contact-page";
 
 export const metadata: Metadata = {
-  title: "Contact Malaika Studios",
+  title: "Contact Us — Web Design & Digital Studio in Nairobi",
   description:
     "Talk to Malaika Studios about a website, brand, automation or growth project in Nairobi or remotely.",
   alternates: { canonical: "/contact" },

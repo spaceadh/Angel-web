@@ -4,7 +4,7 @@ export const neighborhoodCocktails: CaseStudy = {
   slug: "neighborhood-cocktails",
   title: "Neighborhood Cocktails",
   description:
-    "Neighborhood Cocktails case study — website, branding and digital presence.",
+    "How Malaika Studios gave Neighborhood Cocktails, a premium cocktail brand active on Instagram, a search-ready website and email marketing to open a new sales channel.",
   art: "cocktails",
   hero: {
     pill: "Website · Email Marketing",

@@ -4,7 +4,7 @@ export const polarBison: CaseStudy = {
   slug: "polar-bison",
   title: "Polar Bison",
   description:
-    "Polar Bison case study — website, branding and digital presence.",
+    "How Malaika Studios sharpened Polar Bison’s brand positioning, email marketing, growth and social media strategy so the business feels as considered online as in person.",
   art: "polar",
   hero: {
     pill: "Website · Growth",

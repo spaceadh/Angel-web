@@ -38,6 +38,8 @@ export function HomeFooter() {
           <Link href="/services/brand-identity-digital-design">Branding</Link>
           <Link href="/services/whatsapp-email-crm-automation">Automation</Link>
           <Link href="/services/digital-growth-strategy-analytics">Growth</Link>
+          <Link href="/pricing">Pricing</Link>
+          <Link href="/blog">Blog</Link>
           <Link href="/privacy">Privacy</Link>
           <button
             type="button"
@@ -54,22 +56,25 @@ export function HomeFooter() {
             href="https://www.instagram.com/malaikastudios.ke/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Malaika Studios on Instagram"
           >
-            <FaInstagram />
+            <FaInstagram aria-hidden="true" />
           </a>
           <a
             href="https://www.x.com/rotsilabs/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Malaika Studios on X"
           >
-            <FaTwitter />
+            <FaTwitter aria-hidden="true" />
           </a>
           <a
             href="https://www.linkedin.com/in/alvin-victor-/"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Malaika Studios on LinkedIn"
           >
-            <FaLinkedin />
+            <FaLinkedin aria-hidden="true" />
           </a>
         </div>
         <div className={styles.footerBottom}>

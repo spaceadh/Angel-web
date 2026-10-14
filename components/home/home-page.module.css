@@ -59,6 +59,7 @@
 }
 .navLinks a {
   padding: 8px 0;
+  white-space: nowrap;
   border-bottom: 2px solid transparent;
   color: inherit;
   text-decoration: none;
@@ -772,7 +773,8 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 900px) {
+/* Navigation collapses before the links run out of room to sit on one line. */
+@media (max-width: 1180px) {
   .nav {
     display: flex;
     justify-content: space-between;
@@ -800,6 +802,9 @@
     text-transform: none;
     letter-spacing: normal;
   }
+}
+
+@media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
   }

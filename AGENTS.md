@@ -190,3 +190,29 @@ When completing any modification, task, or iteration in this codebase, the agent
   - `pnpm build` — exit code 0, zero type errors, zero compilation errors.
   - `/pricing` confirmed in build output as static (`○`) prerendered page.
   - All 27 pages built successfully.
+
+### [2026-10-14 08:25:31 +03:00] — Claude Opus 5.5 / Claude Code (SEO & UX Audit, Blog System)
+
+- **Timestamp:** 2026-10-14T08:25:31+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** SEO / UX Auditor & Lead Engineer
+- **Task / Scope:** Audited the live site (malaikastudios.rotsi.co.ke) and codebase. Fixed canonical, title, Open Graph and consent bugs, improved navigation, and built a Markdown-powered blog with full SEO plumbing.
+- **Files Modified / Created:**
+  - `app/layout.tsx` (Updated — removed root `canonical: "/"` that leaked onto `/match`, `/blog` and 404s; removed hard-coded GA4 + Brevo scripts that loaded before consent and double-counted page views; self-hosted fonts via `next/font`; richer Organization schema; `summary_large_image` Twitter card)
+  - `components/analytics/consent-and-analytics.tsx` (Updated — Brevo tracker now loads only after consent; `blog_post` page type)
+  - `app/page.tsx`, `app/match/page.tsx`, `app/pricing/page.tsx`, `app/contact/page.tsx`, `app/what-we-do/why-malaika/page.tsx` (Updated — explicit canonicals, de-duplicated "| Malaika Studios" titles, keyword-led titles/descriptions)
+  - `app/services/[slug]/page.tsx`, `app/our-work/work/[slug]/page.tsx` (Updated — OG image restored)
+  - `content/case-studies/*.ts` (Updated — unique meta descriptions in place of templated ones)
+  - `app/opengraph-image.tsx`, `lib/og-image.tsx` (Created — branded 1200×630 social cards)
+  - `app/not-found.tsx` (Created — branded 404 with recovery links)
+  - `app/sitemap.ts` (Updated — dropped fake `new Date()` lastmod; added blog index + posts with real dates)
+  - `lib/blog.ts`, `app/blog/page.tsx`, `app/blog/[slug]/page.tsx`, `app/blog/[slug]/opengraph-image.tsx`, `app/blog/rss.xml/route.ts`, `components/blog/*` (Created — blog system)
+  - `content/blog/how-much-does-a-website-cost-in-kenya.md`, `content/blog/_template.md`, `content/blog/_README.md` (Created — first post, template, writing guide)
+  - `components/home/home-navigation.tsx`, `components/home/home-footer.tsx`, `components/home/home-page.module.css` (Updated — Blog link; removed redundant Home/"Get Your Estimate" links; hamburger below 1180px so labels never wrap; aria-labels on social icons)
+  - `app/globals.css`, `tokens.css`, `lib/site.ts`, `package.json` (Updated — font variables, `phone`, `defaultOgImage`, `gray-matter` + `marked`)
+- **Key Decisions & Implementation Details:**
+  - Blog is file-based Markdown (`content/blog/<slug>.md`, frontmatter). No CMS, everything static. `draft: true` posts only show in dev; files starting with `_` are ignored.
+  - Each post gets BlogPosting + BreadcrumbList JSON-LD, a dynamic OG image, a TOC, related posts, a `/match` + WhatsApp CTA, and sitemap/RSS entries.
+  - The first post uses the real prices from `lib/pricing.ts`; update it when prices change.
+- **Verification & Status:**
+  - `pnpm build` — exit 0, 32 pages. Verified rendered canonicals, titles, og:image, robots, sitemap and RSS on `pnpm start`; checked layout at 375 / 1024 / 1280 px with no horizontal overflow.

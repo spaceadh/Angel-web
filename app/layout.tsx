@@ -3,8 +3,27 @@ import "./globals.css";
 import { ConsentAndAnalytics } from "@/components/analytics/consent-and-analytics";
 import { AnalyticsPageViews } from "@/components/analytics/page-views";
 import { JsonLd } from "@/components/seo/json-ld";
-import { site } from "@/lib/site";
-import Script from "next/dist/client/script";
+import { absoluteUrl, site } from "@/lib/site";
+import { Bricolage_Grotesque, Caveat, DM_Sans } from "next/font/google";
+
+const displayFont = Bricolage_Grotesque({
+  subsets: ["latin"],
+  axes: ["opsz", "wdth"],
+  variable: "--nf-display",
+  display: "swap",
+});
+const bodyFont = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--nf-body",
+  display: "swap",
+});
+const scriptFont = Caveat({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--nf-script",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -13,7 +32,6 @@ export const metadata: Metadata = {
     template: "%s | Malaika Studios",
   },
   description: site.description,
-  alternates: { canonical: "/" },
   robots: {
     index: true,
     follow: true,
@@ -31,15 +49,12 @@ export const metadata: Metadata = {
     title: "Malaika Studios | Digital Presence Studio in Nairobi",
     description: site.description,
     url: site.url,
-    images: [
-      { url: "/icon-512.png", width: 512, height: 512, alt: "Malaika Studios" },
-    ],
+    locale: "en_KE",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Malaika Studios | Digital Presence Studio in Nairobi",
     description: site.description,
-    images: ["/icon-512.png"],
   },
   verification: {
     other: {
@@ -63,48 +78,11 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XHNJHFGC3B";
-
   return (
-    <html lang="en">
-      {/* Google Analytics GA4 */}
-      <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-XHNJHFGC3B"
-        strategy="afterInteractive"
-      />
-      <Script id="ga4-init" strategy="afterInteractive">{`
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-XHNJHFGC3B');
-      `}</Script>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@10..48,75..100,200..800&family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Version: 2.0
-              window.Brevo = window.Brevo || [];
-              Brevo.push([
-                "init",
-                {
-                  client_key: "v2b1m4jxleys2rcw6pf0bfqb",
-                },
-              ]);
-            `,
-          }}
-        />
-      </head>
+    <html
+      lang="en"
+      className={`${displayFont.variable} ${bodyFont.variable} ${scriptFont.variable}`}
+    >
       <body>
         <JsonLd
           data={{
@@ -117,6 +95,14 @@ export default function RootLayout({
                 url: site.url,
                 description: site.description,
                 email: site.email,
+                telephone: site.phone,
+                logo: absoluteUrl("/icon-512.png"),
+                image: absoluteUrl("/opengraph-image"),
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Nairobi",
+                  addressCountry: "KE",
+                },
                 areaServed: site.serviceAreas.map((name) => ({
                   "@type": "Place",
                   name,

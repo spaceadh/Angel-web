@@ -4,7 +4,7 @@ export const beadsWorldAfrica: CaseStudy = {
   slug: "beads-world-africa",
   title: "Beads World Africa",
   description:
-    "Beads World Africa case study — website, branding and digital presence.",
+    "How Malaika Studios built Beads World Africa an e-commerce store, email marketing and WhatsApp outreach automation to sell handmade jewellery beyond one-to-one sales.",
   art: "beads",
   hero: {
     pill: "E-commerce · Email Marketing",

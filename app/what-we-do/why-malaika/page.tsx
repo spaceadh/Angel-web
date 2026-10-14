@@ -4,7 +4,7 @@ import { WhyMalaikaPage as WhyMalaikaContent } from "@/components/why-malaika/wh
 export const metadata: Metadata = {
   title: "Why Malaika Studios",
   description:
-    "Why Malaika Studios builds a coherent digital business presence.",
+    "Why businesses in Nairobi and beyond choose Malaika Studios: one team connecting brand, website, WhatsApp automation and growth into a single, measurable digital presence.",
   alternates: { canonical: "/what-we-do/why-malaika" },
 };
 
