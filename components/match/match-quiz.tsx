@@ -1,6 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+
+/** Lets the chosen option light up before the next question slides in. */
+const ADVANCE_DELAY_MS = 220;
 import { Question, MatchAnswers } from "@/lib/malaika-match/config";
 import styles from "./match.module.css";
 
@@ -22,6 +25,20 @@ export function MatchQuiz({
   onBack,
 }: MatchQuizProps) {
   const currentQuestion = questions[currentIndex];
+  const advancing = useRef(false);
+
+  useEffect(() => {
+    advancing.current = false;
+  }, [currentIndex]);
+
+  function choose(value: string) {
+    if (!currentQuestion || advancing.current) return;
+    onSelectOption(currentQuestion.key, value, currentQuestion.multi);
+    if (!currentQuestion.multi) {
+      advancing.current = true;
+      setTimeout(onNext, ADVANCE_DELAY_MS);
+    }
+  }
   const total = questions.length;
 
   const currentAnswer = currentQuestion
@@ -39,11 +56,7 @@ export function MatchQuiz({
       if (!currentQuestion) return;
       const num = parseInt(e.key, 10);
       if (!isNaN(num) && num >= 1 && num <= currentQuestion.options.length) {
-        const optionVal = currentQuestion.options[num - 1].value;
-        onSelectOption(currentQuestion.key, optionVal, currentQuestion.multi);
-        if (!currentQuestion.multi) {
-          onNext();
-        }
+        choose(currentQuestion.options[num - 1].value);
       } else if (e.key === "Backspace" && currentIndex > 0) {
         onBack();
       }
@@ -51,6 +64,7 @@ export function MatchQuiz({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestion, currentIndex, onSelectOption, onNext, onBack]);
 
   if (!currentQuestion) return null;
@@ -102,17 +116,9 @@ export function MatchQuiz({
                 <button
                   key={opt.value}
                   className={`${styles.option} ${isSelected ? styles.selected : ""}`}
-                  onClick={() => {
-                    onSelectOption(
-                      currentQuestion.key,
-                      opt.value,
-                      currentQuestion.multi,
-                    );
-                    if (!currentQuestion.multi) {
-                      onNext();
-                    }
-                  }}
+                  onClick={() => choose(opt.value)}
                   type="button"
+                  aria-pressed={isSelected}
                 >
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <span className={styles.num}>{idx + 1}</span>
@@ -131,6 +137,14 @@ export function MatchQuiz({
 
           {isMulti ? (
             <div className={styles.navRow}>
+              <button
+                className={styles.backBtn}
+                onClick={onBack}
+                disabled={currentIndex === 0}
+                type="button"
+              >
+                ← Back
+              </button>
               <button
                 className={styles.cta}
                 onClick={onNext}

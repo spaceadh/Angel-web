@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { brevoEnabled, brevoRequest } from "@/lib/brevo";
 
 export async function POST(req: Request) {
   try {
@@ -16,47 +17,31 @@ export async function POST(req: Request) {
       );
     }
 
-    const brevoApiKey = process.env.BREVO_API_KEY;
-    const environment = process.env.NODE_ENV || "production";
-    if (brevoApiKey && environment === "production" && email) {
-      try {
-        await fetch("https://api.brevo.com/v3/events", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "api-key": brevoApiKey,
+    if (brevoEnabled() && email) {
+      const cleanEmail = email.toLowerCase().trim();
+      const settled = await Promise.allSettled([
+        brevoRequest("/events", {
+          event_name: "malaika_match_price_response",
+          identifiers: { email_id: cleanEmail },
+          event_properties: {
+            price_response: priceResponse,
+            match_session_id: sessionId,
           },
-          body: JSON.stringify({
-            event_name: "malaika_match_price_response",
-            email: email.toLowerCase().trim(),
-            identifiers: {
-              email: email.toLowerCase().trim(),
-            },
-            event_properties: {
-              price_response: priceResponse,
-              match_session_id: sessionId,
-            },
-          }),
-        });
-
-        await fetch("https://api.brevo.com/v3/contacts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "api-key": brevoApiKey,
+        }),
+        brevoRequest("/contacts", {
+          email: cleanEmail,
+          attributes: {
+            MATCH_PRICE_RESPONSE: priceResponse,
+            MATCH_PRICE_RESPONSE_AT: new Date().toISOString(),
           },
-          body: JSON.stringify({
-            email: email.toLowerCase().trim(),
-            attributes: {
-              MATCH_PRICE_RESPONSE: priceResponse,
-              MATCH_PRICE_RESPONSE_AT: new Date().toISOString(),
-            },
-            updateEnabled: true,
-          }),
-        });
-      } catch (err) {
-        console.warn("Brevo price response logging warning:", err);
-      }
+          updateEnabled: true,
+        }),
+      ]);
+      settled.forEach((outcome) => {
+        if (outcome.status === "rejected") {
+          console.warn("Brevo price response step failed:", outcome.reason);
+        }
+      });
     }
 
     return NextResponse.json({ success: true, priceResponse });

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect, useTransition } from "react";
 import {
   BASE_QUESTIONS,
@@ -12,7 +13,8 @@ import {
 } from "@/lib/malaika-match/config";
 import { MatchHero } from "./match-hero";
 import { MatchQuiz } from "./match-quiz";
-import { MatchContact } from "./match-contact";
+import { MatchContact, type ContactSubmission } from "./match-contact";
+import { MatchCalculating, CALCULATING_TOTAL_MS } from "./match-calculating";
 import { MatchResult } from "./match-result";
 import styles from "./match.module.css";
 
@@ -20,7 +22,10 @@ import logo from "@/assets/malaika-full-logo.svg";
 
 const STORAGE_KEY = "malaika_match_state_v1";
 
-type ScreenName = "intro" | "quiz" | "contact" | "result";
+type ScreenName = "intro" | "quiz" | "contact" | "calculating" | "result";
+export type EmailStatus = "sent" | "failed" | "skipped";
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function MalaikaMatchFlow() {
   const [screen, setScreen] = useState<ScreenName>("intro");
@@ -30,6 +35,13 @@ export function MalaikaMatchFlow() {
   const [result, setResult] = useState<MatchResultPayload | null>(null);
   const [sessionId, setSessionId] = useState<string | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
+  const [submitError, setSubmitError] = useState<string>();
+  const [emailStatus, setEmailStatus] = useState<EmailStatus>("skipped");
+
+  // Each screen starts at the top, especially the long result page.
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [screen]);
 
   // Restore draft state on mount
   useEffect(() => {
@@ -118,48 +130,76 @@ export function MalaikaMatchFlow() {
     }
   }
 
-  function handleContactSubmit(contactData: ContactInfo) {
+  function handleContactSubmit(submission: ContactSubmission) {
+    const { turnstileToken, website, ...contactData } = submission;
     setContact(contactData);
+    setSubmitError(undefined);
+    setScreen("calculating");
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const source =
+      new URLSearchParams(window.location.search).get("source") ?? undefined;
 
     startTransition(async () => {
       try {
-        const res = await fetch("/api/match", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            answers,
-            contact: contactData,
+        // The reveal sequence always plays in full so the result feels earned,
+        // and it hides any network or email-sending delay.
+        const [res] = await Promise.all([
+          fetch("/api/match", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              answers,
+              contact: contactData,
+              turnstileToken,
+              website,
+              source,
+            }),
           }),
-        });
+          wait(reducedMotion ? 900 : CALCULATING_TOTAL_MS + 300),
+        ]);
 
         const data = await res.json();
         if (data.success && data.result) {
           setResult(data.result);
           setSessionId(data.sessionId);
+          setEmailStatus(data.emailStatus ?? "skipped");
           setScreen("result");
           trackGaEvent("match_result_revealed", {
             score: data.result.score,
             category: data.result.category,
+            email_status: data.emailStatus,
           });
           try {
             localStorage.removeItem(STORAGE_KEY);
           } catch {}
         } else {
-          alert(
+          setSubmitError(
             data.error ||
-              "Something went wrong calculating your match. Please try again.",
+              "Something went wrong preparing your estimate. Please try again.",
           );
+          setScreen("contact");
         }
       } catch (err) {
         console.error("Match submission error:", err);
-        alert(
-          "Unable to complete submission right now. Please check your network and try again.",
+        setSubmitError(
+          "We couldn't reach our server. Please check your connection and try again.",
         );
+        setScreen("contact");
       }
     });
   }
 
+  function handleBackFromContact() {
+    setCurrentIndex(questions.length - 1);
+    setScreen("quiz");
+  }
+
   function handleRestart() {
+    setSubmitError(undefined);
+    setEmailStatus("skipped");
     setAnswers({});
     setContact(null);
     setResult(null);
@@ -179,13 +219,17 @@ export function MalaikaMatchFlow() {
   return (
     <div className={styles.shell}>
       <header className={styles.topbar}>
-        <a href="/" className={styles.brand} aria-label="Malaika Studios home">
+        <Link
+          href="/"
+          className={styles.brand}
+          aria-label="Malaika Studios home"
+        >
           <img
             src={logo.src}
             alt="Malaika Studios"
             className={styles.brandLogo}
           />
-        </a>
+        </Link>
         <div className={styles.topNote}>The Malaika Match</div>
       </header>
 
@@ -206,14 +250,23 @@ export function MalaikaMatchFlow() {
         {screen === "contact" && (
           <MatchContact
             onSubmitContact={handleContactSubmit}
+            onBack={handleBackFromContact}
             isSubmitting={isPending}
+            serverError={submitError}
+            initialContact={contact}
           />
+        )}
+
+        {screen === "calculating" && contact && (
+          <MatchCalculating name={contact.name} email={contact.email} />
         )}
 
         {screen === "result" && result && (
           <MatchResult
             result={result}
             contactEmail={contact?.email}
+            contactName={contact?.name}
+            emailStatus={emailStatus}
             sessionId={sessionId}
             onRestart={handleRestart}
             onSelectPriceResponse={handlePriceResponse}

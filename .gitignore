@@ -14,3 +14,5 @@ malaika_portfolio
 reference/*.html
 docs
 .hallmark
+.env*.local
+.claude

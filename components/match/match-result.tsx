@@ -1,12 +1,73 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MatchResultPayload } from "@/lib/malaika-match/config";
+import { site } from "@/lib/site";
+import type { EmailStatus } from "./malaika-match-flow";
 import styles from "./match.module.css";
+
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** Counts the score up from zero once, easing out. */
+function useCountUp(target: number, durationMs = 1400) {
+  // The result only renders after user interaction, so window is available.
+  const [value, setValue] = useState(() =>
+    prefersReducedMotion() ? target : 0,
+  );
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    let frame = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - start) / durationMs);
+      setValue(Math.round(target * (1 - Math.pow(1 - progress, 3))));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [target, durationMs]);
+  return value;
+}
+
+/** Adds data-visible to each reveal block as it scrolls into view. */
+function useScrollReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const blocks = ref.current?.querySelectorAll<HTMLElement>("[data-reveal]");
+    if (!blocks?.length) return;
+    if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+      blocks.forEach((block) => (block.dataset.visible = "true"));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).dataset.visible = "true";
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+    );
+    blocks.forEach((block) => observer.observe(block));
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
+
+function optionWhatsappUrl(name: string, price: string) {
+  const text = `Hi Malaika Studios, I just did the Malaika Match and I'd like to talk about the ${name} option (${price}).`;
+  return `${site.whatsappUrl}?text=${encodeURIComponent(text)}`;
+}
 
 interface MatchResultProps {
   result: MatchResultPayload;
   contactEmail?: string;
+  contactName?: string;
+  emailStatus?: EmailStatus;
   sessionId?: string;
   onRestart: () => void;
   onSelectPriceResponse?: (responseKey: string) => void;
@@ -15,12 +76,17 @@ interface MatchResultProps {
 export function MatchResult({
   result,
   contactEmail,
+  contactName,
+  emailStatus = "skipped",
   sessionId,
   onRestart,
   onSelectPriceResponse,
 }: MatchResultProps) {
   const [selectedResponse, setSelectedResponse] = useState<string | null>(null);
   const [responseLogged, setResponseLogged] = useState(false);
+  const score = useCountUp(result.score);
+  const revealRef = useScrollReveal();
+  const firstName = contactName?.split(/\s+/)[0];
 
   const priceResponseOptions = [
     { key: "good_start", label: "That feels like a good place to start" },
@@ -54,28 +120,70 @@ export function MatchResult({
   return (
     <section className={styles.screen}>
       <div className={`${styles.resultContainer} ${styles.fadeIn}`}>
-        <div className={styles.reveal}>
+        {emailStatus === "sent" && contactEmail && (
+          <div className={styles.emailBanner} role="status">
+            <span aria-hidden="true">📩</span>
+            <p>
+              <strong>Sent!</strong> A copy of this estimate is on its way to{" "}
+              <strong>{contactEmail}</strong>. Not there in a few minutes? Check
+              your Promotions or Spam folder.
+            </p>
+          </div>
+        )}
+        {emailStatus === "failed" && (
+          <div
+            className={`${styles.emailBanner} ${styles.emailBannerWarn}`}
+            role="status"
+          >
+            <span aria-hidden="true">⚠️</span>
+            <p>
+              We couldn&apos;t email your copy just now, but your estimate is
+              below and our team has your details.{" "}
+              <a
+                href={result.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Message us on WhatsApp
+              </a>{" "}
+              and we&apos;ll send it over.
+            </p>
+          </div>
+        )}
+        <div className={styles.reveal} ref={revealRef}>
           {/* BLOCK 01 — THE MATCH */}
-          <section className={`${styles.revealBlock} ${styles.matchReveal}`}>
+          <section
+            className={`${styles.revealBlock} ${styles.matchReveal}`}
+            data-reveal
+            data-visible="true"
+          >
             <div>
               <div className={styles.revealKicker}>
                 <i /> 01 · The Match
               </div>
+              {firstName && (
+                <p className={styles.greeting}>
+                  {firstName}, here&apos;s your estimate.
+                </p>
+              )}
               <h2 dangerouslySetInnerHTML={{ __html: result.headline }} />
               <p className={styles.revealLede}>{result.lede}</p>
             </div>
             <div
               className={styles.matchScoreArt}
-              aria-label="Malaika Match score"
+              role="img"
+              aria-label={`Malaika Match score: ${result.score}%, ${result.category}`}
             >
-              <span className={styles.score}>{result.score}%</span>
+              <span className={styles.score} aria-hidden="true">
+                {score}%
+              </span>
               <span className={styles.scoreLabel}>{result.category}</span>
               <div className={styles.scribble} />
             </div>
           </section>
 
           {/* BLOCK 02 — WE UNDERSTOOD YOUR BRIEF */}
-          <section className={styles.revealBlock}>
+          <section className={styles.revealBlock} data-reveal>
             <div className={styles.revealKicker}>
               <i /> 02 · We understood your brief
             </div>
@@ -112,7 +220,7 @@ export function MatchResult({
           </section>
 
           {/* BLOCK 03 — THREE WAYS TO BUILD IT */}
-          <section className={styles.revealBlock}>
+          <section className={styles.revealBlock} data-reveal>
             <div className={styles.revealKicker}>
               <i /> 03 · Three ways to build it
             </div>
@@ -150,7 +258,14 @@ export function MatchResult({
                         <li key={item}>{item}</li>
                       ))}
                     </ul>
-                    <div className={styles.configLink}>See what changes →</div>
+                    <a
+                      className={styles.configLink}
+                      href={optionWhatsappUrl(c.name, c.price)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Talk about this option →
+                    </a>
                   </article>
                 );
               })}
@@ -158,7 +273,10 @@ export function MatchResult({
           </section>
 
           {/* BLOCK 04 — OUR RECOMMENDATION */}
-          <section className={`${styles.revealBlock} ${styles.recommendation}`}>
+          <section
+            className={`${styles.revealBlock} ${styles.recommendation}`}
+            data-reveal
+          >
             <div className={styles.revealKicker}>
               <i /> 04 · Our recommendation
             </div>
@@ -194,7 +312,10 @@ export function MatchResult({
           </section>
 
           {/* BLOCK 05 — LET'S BUILD IT */}
-          <section className={`${styles.revealBlock} ${styles.finalReveal}`}>
+          <section
+            className={`${styles.revealBlock} ${styles.finalReveal}`}
+            data-reveal
+          >
             <div className={styles.revealKicker}>
               <i /> 05 · Let's build it
             </div>
@@ -243,6 +364,16 @@ export function MatchResult({
                 ))}
               </div>
             </div>
+
+            {selectedResponse && (
+              <p className={styles.respThanks} role="status">
+                {selectedResponse === "good_start"
+                  ? "Great. We'll be in touch shortly to plan next steps."
+                  : selectedResponse === "shape_scope"
+                    ? "Noted. We'll suggest a few ways to shape the scope to fit."
+                    : "Thanks for being honest. We'll share some lighter ways to get started."}
+              </p>
+            )}
 
             <p className={styles.finalNote}>
               No commitment. Just a conversation about the project.

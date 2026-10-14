@@ -216,3 +216,47 @@ When completing any modification, task, or iteration in this codebase, the agent
   - The first post uses the real prices from `lib/pricing.ts`; update it when prices change.
 - **Verification & Status:**
   - `pnpm build` — exit 0, 32 pages. Verified rendered canonicals, titles, og:image, robots, sitemap and RSS on `pnpm start`; checked layout at 375 / 1024 / 1280 px with no horizontal overflow.
+
+### [2026-10-14 08:44:25 +03:00] — Claude Opus 5.5 / Claude Code (Malaika Match: estimate email & reveal experience)
+
+- **Timestamp:** 2026-10-14T08:44:25+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / UX
+- **Task / Scope:** Made `/match` actually email the estimate it promised. Added a team lead alert, a staged "calculating" reveal, and an animated result page. Fixed dead buttons and hardened the endpoint against abuse.
+- **Files Modified / Created:**
+  - `lib/brevo.ts` (Created — fetch-based Brevo REST helper, `brevoEnabled()`, `sendTransactionalEmail()`)
+  - `lib/malaika-match/quote-email.ts` (Created — branded, email-client-safe HTML + plain-text estimate email; internal lead-alert email)
+  - `app/api/match/route.ts` (Updated — sends quote + team alert alongside contact/event upserts via `Promise.allSettled`; returns `emailStatus`; server-side email validation, honeypot, per-IP throttle; Turnstile token now required to send the quote email when `TURNSTILE_SECRET_KEY` is set)
+  - `app/api/match/email-preview/route.ts` (Created — dev-only email preview; 404 in production)
+  - `components/match/match-calculating.tsx` (Created — 5-step progress sequence with ring, ~3.8s, reduced-motion aware)
+  - `components/match/malaika-match-flow.tsx` (Updated — calculating screen, inline errors instead of `alert()`, source tracking, back-from-contact, scroll-to-top per screen)
+  - `components/match/match-contact.tsx` (Updated — Turnstile widget, honeypot, autocomplete, clearer copy, perks row)
+  - `components/match/match-result.tsx` (Updated — email sent/failed banner, personal greeting, score count-up, scroll reveals, WhatsApp link per option replacing dead "See what changes", price-response acknowledgement)
+  - `components/match/match-quiz.tsx` (Updated — brief selection highlight before advancing, Back button on multi-select, aria-pressed)
+  - `components/match/match.module.css`, `app/globals.css` (Updated — styles for the above, `.sr-only`)
+  - `.env.example` (Updated — `BREVO_SENDER_EMAIL`, `MATCH_TEAM_EMAIL`, `BREVO_ENABLE_IN_DEV`)
+- **Key Decisions & Implementation Details:**
+  - No new npm dependencies; Brevo's `/v3/smtp/email` is called with `fetch`.
+  - Quote emails go only to submissions that pass Turnstile, so the form can't be used to email strangers. The team alert is always sent and marks unverified leads.
+  - The reveal sequence always plays in full and runs in parallel with the API, which hides email-sending latency.
+  - Found: the Brevo account has IP allow-listing on, which rejects requests from unlisted IPs (confirmed from a dev machine). Vercel has no fixed egress IPs, so production Brevo calls are likely failing. It must be disabled in Brevo → Security → Authorised IPs.
+- **Verification & Status:**
+  - `pnpm build` exit 0 (33 pages). Walked the full flow in the browser at 1280px and 375px with no horizontal overflow. Calculating sequence measured: steps at 0.7/1.5/2.4/3.2/3.8s, result at 4.1s. Email preview reviewed. Production: preview route returns 404 and invalid email returns 400. Real email sending not exercised (requires Brevo IP fix).
+
+### [2026-10-14 09:03:52 +03:00] — Claude Opus 5.5 / Claude Code (Malaika Match: live Brevo send test & event fix)
+
+- **Timestamp:** 2026-10-14T09:03:52+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer
+- **Task / Scope:** Ran the first live end-to-end send after Brevo IP allow-listing was disabled. Fixed the broken Brevo Events payload and a Turnstile double-render in dev.
+- **Files Modified / Created:**
+  - `app/api/match/route.ts` (Updated — Brevo event identifier `email` → `email_id`)
+  - `app/api/match/response/route.ts` (Updated — same identifier fix; now uses `brevoEnabled()`/`brevoRequest()` so failures are logged and `BREVO_ENABLE_IN_DEV` is honoured)
+  - `components/match/match-contact.tsx` (Updated — remove Turnstile load listener on unmount; prevents duplicate render under React StrictMode)
+  - `.gitignore` (Updated — `.env*.local`)
+  - `.env.local` (Created, gitignored — Cloudflare's always-pass Turnstile test keys for localhost only)
+- **Key Decisions & Implementation Details:**
+  - Brevo Events API rejects `identifiers.email` (400 "Invalid identifier passed email"). `malaika_match_completed` and `malaika_match_price_response` had never been recorded before this fix.
+  - Brevo domain `rotsi.co.ke` is authenticated (DKIM via brevo1/brevo2, DMARC quarantine). Sender set to the verified `partnerships@rotsi.co.ke`. Free plan: 300 emails/day, 2 per estimate.
+- **Verification & Status:**
+  - Live test to makaveli@orderly.co.ke: estimate email **delivered**, team alert to malaikastudios@rotsi.co.ke **delivered**, contact attributes written, `/events` accepted after the fix (no errors logged). `BREVO_ENABLE_IN_DEV` set back to `false`. `pnpm build` exit 0.
