@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { caseStudies } from "@/content/case-studies";
 import { getAllPosts } from "@/lib/blog";
+import { BLOG_SERIES } from "@/lib/blog-series";
 import { absoluteUrl } from "@/lib/site";
 import { services } from "@/content/services";
 
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/our-work",
     "/contact",
     "/blog",
+    ...Object.keys(BLOG_SERIES).map((key) => `/blog/series/${key}`),
     ...services.map(({ slug }) => `/services/${slug}`),
     ...caseStudies.map(({ slug }) => `/our-work/work/${slug}`),
   ];

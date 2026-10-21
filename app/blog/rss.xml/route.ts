@@ -1,4 +1,5 @@
 import { getAllPosts } from "@/lib/blog";
+import { getSeries } from "@/lib/blog-series";
 import { absoluteUrl, site } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -20,7 +21,7 @@ export function GET() {
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <description>${escapeXml(post.description)}</description>
-      <category>${escapeXml(post.category)}</category>
+      <category>${escapeXml(getSeries(post.series)?.name ?? post.category)}</category>
       <pubDate>${new Date(`${post.date}T06:00:00+03:00`).toUTCString()}</pubDate>
     </item>`;
     })
@@ -31,7 +32,7 @@ export function GET() {
   <channel>
     <title>${escapeXml(`${site.name} Blog`)}</title>
     <link>${absoluteUrl("/blog")}</link>
-    <description>${escapeXml("Guides on websites, branding, SEO and digital growth for businesses in Kenya.")}</description>
+    <description>${escapeXml("Kenya Lens every Monday, Global Brief every Friday: researched, data-led stories on Kenya’s digital economy, plus guides on websites, SEO and growth.")}</description>
     <language>en-KE</language>
     <atom:link href="${absoluteUrl("/blog/rss.xml")}" rel="self" type="application/rss+xml" />
 ${items}

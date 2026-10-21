@@ -372,3 +372,415 @@
     transition: none;
   }
 }
+
+/* ── Series ───────────────────────────────────────── */
+.seriesNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+.seriesNav a {
+  align-items: center;
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 700;
+  gap: 8px;
+  padding: 8px 16px;
+}
+.seriesNav a span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.seriesNav a::before {
+  background: var(--series, var(--yellow));
+  border-radius: 50%;
+  content: "";
+  height: 9px;
+  width: 9px;
+}
+.seriesNav a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--cream);
+}
+.seriesNav a[aria-current="page"] span {
+  color: #b9c2c2;
+}
+.seriesNav a:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+.card[style] .category,
+.featured[style] .category {
+  background: var(--series);
+  border-color: var(--series);
+  color: #fff;
+}
+.seriesBadge {
+  align-items: center;
+  border-left: 6px solid var(--series);
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 800;
+  gap: 6px;
+  letter-spacing: 0.02em;
+  margin: 0 0 18px;
+  padding: 2px 0 2px 12px;
+}
+.seriesBadge span {
+  color: var(--muted);
+  font-weight: 600;
+}
+.rssNote {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 32px 0 0;
+}
+.rssNote a {
+  text-decoration: underline;
+}
+
+/* ── Key stat ─────────────────────────────────────── */
+.postHeroGrid {
+  align-items: end;
+  display: grid;
+  gap: clamp(24px, 4vw, 56px);
+}
+@media (min-width: 900px) {
+  .postHeroGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  }
+}
+.keyStat,
+.cardStat {
+  background: var(--yellow);
+  border: 2px solid var(--ink);
+  border-radius: 24px;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 22px 24px;
+}
+.keyStat strong,
+.cardStat strong {
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+.keyStat span,
+.cardStat span {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.featuredBody {
+  align-items: center;
+  display: grid;
+  gap: 24px;
+}
+@media (min-width: 900px) {
+  .featuredBody {
+    grid-template-columns: minmax(0, 1fr) 260px;
+  }
+}
+.card .cardStat {
+  margin-bottom: 18px;
+  padding: 14px 18px;
+}
+.card .cardStat strong {
+  font-size: 2rem;
+}
+.featured .cardStat {
+  color: var(--ink);
+}
+
+/* ── Sources ──────────────────────────────────────── */
+.articleColumn {
+  min-width: 0;
+}
+.sources {
+  border-top: 1.5px solid var(--ink);
+  margin-top: 3em;
+  max-width: 72ch;
+  padding-top: 1.4em;
+}
+.sources h2 {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+}
+.sources ol {
+  display: grid;
+  font-size: 15px;
+  gap: 10px;
+  line-height: 1.5;
+  margin: 0;
+  padding-left: 22px;
+}
+.sources a {
+  color: var(--blue);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sourcePublisher {
+  font-weight: 700;
+}
+.sources time {
+  color: var(--muted);
+}
+.sourcesNote {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 18px 0 0;
+}
+.sourcesNote a {
+  color: inherit;
+  font-weight: 600;
+}
+
+/* ── Figures & charts (rendered from Markdown, so global) ─ */
+.prose :global(figure) {
+  margin: 2em 0;
+}
+.prose :global(figure > figcaption) {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+.prose :global(.chart) {
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 22px;
+  padding: clamp(18px, 3vw, 28px);
+}
+.prose :global(.chart-head) {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 20px;
+}
+.prose :global(.chart-title) {
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.prose :global(.chart-subtitle) {
+  color: var(--muted);
+  font-size: 14px;
+}
+.prose :global(.chart-source) {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 16px 0 0;
+}
+.prose :global(.chart-source span) {
+  display: block;
+}
+.prose :global(.chart-data) {
+  font-size: 14px;
+  margin-top: 10px;
+}
+.prose :global(.chart-data summary) {
+  cursor: pointer;
+  font-weight: 700;
+}
+.prose :global(.chart-data table) {
+  margin: 10px 0 0;
+}
+
+/* Horizontal bars */
+.prose :global(.chart-rows) {
+  display: grid;
+  gap: 12px;
+}
+.prose :global(.chart-row) {
+  align-items: center;
+  display: grid;
+  gap: 6px 14px;
+  grid-template-columns: minmax(90px, 30%) minmax(0, 1fr);
+}
+.prose :global(.chart-label) {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.prose :global(.chart-track) {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+}
+.prose :global(.chart-fill) {
+  background: var(--ink);
+  border-radius: 0 6px 6px 0;
+  display: block;
+  flex: none;
+  width: calc((100% - var(--label, 8ch)) * var(--w, 0));
+  height: 28px;
+  min-width: 3px;
+}
+.prose :global(.is-highlight .chart-fill),
+.prose :global(.is-highlight .chart-col-fill) {
+  background: var(--blue);
+}
+.prose :global(.chart-value) {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.prose :global(.chart-axis) {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 12px 0 0;
+}
+@media (max-width: 560px) {
+  .prose :global(.chart-row) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Vertical columns */
+.prose :global(.chart-cols) {
+  align-items: end;
+  border-bottom: 2px solid var(--ink);
+  display: grid;
+  gap: clamp(4px, 1.2vw, 12px);
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+  height: 260px;
+  padding-top: 24px;
+}
+.prose :global(.chart-col) {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+  position: relative;
+}
+.prose :global(.chart-col-fill) {
+  background: var(--ink);
+  border-radius: 6px 6px 0 0;
+  display: block;
+  min-height: 3px;
+  width: 100%;
+}
+.prose :global(.chart-col-value) {
+  font-size: clamp(10px, 1.4vw, 13px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  margin-bottom: 6px;
+  white-space: nowrap;
+}
+.prose :global(.chart-col-label) {
+  color: var(--muted);
+  font-size: clamp(10px, 1.3vw, 12px);
+  line-height: 1.2;
+  position: absolute;
+  text-align: center;
+  top: calc(100% + 8px);
+  width: 100%;
+}
+.prose :global(.chart-column .chart-source) {
+  margin-top: 48px;
+}
+
+/* Lines */
+.prose :global(.chart-legend) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  list-style: none;
+  margin: -6px 0 14px;
+  padding: 0;
+}
+.prose :global(.chart-legend li) {
+  align-items: center;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  gap: 8px;
+  margin: 0;
+}
+.prose :global(.chart-legend li::before) {
+  background: var(--c);
+  border-radius: 2px;
+  content: "";
+  height: 4px;
+  width: 18px;
+}
+.prose :global(.chart-plot) {
+  height: clamp(200px, 32vw, 300px);
+  margin-left: 52px;
+  margin-right: 56px;
+  position: relative;
+}
+.prose :global(.chart-plot svg) {
+  height: 100%;
+  inset: 0;
+  overflow: visible;
+  position: absolute;
+  width: 100%;
+}
+.prose :global(.chart-grid) {
+  border-top: 1px solid var(--line);
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+.prose :global(.chart-grid span) {
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  position: absolute;
+  right: calc(100% + 8px);
+  top: -0.7em;
+  white-space: nowrap;
+}
+.prose :global(.chart-point) {
+  background: var(--c);
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  height: 12px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 12px;
+}
+.prose :global(.chart-point span) {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  left: 14px;
+  position: absolute;
+  top: -0.65em;
+  white-space: nowrap;
+}
+.prose :global(.chart-xlabels) {
+  height: 22px;
+  margin: 8px 56px 0 52px;
+  position: relative;
+}
+.prose :global(.chart-xlabels span) {
+  color: var(--muted);
+  font-size: 12px;
+  position: absolute;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.prose :global(.chart-xlabels span:first-child) {
+  transform: none;
+}
+.prose :global(.chart-xlabels span:last-child) {
+  transform: translateX(-100%);
+}

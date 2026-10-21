@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { Marked, type Tokens } from "marked";
+import { renderChart } from "./blog-charts";
+import { getSeries, type SeriesKey } from "./blog-series";
 
 /**
  * Blog content layer.
@@ -25,6 +27,20 @@ export type PostMeta = {
   tags: string[];
   draft: boolean;
   readingMinutes: number;
+  /** Recurring series this post belongs to (see lib/blog-series.ts). */
+  series?: SeriesKey;
+  /** Headline number for link previews and the post header. */
+  keyStat?: { value: string; label: string };
+  sources: PostSource[];
+  /** Date the facts were last verified against the sources. */
+  factChecked?: string;
+};
+
+export type PostSource = {
+  title: string;
+  url: string;
+  publisher: string;
+  date?: string;
 };
 
 export type Heading = { id: string; text: string; depth: 2 | 3 };
@@ -72,6 +88,27 @@ function readPostFile(file: string) {
     category: data.category ? String(data.category) : "Insights",
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     draft: data.draft === true,
+    series: getSeries(data.series)?.key,
+    keyStat:
+      data.keyStat?.value && data.keyStat?.label
+        ? {
+            value: String(data.keyStat.value),
+            label: String(data.keyStat.label),
+          }
+        : undefined,
+    sources: Array.isArray(data.sources)
+      ? data.sources.map((source: Record<string, unknown>) => ({
+          title: String(source.title ?? ""),
+          url: String(source.url ?? ""),
+          publisher: String(source.publisher ?? ""),
+          date: source.date
+            ? toIsoDate(source.date, "sources.date", file)
+            : undefined,
+        }))
+      : [],
+    factChecked: data.factChecked
+      ? toIsoDate(data.factChecked, "factChecked", file)
+      : undefined,
     readingMinutes: Math.max(
       1,
       Math.round(content.split(/\s+/).filter(Boolean).length / wordsPerMinute),
@@ -127,8 +164,21 @@ export function getPost(slug: string): Post | undefined {
         return `<a href="${href}"${titleAttr}${rel}>${text}</a>`;
       },
       image({ href, title, text }: Tokens.Image) {
-        const titleAttr = title ? ` title="${title}"` : "";
-        return `<img src="${href}" alt="${text}"${titleAttr} loading="lazy" decoding="async" />`;
+        const img = `<img src="${href}" alt="${text}" loading="lazy" decoding="async" />`;
+        // ![alt](src "Caption") becomes a captioned figure.
+        return title
+          ? `<figure>${img}<figcaption>${title}</figcaption></figure>`
+          : img;
+      },
+      code({ text, lang }: Tokens.Code) {
+        if (lang === "chart") {
+          try {
+            return renderChart(text);
+          } catch (err) {
+            throw new Error(`content/blog/${file}: ${(err as Error).message}`);
+          }
+        }
+        return false;
       },
     },
   });
@@ -144,7 +194,8 @@ export function getRelatedPosts(post: PostMeta, limit = 3) {
       candidate,
       score:
         candidate.tags.filter((tag) => post.tags.includes(tag)).length +
-        (candidate.category === post.category ? 1 : 0),
+        (candidate.category === post.category ? 1 : 0) +
+        (post.series && candidate.series === post.series ? 2 : 0),
     }))
     .sort(
       (a, b) =>
@@ -152,6 +203,10 @@ export function getRelatedPosts(post: PostMeta, limit = 3) {
     )
     .slice(0, limit)
     .map(({ candidate }) => candidate);
+}
+
+export function getPostsBySeries(series: SeriesKey) {
+  return getAllPosts().filter((post) => post.series === series);
 }
 
 export function formatPostDate(date: string) {

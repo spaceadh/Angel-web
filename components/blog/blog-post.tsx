@@ -5,6 +5,7 @@ import { HomeNavigation } from "@/components/home/home-navigation";
 import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 import { JsonLd } from "@/components/seo/json-ld";
 import { formatPostDate, type Post, type PostMeta } from "@/lib/blog";
+import { getSeries } from "@/lib/blog-series";
 import { absoluteUrl, site } from "@/lib/site";
 import styles from "./blog.module.css";
 
@@ -16,6 +17,9 @@ export function BlogPost({
   related: PostMeta[];
 }) {
   const url = absoluteUrl(`/blog/${post.slug}`);
+  const series = getSeries(post.series);
+  const crumbHref = series ? `/blog/series/${series.key}` : "/blog";
+  const crumbName = series?.name ?? post.category;
   return (
     <div className={styles.page}>
       <HomeNavigation />
@@ -34,7 +38,24 @@ export function BlogPost({
                 image: `${url}/opengraph-image`,
                 datePublished: post.date,
                 dateModified: post.updated ?? post.date,
-                articleSection: post.category,
+                articleSection: series?.name ?? post.category,
+                isPartOf: series
+                  ? {
+                      "@type": "CreativeWorkSeries",
+                      name: series.name,
+                      url: absoluteUrl(`/blog/series/${series.key}`),
+                    }
+                  : undefined,
+                citation: post.sources.map((source) => ({
+                  "@type": "CreativeWork",
+                  name: source.title,
+                  url: source.url,
+                  publisher: {
+                    "@type": "Organization",
+                    name: source.publisher,
+                  },
+                  datePublished: source.date,
+                })),
                 keywords: post.tags.join(", "),
                 author: {
                   "@type": "Organization",
@@ -61,6 +82,12 @@ export function BlogPost({
                   {
                     "@type": "ListItem",
                     position: 3,
+                    name: crumbName,
+                    item: absoluteUrl(crumbHref),
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
                     name: post.title,
                     item: url,
                   },
@@ -73,10 +100,28 @@ export function BlogPost({
           <div className={styles.container}>
             <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
               <Link href="/">Home</Link> / <Link href="/blog">Blog</Link> /{" "}
-              <span>{post.category}</span>
+              <Link href={crumbHref}>{crumbName}</Link>
             </nav>
-            <h1>{post.title}</h1>
-            <p className={styles.lede}>{post.description}</p>
+            {series && (
+              <p
+                className={styles.seriesBadge}
+                style={{ "--series": series.accent } as React.CSSProperties}
+              >
+                {series.name} <span>· {series.cadence}</span>
+              </p>
+            )}
+            <div className={post.keyStat ? styles.postHeroGrid : undefined}>
+              <div>
+                <h1>{post.title}</h1>
+                <p className={styles.lede}>{post.description}</p>
+              </div>
+              {post.keyStat && (
+                <p className={styles.keyStat}>
+                  <strong>{post.keyStat.value}</strong>
+                  <span>{post.keyStat.label}</span>
+                </p>
+              )}
+            </div>
             <p className={styles.meta}>
               <span>By {post.author}</span>
               <time dateTime={post.date}>{formatPostDate(post.date)}</time>
@@ -89,6 +134,14 @@ export function BlogPost({
                 </span>
               )}
               <span>{post.readingMinutes} min read</span>
+              {post.factChecked && (
+                <span>
+                  ✓ Fact-checked{" "}
+                  <time dateTime={post.factChecked}>
+                    {formatPostDate(post.factChecked)}
+                  </time>
+                </span>
+              )}
             </p>
           </div>
         </header>
@@ -111,10 +164,52 @@ export function BlogPost({
               </ol>
             </aside>
           )}
-          <article
-            className={styles.prose}
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
+          <article className={styles.articleColumn}>
+            <div
+              className={styles.prose}
+              dangerouslySetInnerHTML={{ __html: post.html }}
+            />
+            {post.sources.length > 0 && (
+              <section className={styles.sources} aria-labelledby="sources">
+                <h2 id="sources">Sources</h2>
+                <ol>
+                  {post.sources.map((source) => (
+                    <li key={source.url}>
+                      <span className={styles.sourcePublisher}>
+                        {source.publisher}
+                      </span>{" "}
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {source.title}
+                      </a>
+                      {source.date && (
+                        <>
+                          {" "}
+                          <time dateTime={source.date}>
+                            ({formatPostDate(source.date)})
+                          </time>
+                        </>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+                <p className={styles.sourcesNote}>
+                  Figures are taken from the sources above. Analysis and
+                  recommendations are Malaika Studios&apos; own. Spotted an
+                  error?{" "}
+                  <a
+                    href={`mailto:${site.email}?subject=${encodeURIComponent(`Correction: ${post.title}`)}`}
+                  >
+                    Tell us
+                  </a>
+                  .
+                </p>
+              </section>
+            )}
+          </article>
         </div>
 
         <section className={styles.postCta}>
@@ -151,7 +246,9 @@ export function BlogPost({
                 <li key={item.slug}>
                   <article className={styles.card}>
                     <p className={styles.meta}>
-                      <span className={styles.category}>{item.category}</span>
+                      <span className={styles.category}>
+                        {getSeries(item.series)?.name ?? item.category}
+                      </span>
                       <span>{item.readingMinutes} min read</span>
                     </p>
                     <h3>

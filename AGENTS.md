@@ -260,3 +260,76 @@ When completing any modification, task, or iteration in this codebase, the agent
   - Brevo domain `rotsi.co.ke` is authenticated (DKIM via brevo1/brevo2, DMARC quarantine). Sender set to the verified `partnerships@rotsi.co.ke`. Free plan: 300 emails/day, 2 per estimate.
 - **Verification & Status:**
   - Live test to makaveli@orderly.co.ke: estimate email **delivered**, team alert to malaikastudios@rotsi.co.ke **delivered**, contact attributes written, `/events` accepted after the fix (no errors logged). `BREVO_ENABLE_IN_DEV` set back to `false`. `pnpm build` exit 0.
+
+### [2026-10-21 13:01:53 +03:00] — GPT-6 / Codex (Blog Research & Editorial Samples)
+
+- **Timestamp:** 2026-10-21T13:01:53+03:00
+- **Model / Assistant:** GPT-6 / Codex
+- **Role:** Researcher / Content Editor
+- **Task / Scope:** Prepared separate Kenyan and international technology blog samples with primary-source research, practical business analysis, and original explanatory charts.
+- **Files Modified / Created:**
+  - `content/blog/kenya-smartphone-growth-business-websites.md` (Created)
+  - `content/blog/google-ai-search-links-businesses.md` (Created)
+  - `public/blog/kenya-smartphone-growth-business-websites/research-chart.webp` (Created)
+  - `public/blog/google-ai-search-links-businesses/research-chart.webp` (Created)
+  - `AGENTS.md` (Updated)
+- **Key Decisions & Implementation Details:**
+  - Both posts remain `draft: true`; no publication or deployment performed.
+  - Local article uses CA Q4 FY 2025/26 figures, distinguishing connected devices and subscriptions from unique people.
+  - International article covers Google's 15 October 2026 AI Search announcement, distinguishing tests from rollouts and contextualising historical US click data from Pew Research Center.
+  - Added original WebP charts using source data, zero-based axes, descriptive alt text, captions, and study limitations. Visually inspected both chart previews.
+  - Linked supporting research inline and separated editorial recommendations from measured findings.
+- **Verification & Status:**
+  - Prettier completed for both posts. Markdown/frontmatter parsing and image-path checks passed; confirmed both draft flags.
+  - `pnpm build` attempted; failed because the environment could not fetch the existing Google Fonts dependencies (Bricolage Grotesque, Caveat, DM Sans). Full production build remains unverified.
+
+### [2026-10-21 13:28:57 +03:00] — Claude Opus 5.5 / Claude Code (Recurring blog series: Kenya Lens & Global Brief)
+
+- **Timestamp:** 2026-10-21T13:28:57+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Editor
+- **Task / Scope:** Built the system for two researched, graphical posts a week (Kenya Lens on Mondays, Global Brief on Fridays), with richer link previews and a quality gate. Produced one vetted sample of each for review. Fixed a site-wide social-preview bug.
+- **Files Modified / Created:**
+  - `lib/blog-series.ts` (Created — series config: name, cadence, weekday, accent)
+  - `lib/blog-charts.ts` (Created — ```chart Markdown blocks → responsive HTML bar/column/line charts with a data table)
+  - `lib/blog.ts` (Updated — `series`, `keyStat`, `sources`, `factChecked` frontmatter; chart blocks; captioned figures; series-aware related posts)
+  - `lib/og-image.tsx` (Updated — key-stat card layout, series accent, bundled brand fonts)
+  - `assets/fonts/*.woff` (Created — Bricolage Grotesque 800, DM Sans 500/700 from @fontsource 5.2.8, OFL)
+  - `app/blog/[slug]/opengraph-image.tsx` (Updated), `app/blog/[slug]/twitter-image.tsx` (Created)
+  - `app/blog/series/[series]/page.tsx`, `app/blog/series/[series]/opengraph-image.tsx` (Created — series landing pages)
+  - `components/blog/blog-post.tsx`, `components/blog/blog-index.tsx`, `components/blog/blog.module.css` (Updated — series badge/nav, key stat, Sources section with citation JSON-LD, fact-checked date, chart styles)
+  - `app/sitemap.ts`, `app/blog/rss.xml/route.ts` (Updated — series pages and names)
+  - `app/layout.tsx` (Updated — removed root openGraph/twitter title & description that every page inherited)
+  - `scripts/check-blog.mjs` + `pnpm blog:check` (Created — quality gate)
+  - `content/blog/_EDITORIAL.md` (Created — formats, research rules, chart spec, SEO, 40-point vetting rubric), `content/blog/_README.md` (Updated)
+  - `content/blog/kenya-smartphone-growth-business-websites.md` (Rewritten as Kenya Lens, dated Mon 26 Oct 2026, draft)
+  - `content/blog/global-brief-oil-shock-kenya-fuel-prices.md` (Created — Global Brief, dated Fri 23 Oct 2026, draft)
+- **Key Decisions & Implementation Details:**
+  - Charts are data in Markdown, not images, so they're crisp on mobile, crawlable and easy for an automated job to produce.
+  - Every figure in both samples was checked against the primary source (CA PDFs ×3, CBK MPC + weekly bulletin, KNBS CPI, EPRA, BLS, Fed, FRED/EIA). IMF Africa figures were confirmed via two outlets because imf.org blocks automated access. Unverifiable items were left out (IMF Kenya forecast, Brent futures quotes, EPRA DG remarks).
+  - Pre-existing bug fixed: pages without their own openGraph (contact, blog, match, etc.) showed the homepage title in link previews, and every page's twitter:title was the homepage's.
+  - The Codex draft `google-ai-search-links-businesses.md` was left untouched. It overlaps with Global Brief story 5.
+- **Verification & Status:**
+  - `pnpm blog:check`: 4/4 pass. `pnpm build`: exit 0, 38 pages; drafts excluded from production. Share cards rendered and inspected; meta tags verified on the home, post, pricing, contact and series pages; layout checked at 1000px and 375px with no horizontal overflow.
+
+### [2026-10-21 13:53:57 +03:00] — Claude Opus 5.5 / Claude Code (Global Brief refocus & Next.js security patch)
+
+- **Timestamp:** 2026-10-21T13:53:57+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Editor
+- **Task / Scope:** Refocused the Global Brief on martech (the tools and platforms behind our services), following owner feedback that the macro and oil angle was off-track. Wrote a new sample issue. Patched the site's Next.js after a critical advisory surfaced in research.
+- **Files Modified / Created:**
+  - `package.json`, `pnpm-lock.yaml` (Updated — `next` and `eslint-config-next` 16.3.5 → 16.4.1; fixes GHSA-673q-mjm6-r5xr, CVE-2026-96889, GHSA-p3m5-59mp-jv5r)
+  - `lib/blog-series.ts` (Updated — Global Brief tagline)
+  - `content/blog/_EDITORIAL.md` (Updated — both series stay on the digital-tools beat; Global Brief beats table mapped to services; new structure with notable mentions and "what to do this week")
+  - `scripts/check-blog.mjs` (Updated — "visuals" rule (charts + tables); Global Brief needs ≥1 chart and ≥2 visuals; quote-aware sentence splitting)
+  - `lib/og-image.tsx` (Updated — key stat never wraps)
+  - `content/blog/global-brief-braze-whatsapp-fees-meta-ads.md` (Created — draft, Fri 23 Oct 2026)
+  - `content/blog/global-brief-oil-shock-kenya-fuel-prices.md` (Deleted — off-brief draft)
+- **Key Decisions & Implementation Details:**
+  - Stories: Salesforce–Braze (SEC filing), WhatsApp per-message billing with Kenya rates (parsed from Meta's official rate-card file: Rest of Africa marketing $0.0225, service/utility/auth $0.004, 4th-cheapest of 47 markets), Meta product browsing on 28 Oct (two trade outlets; no Meta page, stated in text), AI agent pricing at HubSpot, Zapier and Klaviyo, a patch table (Next.js, WordPress, n8n) with a W3Techs CMS chart, and Africa watch (Microsoft ADC as "proposed changes" with no headcount; Meta AI Academy pitchathon).
+  - Shilling conversions use the CBK rate of KSh 129.81/USD (15 Oct 2026), not an assumed rate.
+  - Corrected during verification: the Click-to-WhatsApp free window is "up to 7 days", not 72 hours; ratio wording changed to 10–12×.
+  - Restarted the local dev server, which was still running 16.3.5 after the upgrade.
+- **Verification & Status:**
+  - `pnpm blog:check` 4/4 pass; `pnpm build` exit 0 on Next.js 16.4.1 (38 pages); page, charts, table and share card inspected in the browser. **The Next.js patch is not deployed** — it must ship before the post's claim "We've updated this website" is true.

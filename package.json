@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write app components content lib scripts malaika_portfolio",
     "format:check": "prettier --check app components content lib scripts malaika_portfolio",
-    "indexnow:submit": "node scripts/submit-indexnow.mjs"
+    "indexnow:submit": "node scripts/submit-indexnow.mjs",
+    "blog:check": "node scripts/check-blog.mjs"
   },
   "dependencies": {
     "gray-matter": "4.0.3",
