@@ -329,7 +329,18 @@ function checkPost(file) {
       `${long} sentences over 35 words; split them for mobile readers`,
     );
 
+  // Approved posts with a future date go live at 06:00 EAT on that date.
+  let schedule;
+  if (data.draft !== true && date) {
+    const goLive = new Date(
+      `${date.toISOString().slice(0, 10)}T06:00:00+03:00`,
+    );
+    if (goLive > new Date())
+      schedule = `scheduled: goes live ${goLive.toISOString().slice(0, 10)} 06:00 EAT`;
+  }
+
   return {
+    schedule,
     slug,
     draft: data.draft === true,
     series: series?.name,
@@ -362,7 +373,7 @@ for (const file of files) {
       ? "⚠ PASS with warnings"
       : "✓ PASS";
   console.log(
-    `\n${status}  ${result.slug}${result.draft ? "  [draft]" : ""}  · ${result.series ?? "standalone"} · ${result.words} words`,
+    `\n${status}  ${result.slug}${result.draft ? "  [draft]" : result.schedule ? `  [${result.schedule}]` : ""}  · ${result.series ?? "standalone"} · ${result.words} words`,
   );
   for (const error of result.errors) console.log(`   ✗ ${error}`);
   for (const warning of result.warnings) console.log(`   ⚠ ${warning}`);

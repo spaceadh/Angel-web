@@ -6,6 +6,9 @@ import { BLOG_SERIES, getSeries } from "@/lib/blog-series";
 
 type PageProps = { params: Promise<{ series: string }> };
 
+// Re-check every 15 minutes so scheduled posts appear at their publish time.
+export const revalidate = 900;
+
 export const dynamicParams = false;
 
 export function generateStaticParams() {

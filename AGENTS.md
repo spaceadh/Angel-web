@@ -355,3 +355,21 @@ When completing any modification, task, or iteration in this codebase, the agent
   - During review I removed an invented motive (HubSpot "after customers worried") and an overstatement about Braze's customers.
 - **Verification & Status:**
   - `pnpm blog:check` 4/4 pass (no jargon warnings on the Global Brief). `pnpm build` exit 0 (39 pages, incl. `/llms.txt`). FAQPage, abstract, takeaways and the service card verified in rendered HTML; layout checked at 1000px and 375px.
+
+### [2026-10-21 14:23:56 +03:00] — Claude Opus 5.5 / Claude Code (Scheduled publishing, deploy & automation)
+
+- **Timestamp:** 2026-10-21T14:23:56+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer
+- **Task / Scope:** Date-based publishing so approved posts go live on schedule; approved both sample posts; deployed to production; set up the twice-weekly drafting routines.
+- **Files Modified / Created:**
+  - `lib/blog.ts` (Updated — `publishTime()`; production shows posts only when `draft: false` and 06:00 EAT on `date` has passed)
+  - `app/blog/page.tsx`, `app/blog/[slug]/page.tsx`, `app/blog/series/[series]/page.tsx`, `app/sitemap.ts`, `app/blog/rss.xml/route.ts`, `app/llms.txt/route.ts` (Updated — `revalidate = 900`, replacing force-static)
+  - `scripts/check-blog.mjs` (Updated — shows the scheduled go-live time)
+  - `content/blog/_EDITORIAL.md` (Updated — workflow for the automated draft → PR → approve → auto-publish pipeline)
+  - `content/blog/whatsapp-fees-cost-kenyan-businesses.md` (approved; live Fri 23 Oct 2026 06:00 EAT), `content/blog/kenya-smartphone-growth-business-websites.md` (approved; live Mon 26 Oct 2026 06:00 EAT)
+- **Key Decisions & Implementation Details:**
+  - Deploys go to `origin/master`, which is what Vercel serves. `origin/main` has unrelated history (a different site) and was deliberately left untouched.
+  - ISR (15 min) instead of a deploy hook: no secrets or cron needed for posts to appear on time.
+- **Verification & Status:**
+  - `pnpm build` exit 0; production server confirmed both scheduled posts return 404 and are absent from `/blog` and the sitemap before their publish time, while the live post stays 200. `pnpm blog:check` 4/4.

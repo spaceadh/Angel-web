@@ -159,8 +159,19 @@ Accuracy, sourcing and fact-versus-analysis separation are **non-negotiable**: a
 
 ## Workflow
 
-1. Draft with `draft: true` and the correct series date.
-2. Run `pnpm blog:check <slug>` and fix every ✗.
+Posts are researched and drafted automatically, then approved by a person. Approved posts publish themselves on their date.
+
+| When (Nairobi time)        | What happens                                                                                                                                                              |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sunday 18:00               | A scheduled cloud agent researches and writes Monday's **Kenya Lens**, then opens a pull request to `master`.                                                             |
+| Thursday 18:00             | A scheduled cloud agent researches and writes Friday's **Global Brief**, then opens a pull request to `master`.                                                           |
+| Evening, before 06:00      | The editor reviews the pull request: scores it against the rubric and spot-checks 3 figures against the sources listed in the PR. Merge to approve, or comment and close. |
+| 06:00 on the post's `date` | The post goes live automatically. Blog pages refresh every 15 minutes, so no manual deploy is needed.                                                                     |
+
+Rules for the agent and for anyone drafting by hand:
+
+1. Set `date` to the publish day and `draft: false`. A post with a future date stays hidden until 06:00 EAT that day. Use `draft: true` only for work that isn't ready for approval.
+2. Run `pnpm blog:check <slug>` and fix every ✗, plus any jargon warning.
 3. Preview with `pnpm dev` → `/blog/<slug>`, and check the share card at `/blog/<slug>/opengraph-image`.
-4. Editor scores the post against the rubric and spot-checks 3 figures against sources.
-5. Set `draft: false`, merge and deploy, then run `pnpm indexnow:submit`.
+4. In the pull request, list every figure with its source link so the editor can spot-check quickly, and say what was left out because it couldn't be verified.
+5. After a post goes live, run `pnpm indexnow:submit` so Bing picks it up quickly. Google finds new posts through the sitemap.

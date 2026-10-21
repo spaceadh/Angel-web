@@ -6,6 +6,9 @@ import { absoluteUrl } from "@/lib/site";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
+// Re-check every 15 minutes so scheduled posts appear at their publish time.
+export const revalidate = 900;
+
 export function generateStaticParams() {
   return getAllPosts().map(({ slug }) => ({ slug }));
 }

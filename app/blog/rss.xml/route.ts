@@ -2,7 +2,8 @@ import { getAllPosts } from "@/lib/blog";
 import { getSeries } from "@/lib/blog-series";
 import { absoluteUrl, site } from "@/lib/site";
 
-export const dynamic = "force-static";
+// Re-check every 15 minutes so scheduled posts appear at their publish time.
+export const revalidate = 900;
 
 function escapeXml(value: string) {
   return value

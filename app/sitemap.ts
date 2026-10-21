@@ -5,6 +5,9 @@ import { BLOG_SERIES } from "@/lib/blog-series";
 import { absoluteUrl } from "@/lib/site";
 import { services } from "@/content/services";
 
+// Re-check every 15 minutes so scheduled posts appear at their publish time.
+export const revalidate = 900;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts();
   const routes = [

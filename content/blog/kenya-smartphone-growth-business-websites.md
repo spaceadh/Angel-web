@@ -34,7 +34,7 @@ sources:
   - title: "Mobile payments: monthly statistics"
     publisher: "Central Bank of Kenya"
     url: "https://www.centralbank.go.ke/national-payments-system/mobile-payments/"
-draft: true
+draft: false
 ---
 
 Kenya had **52.3 million smartphones connected to mobile networks at the end of June 2026**, up 48% in two years, according to the Communications Authority of Kenya (CA). Over the same period, feature phones fell by 3.5 million. For most Kenyan businesses, that means the first impression a customer gets is now formed on a phone screen, often on mobile data.

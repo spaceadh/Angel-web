@@ -136,9 +136,19 @@ function listPostFiles() {
     .filter((file) => file.endsWith(".md") && !file.startsWith("_"));
 }
 
-/** Drafts are visible in `pnpm dev` but never built for production. */
+/** Posts go live at 06:00 Nairobi time (EAT, UTC+3) on their `date`. */
+export function publishTime(date: string) {
+  return new Date(`${date}T06:00:00+03:00`);
+}
+
+/**
+ * In production a post is public once it is not a draft and its publish time
+ * has passed. Approved posts can be merged early and appear on schedule:
+ * blog pages revalidate every 15 minutes. In `pnpm dev` everything shows.
+ */
 function isPublished(meta: PostMeta) {
-  return !meta.draft || process.env.NODE_ENV !== "production";
+  if (process.env.NODE_ENV !== "production") return true;
+  return !meta.draft && publishTime(meta.date) <= new Date();
 }
 
 export function getAllPosts(): PostMeta[] {

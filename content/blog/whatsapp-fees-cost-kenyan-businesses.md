@@ -62,7 +62,7 @@ sources:
     publisher: "TechTrendsKE"
     url: "https://techtrendske.co.ke/2026/10/19/neural-labs-me-nasoma-win-meta-ai-pitch-contest-in-nairobi/"
     date: 2026-10-19
-draft: true
+draft: false
 ---
 
 This month, the tools Kenyan businesses use to win customers started costing more in small but real ways. WhatsApp now charges for replies, Meta wants your ad clicks to stay inside Facebook and Instagram, and AI features are turning into a separate bill. Here's what each change costs you, and what to do about it this week.

@@ -4,7 +4,8 @@ import { getAllPosts } from "@/lib/blog";
 import { CONFIGS, OFFERINGS } from "@/lib/pricing";
 import { absoluteUrl, site } from "@/lib/site";
 
-export const dynamic = "force-static";
+// Re-check every 15 minutes so scheduled posts appear at their publish time.
+export const revalidate = 900;
 
 /**
  * /llms.txt — a plain-language map of the site for AI assistants
