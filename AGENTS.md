@@ -333,3 +333,25 @@ When completing any modification, task, or iteration in this codebase, the agent
   - Restarted the local dev server, which was still running 16.3.5 after the upgrade.
 - **Verification & Status:**
   - `pnpm blog:check` 4/4 pass; `pnpm build` exit 0 on Next.js 16.4.1 (38 pages); page, charts, table and share card inspected in the browser. **The Next.js patch is not deployed** — it must ship before the post's claim "We've updated this website" is true.
+
+### [2026-10-21 14:11:35 +03:00] — Claude Opus 5.5 / Claude Code (Blog: business-first voice, lead capture, AI-search readiness)
+
+- **Timestamp:** 2026-10-21T14:11:35+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Editor
+- **Task / Scope:** Owner feedback: the Global Brief was too technical ("I'm trying to get paid, not teach"). Repositioned the blog as business-first content that creates value, ranks, gets cited by AI assistants and drives enquiries.
+- **Files Modified / Created:**
+  - `lib/blog.ts` (Updated — `takeaways` and `service` frontmatter; FAQ extraction from the "Frequently asked questions" section)
+  - `components/blog/blog-post.tsx`, `components/blog/blog.module.css` (Updated — Key takeaways box; "How we can help" service card after section 2 with a WhatsApp call to action; FAQPage JSON-LD; `abstract` in BlogPosting)
+  - `app/llms.txt/route.ts` (Created — plain-language site map for AI assistants: services, starting prices, case studies, posts)
+  - `app/blog/[slug]/page.tsx` (Updated — removed `dynamicParams = false` so new posts appear without restarting the dev server)
+  - `scripts/check-blog.mjs` (Updated — series posts require 2–4 takeaways and a valid `service`; jargon warning; Global Brief 800–1,800 words; bold-aware sentence split)
+  - `content/blog/_EDITORIAL.md` (Updated — purpose statement, "Voice: business first", "Written for search and AI answers", new Global Brief structure, "Business value" rubric criterion)
+  - `content/blog/whatsapp-fees-cost-kenyan-businesses.md` (Created — business-voice Global Brief, replaces `global-brief-braze-whatsapp-fees-meta-ads.md`)
+  - `content/blog/kenya-smartphone-growth-business-websites.md`, `content/blog/how-much-does-a-website-cost-in-kenya.md` (Updated — takeaways, service; live post description shortened to 147 chars)
+- **Key Decisions & Implementation Details:**
+  - Developer-only stories (security patches, API changes) are reduced to one plain line in Quick hits.
+  - Headings are written as questions with the answer in the first sentence; FAQ sections become structured data automatically.
+  - During review I removed an invented motive (HubSpot "after customers worried") and an overstatement about Braze's customers.
+- **Verification & Status:**
+  - `pnpm blog:check` 4/4 pass (no jargon warnings on the Global Brief). `pnpm build` exit 0 (39 pages, incl. `/llms.txt`). FAQPage, abstract, takeaways and the service card verified in rendered HTML; layout checked at 1000px and 375px.

@@ -8,6 +8,11 @@ series: kenya-lens
 keyStat:
   value: "52.3m"
   label: "smartphones connected in Kenya, June 2026"
+service: website-design-development
+takeaways:
+  - "Kenya had 52.3 million connected smartphones in June 2026, up 48% in two years, so most customers now judge you on a phone."
+  - "Smartphones now make up two-thirds of connected phones, while feature phones keep falling."
+  - "Test your website on a mid-range Android phone on mobile data, and make WhatsApp, prices and payment one tap away."
 factChecked: 2026-10-21
 tags:
   - smartphones in Kenya

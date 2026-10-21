@@ -6,6 +6,7 @@ import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 import { JsonLd } from "@/components/seo/json-ld";
 import { formatPostDate, type Post, type PostMeta } from "@/lib/blog";
 import { getSeries } from "@/lib/blog-series";
+import { getService } from "@/content/services";
 import { absoluteUrl, site } from "@/lib/site";
 import styles from "./blog.module.css";
 
@@ -20,6 +21,16 @@ export function BlogPost({
   const series = getSeries(post.series);
   const crumbHref = series ? `/blog/series/${series.key}` : "/blog";
   const crumbName = series?.name ?? post.category;
+  const service = post.service ? getService(post.service) : undefined;
+  // The service card sits after the second section, where readers who have
+  // got value from the post are most likely to act on it.
+  const sectionStarts = [...post.html.matchAll(/<h2[ >]/g)].map((m) => m.index);
+  const splitAt =
+    service && sectionStarts.length >= 3 ? sectionStarts[2] : undefined;
+  const htmlParts =
+    splitAt === undefined
+      ? [post.html]
+      : [post.html.slice(0, splitAt), post.html.slice(splitAt)];
   return (
     <div className={styles.page}>
       <HomeNavigation />
@@ -57,6 +68,9 @@ export function BlogPost({
                   datePublished: source.date,
                 })),
                 keywords: post.tags.join(", "),
+                abstract: post.takeaways.length
+                  ? post.takeaways.join(" ")
+                  : undefined,
                 author: {
                   "@type": "Organization",
                   name: post.author,
@@ -93,6 +107,18 @@ export function BlogPost({
                   },
                 ],
               },
+              ...(post.faqs.length
+                ? [
+                    {
+                      "@type": "FAQPage",
+                      mainEntity: post.faqs.map((faq) => ({
+                        "@type": "Question",
+                        name: faq.question,
+                        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+                      })),
+                    },
+                  ]
+                : []),
             ],
           }}
         />
@@ -165,10 +191,48 @@ export function BlogPost({
             </aside>
           )}
           <article className={styles.articleColumn}>
+            {post.takeaways.length > 0 && (
+              <aside className={styles.takeaways} aria-label="Key takeaways">
+                <p>Key takeaways</p>
+                <ul>
+                  {post.takeaways.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </aside>
+            )}
             <div
               className={styles.prose}
-              dangerouslySetInnerHTML={{ __html: post.html }}
+              dangerouslySetInnerHTML={{ __html: htmlParts[0] }}
             />
+            {service && htmlParts[1] && (
+              <aside className={styles.serviceCta} aria-label={service.title}>
+                <p className={styles.serviceCtaKicker}>How we can help</p>
+                <p className={styles.serviceCtaTitle}>{service.hero}</p>
+                <p>{service.description}</p>
+                <div className={styles.ctaRow}>
+                  <TrackedWhatsappLink
+                    href={site.whatsappUrl}
+                    placement={`blog_mid_${post.slug}`}
+                    className={styles.cta}
+                  >
+                    <FaWhatsapp aria-hidden="true" /> Ask us on WhatsApp
+                  </TrackedWhatsappLink>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className={styles.ctaSecondary}
+                  >
+                    {service.title} →
+                  </Link>
+                </div>
+              </aside>
+            )}
+            {htmlParts[1] && (
+              <div
+                className={styles.prose}
+                dangerouslySetInnerHTML={{ __html: htmlParts[1] }}
+              />
+            )}
             {post.sources.length > 0 && (
               <section className={styles.sources} aria-labelledby="sources">
                 <h2 id="sources">Sources</h2>

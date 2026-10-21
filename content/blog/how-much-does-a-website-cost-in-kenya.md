@@ -1,6 +1,6 @@
 ---
 title: "How Much Does a Website Cost in Kenya? (2026 Price Guide)"
-description: "Real website prices in Kenya for 2026, from KSh 25,000 starter sites to KSh 350,000+ bespoke builds. What affects the cost, what you should get at each level, and how to budget."
+description: "Real 2026 website prices in Kenya, from KSh 25,000 starter sites to KSh 220,000+ bespoke builds, plus what drives the cost and how to budget."
 date: 2026-10-14
 author: Malaika Studios
 category: Websites
@@ -8,6 +8,11 @@ tags:
   - website cost Kenya
   - web design Nairobi
   - pricing
+service: website-design-development
+takeaways:
+  - "A professional business website in Kenya costs roughly KSh 25,000 to KSh 190,000, and bespoke builds start from about KSh 220,000."
+  - "Price depends mostly on unique page designs, forms and integrations, SEO and tracking, and revision rounds."
+  - "Very cheap quotes often skip SEO, analytics and ownership of your domain, so ask who owns what before you pay."
 draft: false
 ---
 

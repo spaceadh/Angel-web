@@ -2,6 +2,8 @@
 
 This is the brief for every recurring post, whether a person or an automated job writes it. A post is publishable only when it passes `pnpm blog:check` **and** scores at least 32/40 on the vetting rubric below.
 
+**Why we publish:** to win clients. Every post should (1) give a Kenyan business owner something genuinely useful, (2) rank in Google and get quoted in AI answers (ChatGPT, Gemini, Google AI Overviews, Perplexity), and (3) show, without a hard sell, that Malaika Studios can do this for them. We are not teaching technology; we are explaining what changes mean for sales, costs and customers.
+
 ## The two series
 
 Both series stay on our beat: **the digital tools, platforms and channels behind our services** (websites, branding, email marketing, WhatsApp and CRM automation, SEO, analytics and social content), and what changes in them mean for businesses. Macro-economics (fuel, interest rates, trade) only appears where it directly changes how businesses market or sell online.
@@ -12,7 +14,7 @@ Both series stay on our beat: **the digital tools, platforms and channels behind
 | `series:`           | `kenya-lens`                                                       | `global-brief`                                                                                 |
 | Shape               | One Kenyan digital-economy story, explored in depth with data      | The week's top 4–6 platform and tool moves, plus quick notable mentions                        |
 | Question it answers | "What is changing online in Kenya, and what should a business do?" | "What changed this week in the tools businesses use to sell online, and what should Kenya do?" |
-| Length              | 900–1,800 words                                                    | 1,100–2,400 words                                                                              |
+| Length              | 900–1,800 words                                                    | 800–1,800 words                                                                                |
 | Visuals             | At least 1 chart (ideally a trend over 6+ periods)                 | At least 1 chart plus 1 more chart or comparison table                                         |
 | Sources             | At least 3, mostly primary                                         | At least 8, with the company's own announcement for every main story                           |
 | Reader              | Kenyan business owner or marketing lead                            | Same                                                                                           |
@@ -46,15 +48,18 @@ Pick the week's most important stories from these beats. Aim for variety: no mor
 
 ### Global Brief structure
 
-1. **Opening (2–3 sentences):** the theme that ties the week together, plus the key stat.
-2. **The week at a glance:** one bullet per main story, with company name first.
-3. **One `##` section per main story (4–6)**, each with:
-   - **What changed:** the facts from the company's own announcement, with dates, prices, limits and availability.
-   - **Status:** _launched_, _rolling out_, _beta_, _announced_ or _in effect from…_, plus whether it reaches Kenya.
-   - **What it means for Kenyan businesses:** the practical effect on cost, workflow or reach, labelled as our view.
-4. **Notable mentions** (`##`): 3–5 one-line items, each linked to its source.
-5. **What to do this week** (`##`): 2–3 concrete actions drawn from the stories.
-6. **Close:** one line, with a link to the relevant service or `/match?source=blog_<slug>`.
+1. **Title:** lead with the most useful business story, phrased the way owners search (e.g. "What WhatsApp's New Fees Cost Kenyan Businesses"), not "Global Brief: …".
+2. **Takeaways** (frontmatter): 3 one-line answers.
+3. **Opening (2–3 sentences):** what changed this week and why it affects revenue or costs.
+4. **3–4 main stories** (`##`), each headed with the question or outcome a business cares about. Each has:
+   - **What happened:** two or three plain sentences, with the company name, date and the one number that matters.
+   - **What it means for you:** cost, sales, customers or reach, in shillings where possible. Labelled as our view.
+   - **What to do:** one or two concrete steps.
+5. **Quick hits** (`##`): 2–4 one-liners on other notable moves, each linked to its source.
+6. **Frequently asked questions** (`##` with `###` questions): 2–3 questions owners search for, answered in the first sentence.
+7. **Close:** one line pointing to the service that helps, or `/match?source=blog_<slug>`.
+
+Leave out stories that only matter to developers, such as security patches, developer tools and API changes. If one is urgent, give it one plain line in Quick hits ("If your website runs on WordPress, ask your developer to confirm it's updated").
 
 ## Research rules
 
@@ -68,14 +73,28 @@ Pick the week's most important stories from these beats. Aim for variety: no mor
 8. **No fabrication.** No invented case studies, client results, quotes or URLs. If you can't verify something, leave it out.
 9. **Set `factChecked`** to the date you last verified every figure.
 
-## Writing rules
+## Voice: business first
 
-- Plain, confident English. Short sentences (aim for under 25 words, never over 35).
-- Lead with the point. One idea per paragraph.
-- Avoid generic phrasing (the checker flags common offenders such as "delve", "game-changer" and "in today's fast-paced…").
-- Hedge once, where it matters. A careful caveat is good, but repeated disclaimers make a post hard to read.
-- Kenyan context by default: KSh (write `KSh 1,250`), Kenyan place names, local examples.
-- Every post must answer "so what?" for a business reader.
+- **Write for the owner, not the developer.** Explain the effect, not the mechanism: "replies now cost KSh 0.52 each", not "per-message billing applies to non-template messages".
+- **Money, customers, time.** Every section should touch at least one: what it costs, what it earns, how it wins or loses customers, or the time it saves.
+- **Plain words.** Avoid developer vocabulary (API, tokens, webhook, framework, server, self-hosted, beta, changelog). If you must use a term, explain it once in plain words. `pnpm blog:check` warns when jargon piles up.
+- **Shillings first.** Convert dollar prices to KSh using the CBK rate for a stated date, and show the dollar figure in brackets only if it helps.
+- **Short sentences** (aim for under 25 words, never over 35). Lead with the point. One idea per paragraph.
+- **Hedge once, where it matters.** One careful caveat beats repeated disclaimers.
+- **Kenyan context by default:** local examples, places and channels (WhatsApp, M-Pesa, Instagram).
+- **Avoid generic phrasing** ("delve", "game-changer", "in today's fast-paced…"); the checker flags common offenders.
+- **Sell gently.** The mid-article service card and the closing line do the selling. The body should earn trust by being useful.
+
+## Written for search and AI answers
+
+AI assistants and Google's AI Overviews quote pages that answer a question clearly and early.
+
+- **`takeaways`** (frontmatter, 2–4 items, under 25 words each) appear in a box at the top and in the page's structured data.
+- **Question-style headings** where natural ("How much does WhatsApp cost a Kenyan business now?"), with the direct answer in the first sentence below.
+- **A "Frequently asked questions" section** (`##`) with `###` questions. The site turns these into FAQ structured data automatically.
+- **Specific, sourced numbers** (with dates) are what assistants cite. Vague claims are not.
+- **`service`** (frontmatter): the service slug the post supports (`website-design-development`, `brand-identity-digital-design`, `whatsapp-email-crm-automation`, `digital-growth-strategy-analytics`). It adds a "How we can help" card after the second section.
+- The site also publishes `/llms.txt`, a plain summary of our services, prices and posts for AI assistants.
 
 ## Charts
 
@@ -125,16 +144,16 @@ Rules:
 
 ## Vetting rubric (score each 1–5; publish at 32+/40, and nothing below 3)
 
-| #   | Criterion           | 5 looks like                                                                             |
-| --- | ------------------- | ---------------------------------------------------------------------------------------- |
-| 1   | **Accuracy**        | Every figure checked against its source. No errors found on spot-check.                  |
-| 2   | **Sourcing**        | Mostly primary sources, all dated and linked, revisions noted.                           |
-| 3   | **Relevance**       | Clearly matters to Kenyan businesses this week.                                          |
-| 4   | **Insight**         | Says something the reader couldn't get from a headline: a trend, a cause, a consequence. |
-| 5   | **Usefulness**      | Concrete actions a business can take.                                                    |
-| 6   | **Visuals**         | Charts that make the point at a glance, honest axes, sourced.                            |
-| 7   | **Readability**     | Clear, direct, scannable on a phone. Free of filler and hedging.                         |
-| 8   | **SEO and sharing** | Strong title and description, key stat, internal links, preview card looks good.         |
+| #   | Criterion           | 5 looks like                                                                                         |
+| --- | ------------------- | ---------------------------------------------------------------------------------------------------- |
+| 1   | **Accuracy**        | Every figure checked against its source. No errors found on spot-check.                              |
+| 2   | **Sourcing**        | Mostly primary sources, all dated and linked, revisions noted.                                       |
+| 3   | **Relevance**       | Clearly matters to Kenyan businesses this week.                                                      |
+| 4   | **Insight**         | Says something the reader couldn't get from a headline: a trend, a cause, a consequence.             |
+| 5   | **Business value**  | Clear effect on costs, sales or customers, a concrete next step, and a natural route to our service. |
+| 6   | **Visuals**         | Charts that make the point at a glance, honest axes, sourced.                                        |
+| 7   | **Readability**     | Clear, direct, scannable on a phone. Free of filler and hedging.                                     |
+| 8   | **SEO and sharing** | Strong title and description, key stat, internal links, preview card looks good.                     |
 
 Accuracy, sourcing and fact-versus-analysis separation are **non-negotiable**: a single factual error found in review sends the post back, whatever its score.
 

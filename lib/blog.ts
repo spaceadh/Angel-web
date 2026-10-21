@@ -34,7 +34,13 @@ export type PostMeta = {
   sources: PostSource[];
   /** Date the facts were last verified against the sources. */
   factChecked?: string;
+  /** 2–4 one-line answers shown at the top; also helps AI search summarise. */
+  takeaways: string[];
+  /** Service slug (content/services.ts) promoted in the mid-article call to action. */
+  service?: string;
 };
+
+export type FaqItem = { question: string; answer: string };
 
 export type PostSource = {
   title: string;
@@ -45,7 +51,11 @@ export type PostSource = {
 
 export type Heading = { id: string; text: string; depth: 2 | 3 };
 
-export type Post = PostMeta & { html: string; headings: Heading[] };
+export type Post = PostMeta & {
+  html: string;
+  headings: Heading[];
+  faqs: FaqItem[];
+};
 
 function slugify(text: string) {
   return text
@@ -109,6 +119,8 @@ function readPostFile(file: string) {
     factChecked: data.factChecked
       ? toIsoDate(data.factChecked, "factChecked", file)
       : undefined,
+    takeaways: Array.isArray(data.takeaways) ? data.takeaways.map(String) : [],
+    service: data.service ? String(data.service) : undefined,
     readingMinutes: Math.max(
       1,
       Math.round(content.split(/\s+/).filter(Boolean).length / wordsPerMinute),
@@ -184,7 +196,44 @@ export function getPost(slug: string): Post | undefined {
   });
 
   const html = marked.parse(content, { async: false });
-  return { ...meta, html, headings };
+  return { ...meta, html, headings, faqs: extractFaqs(marked, content) };
+}
+
+/**
+ * Questions (###) under a "Frequently asked questions" (##) section become
+ * FAQPage structured data, which search engines and AI assistants read.
+ */
+function extractFaqs(marked: Marked, content: string): FaqItem[] {
+  const faqs: FaqItem[] = [];
+  let inFaq = false;
+  let current: { question: string; parts: string[] } | undefined;
+  const flush = () => {
+    if (current && current.parts.length) {
+      faqs.push({
+        question: current.question,
+        answer: current.parts.join(" "),
+      });
+    }
+    current = undefined;
+  };
+  for (const token of marked.lexer(content)) {
+    if (token.type === "heading" && token.depth === 2) {
+      flush();
+      inFaq = /question/i.test(token.text);
+    } else if (inFaq && token.type === "heading" && token.depth === 3) {
+      flush();
+      current = { question: token.text, parts: [] };
+    } else if (inFaq && current && token.type === "paragraph") {
+      // Plain text: strip Markdown links and emphasis.
+      current.parts.push(
+        token.text
+          .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+          .replace(/[*_`]/g, ""),
+      );
+    }
+  }
+  flush();
+  return faqs;
 }
 
 export function getRelatedPosts(post: PostMeta, limit = 3) {

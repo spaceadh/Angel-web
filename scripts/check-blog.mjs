@@ -32,7 +32,7 @@ const SERIES = {
     minSources: 8,
     minCharts: 1,
     minVisuals: 2,
-    words: [1100, 2400],
+    words: [800, 1800],
   },
 };
 const DEFAULT_RULES = {
@@ -52,6 +52,35 @@ const WEEKDAYS = [
 ];
 
 // Phrases that make writing sound generic or machine-made.
+// Developer vocabulary that loses a business reader. Fine once if explained;
+// flagged when it piles up. Keep in sync with _EDITORIAL.md → "Voice".
+const JARGON = [
+  "api",
+  "sdk",
+  "mcp",
+  "cve",
+  "ghsa",
+  "rce",
+  "ssrf",
+  "xss",
+  "webhook",
+  "endpoint",
+  "framework",
+  "backend",
+  "deploy",
+  "repo",
+  "token",
+  "tokens",
+  "lts",
+  "beta",
+  "self-hosted",
+  "open-source",
+  "llm",
+  "server",
+  "runtime",
+  "changelog",
+];
+
 const CLICHES = [
   "in today's fast-paced",
   "in today’s fast-paced",
@@ -139,6 +168,27 @@ function checkPost(file) {
     if (!data.factChecked)
       errors.push(
         `series posts need "factChecked" (the date facts were verified)`,
+      );
+    const takeaways = Array.isArray(data.takeaways) ? data.takeaways : [];
+    if (takeaways.length < 2 || takeaways.length > 4)
+      errors.push(
+        "series posts need 2–4 takeaways (shown at the top; used by AI search)",
+      );
+    if (takeaways.some((item) => String(item).split(/\s+/).length > 25))
+      warnings.push("keep each takeaway under 25 words");
+    if (!data.service)
+      errors.push(
+        `series posts need "service" (the service the post promotes)`,
+      );
+  }
+  if (data.service) {
+    const servicesSource = fs.readFileSync(
+      path.join(root, "content/services.ts"),
+      "utf8",
+    );
+    if (!servicesSource.includes(`slug: "${data.service}"`))
+      errors.push(
+        `unknown service "${data.service}" (see content/services.ts)`,
       );
   }
   const factChecked = data.factChecked ? isoDate(data.factChecked) : null;
@@ -253,6 +303,16 @@ function checkPost(file) {
 
   // Style
   const lower = content.toLowerCase();
+  const proseWords = body.toLowerCase().match(/[a-z][a-z-]*/g) ?? [];
+  const jargonHits = JARGON.map((term) => [
+    term,
+    proseWords.filter((w) => w === term).length,
+  ]).filter(([, n]) => n > 0);
+  const jargonTotal = jargonHits.reduce((sum, [, n]) => sum + n, 0);
+  if (jargonTotal > 4)
+    warnings.push(
+      `too technical for business readers (${jargonTotal} jargon words: ${jargonHits.map(([w, n]) => `${w}×${n}`).join(", ")})`,
+    );
   const found = CLICHES.filter((phrase) => lower.includes(phrase));
   if (found.length)
     warnings.push(`generic phrasing: ${found.map((p) => `"${p}"`).join(", ")}`);
@@ -261,7 +321,7 @@ function checkPost(file) {
     .filter((line) => !line.trim().startsWith("|"))
     .join("\n");
   const sentences = prose
-    .split(/(?<=[.!?]["”’]?)\s+|\n+/)
+    .split(/(?<=[.!?]["”’*]{0,2})\s+|\n+/)
     .filter((s) => s.split(/\s+/).length > 3);
   const long = sentences.filter((s) => s.split(/\s+/).length > 35).length;
   if (long > 2)
