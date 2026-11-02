@@ -292,14 +292,14 @@ export function WhatWeDoPage() {
             </div>
             <div className={styles.footerLinks}>
               {[
-                "Websites",
-                "WhatsApp",
-                "Email",
-                "Social",
-                "Automation",
-                "Growth",
-              ].map((item) => (
-                <Link href="/what-we-do" key={item}>
+                ["Websites", "website-design-development"],
+                ["Branding", "brand-identity-digital-design"],
+                ["WhatsApp", "whatsapp-email-crm-automation"],
+                ["Email", "whatsapp-email-crm-automation"],
+                ["SEO", "digital-growth-strategy-analytics"],
+                ["Growth", "digital-growth-strategy-analytics"],
+              ].map(([item, slug]) => (
+                <Link href={`/services/${slug}`} key={item}>
                   {item}
                 </Link>
               ))}

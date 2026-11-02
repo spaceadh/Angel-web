@@ -373,3 +373,46 @@ When completing any modification, task, or iteration in this codebase, the agent
   - ISR (15 min) instead of a deploy hook: no secrets or cron needed for posts to appear on time.
 - **Verification & Status:**
   - `pnpm build` exit 0; production server confirmed both scheduled posts return 404 and are absent from `/blog` and the sitemap before their publish time, while the live post stays 200. `pnpm blog:check` 4/4.
+
+### [2026-11-02 20:42:00 +03:00] — Claude Opus 5.5 / Claude Code (Search fixes: service pages, redirects, internal links)
+
+- **Timestamp:** 2026-11-02T20:42:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** SEO / Lead Engineer
+- **Task / Scope:** Search Console export (last 6 months) showed only brand-name queries (5 clicks, ~330 impressions) and three old-site URLs returning 404. Made the service pages say plainly what Malaika sells and where, expanded them, and fixed redirects and internal links.
+- **Files Modified / Created:**
+  - `next.config.ts` (Updated — 308 redirects: `/projects/*` → `/our-work`, `/services/digital-presence-audit` → `/services/digital-growth-strategy-analytics`)
+  - `content/services.ts` (Updated — `heading`, `audience`, `pricing`, `caseStudies`, `faqs` per service; keyword-led `seoTitle`/`description`; `{from:<offering>}` price tokens and `fillPrices()`)
+  - `components/services/service-page.tsx`, `components/services/service-page.module.css` (Updated — search phrase inside the H1, audience copy, starter prices from `lib/pricing.ts`, related case studies, FAQ accordion, links to the other services; Service + AggregateOffer, FAQPage and BreadcrumbList JSON-LD)
+  - `app/services/[slug]/page.tsx`, `components/blog/blog-post.tsx`, `app/llms.txt/route.ts` (Updated — resolve price tokens in descriptions)
+  - `components/home/home-page.tsx`, `components/home/home-page.module.css` (Updated — hero copy and the five system steps link to service pages)
+  - `components/what-we-do/what-we-do-page.tsx` (Updated — footer links go to service pages instead of all pointing at `/what-we-do`)
+  - `app/layout.tsx` (Updated — default title names services; `priceRange` in ProfessionalService schema)
+  - `AGENTS.md` (Updated)
+- **Key Decisions & Implementation Details:**
+  - Prices on service pages, meta descriptions and FAQs are read from `lib/pricing.ts`, so they can't drift from `/pricing`.
+  - Branding has no entry in `lib/pricing.ts`, so its page shows no price and points to a WhatsApp quote instead of an invented figure.
+  - Kept the brand slogans as the large display line; the search phrase sits above it in the same H1.
+  - FAQ copy only states what the repo already supports (pricing configs, case studies, the website-cost post's timelines).
+- **Verification & Status:**
+  - `tsc --noEmit` clean; `pnpm build` exit 0. On the dev server: redirects resolve to 200, no unresolved `{from:` tokens, JSON-LD parses, no console errors, no horizontal overflow at 375px. Not deployed or committed. Off-site steps (Google Business Profile, directory listings, client backlinks) are for the owner.
+
+### [2026-11-02 20:58:00 +03:00] — Claude Opus 5.5 / Claude Code (Removed Polar Bison case study)
+
+- **Timestamp:** 2026-11-02T20:58:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer
+- **Task / Scope:** Owner asked to remove Polar Bison from the site completely.
+- **Files Modified / Created:**
+  - `content/case-studies/polar-bison.ts`, `assets/polarbison/` (Deleted)
+  - `content/case-studies/index.ts`, `content/case-studies/types.ts` (Updated — removed the entry and the `polar` / `polar-logo` types)
+  - `components/work/artwork.ts`, `components/work/case-study-page.tsx` (Updated — removed logo imports)
+  - `components/home/home-page.tsx` (Updated — removed the owner's commented-out card and import)
+  - `content/services.ts` (Updated — branding and growth pages now cite other case studies; branding FAQ example now uses Digitally Sly)
+  - `components/work/work.module.css` (Updated — Our Work grid is 3 columns so three projects fill one row)
+  - `next.config.ts` (Updated — 308 redirect `/our-work/work/polar-bison` → `/our-work`)
+- **Key Decisions & Implementation Details:**
+  - Redirect rather than 404, because the old URL may be indexed or linked.
+  - Earlier logbook entries that mention Polar Bison were left as history. The gitignored `guidingDraft/` design drafts still mention it; they are local-only and never deployed.
+- **Verification & Status:**
+  - `tsc --noEmit` clean; `pnpm build` exit 0 with 3 case study pages. Home, Our Work, both affected service pages, sitemap and `llms.txt` contain no "Polar"/"Bison". Old URL redirects to `/our-work` (200). Not committed or deployed.

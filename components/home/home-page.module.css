@@ -152,6 +152,16 @@
   color: #364343;
   margin: 0 0 28px;
 }
+.hero p a,
+.step h3 a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.hero p a:hover,
+.step h3 a:hover {
+  text-decoration-thickness: 2px;
+}
 .actions {
   display: flex;
   gap: 12px;
@@ -966,7 +976,7 @@
     height: 300px;
   }
   .workCard:nth-child(2),
-  .workCard:nth-child(4) {
+  .workCard:nth-child(3) {
     margin-top: 17px;
   }
   .workCardMeta {

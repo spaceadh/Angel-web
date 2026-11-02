@@ -4,7 +4,6 @@ import heroVisual from "@/assets/hero-visual.webp";
 import workBeads from "@/assets/beads-world/beads-world-africa-logo.png";
 import workDigitally from "@/assets/digitally-sly/digitaly-sly-logo.png";
 import workNeighborhood from "@/assets/neighbourhood-cocktails/neighbourhood-cocktails-logo.png";
-import workPolar from "@/assets/polarbison/LogoIconwithtagline-Orange-Black.png";
 import { HomeFooter } from "./home-footer";
 import { HomeNavigation } from "./home-navigation";
 import styles from "./home-page.module.css";
@@ -19,6 +18,7 @@ const systemSteps = [
     icon: "✦",
     color: "yellow",
     title: "01 — Get noticed",
+    href: "/services/brand-identity-digital-design",
     detail: "Brand · Social · Strategy",
     aside: "Make them stop.",
   },
@@ -26,6 +26,7 @@ const systemSteps = [
     icon: "▣",
     color: "blue",
     title: "02 — Look good",
+    href: "/services/website-design-development",
     detail: "Website · Content · Design",
     aside: "Give them something worth remembering.",
   },
@@ -33,6 +34,7 @@ const systemSteps = [
     icon: "◉",
     color: "coral",
     title: "03 — Make it easy",
+    href: "/services/whatsapp-email-crm-automation",
     detail: "WhatsApp · Email · CRM",
     aside: "Remove the friction.",
   },
@@ -40,6 +42,7 @@ const systemSteps = [
     icon: "⚙",
     color: "green",
     title: "04 — Make it work",
+    href: "/services/whatsapp-email-crm-automation",
     detail: "Automation · Integrations · Systems",
     aside: "Less manual work. More momentum.",
   },
@@ -47,6 +50,7 @@ const systemSteps = [
     icon: "↗",
     color: "blue",
     title: "05 — Grow",
+    href: "/services/digital-growth-strategy-analytics",
     detail: "Analytics · Campaigns · Strategy",
     aside: "Turn attention into opportunity.",
   },
@@ -95,14 +99,6 @@ const work = [
     href: "/our-work/work/digitally-sly",
     label: "View Digitally Sly case study",
   },
-  {
-    image: workPolar,
-    alt: "Polar Bison brand work",
-    title: <>Polar Bison</>,
-    services: "Website / Strategy / Growth",
-    href: "/our-work/work/polar-bison",
-    label: "View Polar Bison case study",
-  },
 ] as const;
 
 const process = [
@@ -129,8 +125,23 @@ export function HomePage() {
               </span>
             </h1>
             <p>
-              Websites, WhatsApp, email, strategy and automation — built into a
-              digital presence people trust.
+              <Link href="/services/website-design-development">
+                Website design
+              </Link>
+              ,{" "}
+              <Link href="/services/brand-identity-digital-design">
+                branding
+              </Link>
+              ,{" "}
+              <Link href="/services/whatsapp-email-crm-automation">
+                WhatsApp and email automation
+              </Link>{" "}
+              and{" "}
+              <Link href="/services/digital-growth-strategy-analytics">
+                SEO
+              </Link>{" "}
+              for businesses in Nairobi and across Kenya — built into a digital
+              presence people trust.
             </p>
             <div className={styles.actions}>
               <Link className={styles.buttonDark} href="/what-we-do">
@@ -187,7 +198,9 @@ export function HomePage() {
                     {step.icon}
                   </div>
                   <div>
-                    <h3>{step.title}</h3>
+                    <h3>
+                      <Link href={step.href}>{step.title}</Link>
+                    </h3>
                     <p>{step.detail}</p>
                     <span className={styles.aside}>{step.aside}</span>
                   </div>
@@ -224,6 +237,7 @@ export function HomePage() {
                     width="620"
                     height="760"
                   />
+
                   <div className={styles.workCardMeta}>
                     <div>
                       <strong>{item.title}</strong>

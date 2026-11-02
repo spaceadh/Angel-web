@@ -1,11 +1,10 @@
-export type WorkArtwork = "cocktails" | "beads" | "digitally-sly" | "polar";
+export type WorkArtwork = "cocktails" | "beads" | "digitally-sly";
 
 export type CaseStudyImage =
   | "generic-before"
   | "generic-after"
   | "neighborhood-landing"
   | "beads-landing"
-  | "polar-logo"
   | "digitally-sly-logo";
 
 export type CaseStudyCard = {

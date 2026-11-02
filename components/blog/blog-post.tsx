@@ -6,7 +6,7 @@ import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
 import { JsonLd } from "@/components/seo/json-ld";
 import { formatPostDate, type Post, type PostMeta } from "@/lib/blog";
 import { getSeries } from "@/lib/blog-series";
-import { getService } from "@/content/services";
+import { fillPrices, getService } from "@/content/services";
 import { absoluteUrl, site } from "@/lib/site";
 import styles from "./blog.module.css";
 
@@ -209,7 +209,7 @@ export function BlogPost({
               <aside className={styles.serviceCta} aria-label={service.title}>
                 <p className={styles.serviceCtaKicker}>How we can help</p>
                 <p className={styles.serviceCtaTitle}>{service.hero}</p>
-                <p>{service.description}</p>
+                <p>{fillPrices(service.description)}</p>
                 <div className={styles.ctaRow}>
                   <TrackedWhatsappLink
                     href={site.whatsappUrl}

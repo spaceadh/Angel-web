@@ -1,5 +1,5 @@
 import { caseStudies } from "@/content/case-studies";
-import { services } from "@/content/services";
+import { fillPrices, services } from "@/content/services";
 import { getAllPosts } from "@/lib/blog";
 import { CONFIGS, OFFERINGS } from "@/lib/pricing";
 import { absoluteUrl, site } from "@/lib/site";
@@ -27,7 +27,7 @@ Instant project estimate: ${absoluteUrl("/match")}
 
 ## Services
 
-${services.map((service) => `- [${service.title}](${absoluteUrl(`/services/${service.slug}`)}): ${service.description}`).join("\n")}
+${services.map((service) => `- [${service.title}](${absoluteUrl(`/services/${service.slug}`)}): ${fillPrices(service.description)}`).join("\n")}
 
 ## Pricing (Kenyan shillings, published)
 

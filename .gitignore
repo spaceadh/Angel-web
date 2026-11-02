@@ -16,3 +16,4 @@ docs
 .hallmark
 .env*.local
 .claude
+graphify-out

@@ -3,6 +3,7 @@ import "./globals.css";
 import { ConsentAndAnalytics } from "@/components/analytics/consent-and-analytics";
 import { AnalyticsPageViews } from "@/components/analytics/page-views";
 import { JsonLd } from "@/components/seo/json-ld";
+import { CONFIGS } from "@/lib/pricing";
 import { absoluteUrl, site } from "@/lib/site";
 import { Bricolage_Grotesque, Caveat, DM_Sans } from "next/font/google";
 
@@ -28,7 +29,7 @@ const scriptFont = Caveat({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Malaika Studios | Digital Presence Studio in Nairobi",
+    default: "Malaika Studios | Web Design & WhatsApp Automation, Nairobi",
     template: "%s | Malaika Studios",
   },
   description: site.description,
@@ -91,6 +92,7 @@ export default function RootLayout({
                 description: site.description,
                 email: site.email,
                 telephone: site.phone,
+                priceRange: `${CONFIGS.website["20-50"][0][1]}+`,
                 logo: absoluteUrl("/icon-512.png"),
                 image: absoluteUrl("/opengraph-image"),
                 address: {
