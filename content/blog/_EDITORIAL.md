@@ -174,4 +174,4 @@ Rules for the agent and for anyone drafting by hand:
 2. Run `pnpm blog:check <slug>` and fix every ✗, plus any jargon warning.
 3. Preview with `pnpm dev` → `/blog/<slug>`, and check the share card at `/blog/<slug>/opengraph-image`.
 4. In the pull request, list every figure with its source link so the editor can spot-check quickly, and say what was left out because it couldn't be verified.
-5. After a post goes live, run `pnpm indexnow:submit` so Bing picks it up quickly. Google finds new posts through the sitemap.
+5. Bing is notified automatically (IndexNow) on the morning a post goes live. Google finds new posts through the sitemap.

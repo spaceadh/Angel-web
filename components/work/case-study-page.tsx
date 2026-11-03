@@ -1,12 +1,9 @@
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
-import after from "@/assets/work-after.svg";
-import beadsLanding from "@/assets/beads-world/beads-world-africa-landing.webp";
 import digitallySlyLogo from "@/assets/digitally-sly/digitaly-sly-logo.png";
 import before from "@/assets/work-before.svg";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
-import neighborhoodLanding from "@/assets/neighbourhood-cocktails/neighbourhood-landing-page.webp";
 import visual from "@/assets/why-malaika-image.webp";
 import type {
   CaseStudy,
@@ -21,9 +18,6 @@ import styles from "./work.module.css";
 
 const sectionImages: Record<CaseStudyImage, { src: string }> = {
   "generic-before": before,
-  "generic-after": after,
-  "neighborhood-landing": neighborhoodLanding,
-  "beads-landing": beadsLanding,
   "digitally-sly-logo": digitallySlyLogo,
 };
 

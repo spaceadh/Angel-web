@@ -1,0 +1,38 @@
+name: Notify IndexNow
+
+# Vercel deploys master; this tells Bing (and other IndexNow engines) to recrawl.
+on:
+  deployment_status:
+  schedule:
+    # 06:30 EAT, just after scheduled blog posts go live at 06:00.
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    if: >-
+      github.event_name != 'deployment_status' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Submit every live URL after a deploy
+        if: github.event_name != 'schedule'
+        run: node scripts/submit-indexnow.mjs
+      - name: Submit posts published today
+        if: github.event_name == 'schedule'
+        run: node scripts/submit-indexnow.mjs --today

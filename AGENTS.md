@@ -463,3 +463,28 @@ When completing any modification, task, or iteration in this codebase, the agent
   - `tsc --noEmit` is clean and `pnpm build` passes.
   - Checked at 1024px, 1440px and 375px with no horizontal overflow; all three case study pages return 200.
   - Not committed or deployed.
+
+### [2026-11-03 16:10:00 +03:00] — Claude Opus 5.5 / Claude Code (Neighborhood Cocktails case study, IndexNow automation)
+
+- **Timestamp:** 2026-11-03T16:10:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Editor
+- **Task / Scope:** Rebuilt the Neighborhood Cocktails case study in the BWA format from the owner's recordings, removed leftovers, and made IndexNow submissions automatic.
+- **Files Modified / Created:**
+  - `public/work/neighborhood-cocktails/` (Created — 4 laptop mockups; 3 silent MP4 clips with posters, 3.2 MB)
+  - `content/case-studies/neighborhood-cocktails.ts` (Rewritten — highlights, walkthrough, "What happens after Book" flow, gallery, services, trimmed system cards; no figures that need upkeep)
+  - `content/case-studies/types.ts`, `components/work/case-study-page.tsx` (Updated — removed unused comparison image keys)
+  - `assets/beads-world/beads-world-africa-landing.webp`, `assets/beads-world/beads-world-africa-shop.png`, `assets/work-after.svg` (Deleted — unreferenced)
+  - `scripts/submit-indexnow.mjs` (Updated — reads the key from `public/`, checks it is live, `--today` and `--dry-run`)
+  - `.github/workflows/indexnow.yml` (Rewritten — runs after Vercel Production deploys and daily at 06:30 EAT; replaces a copy from the BWA repo that targeted `main` and called Python scripts that don't exist here)
+  - `public/e49946c5e9994414b37d8d67660e24de.txt` (Added — IndexNow key)
+  - `ANALYTICS_SEO_SETUP.md`, `content/blog/_README.md`, `content/blog/_EDITORIAL.md` (Updated — IndexNow is automatic)
+  - `.gitignore` (Updated — `recordingOfwork` raw recordings)
+- **Key Decisions & Implementation Details:**
+  - Automation steps checked against the NC codebase:
+    - `app/api/booking/route.js`: team email, client confirmation, Brevo list contact, and a Meta Conversions lead that requires consent.
+    - `app/api/feedback/route.js`: promoter and critique lists, a thank-you email and a critical-feedback alert.
+    - Sanity CMS handles content editing.
+  - The "Top five" ranking claim was removed because it needs regular upkeep.
+  - Clips were checked frame by frame. The booking form only appears empty, with placeholders.
+- **Verification & Status:** `tsc --noEmit` clean; `pnpm build` exit 0. NC page checked at 1440px and 375px (no overflow, no console errors); Digitally Sly and BWA unaffected.

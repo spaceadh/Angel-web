@@ -24,7 +24,7 @@ Posts are plain Markdown files in `content/blog/`. No CMS or database is involve
 
 3. Write the body in Markdown. Use `##` for main sections (these build the "On this page" menu) and `###` for sub-sections. Tables, quotes (`>`), lists and links all work.
 4. Preview with `pnpm dev` and open `http://localhost:3000/blog`.
-5. Set `draft: false`, commit and deploy. Then run `pnpm indexnow:submit` so Bing picks it up quickly.
+5. Set `draft: false`, commit and deploy. Bing is notified automatically on the morning the post goes live.
 
 ## What happens automatically
 

@@ -2,9 +2,6 @@ export type WorkArtwork = "cocktails" | "beads" | "digitally-sly";
 
 export type CaseStudyImage =
   | "generic-before"
-  | "generic-after"
-  | "neighborhood-landing"
-  | "beads-landing"
   | "digitally-sly-logo";
 
 export type CaseStudyCard = {
