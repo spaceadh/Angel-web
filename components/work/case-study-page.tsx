@@ -1,48 +1,13 @@
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
-import digitallySlyLogo from "@/assets/digitally-sly/digitaly-sly-logo.png";
-import before from "@/assets/work-before.svg";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
 import visual from "@/assets/why-malaika-image.webp";
-import type {
-  CaseStudy,
-  CaseStudyCard,
-  CaseStudyImage,
-} from "@/content/case-studies";
+import type { CaseStudy, CaseStudyCard } from "@/content/case-studies";
 import { services as allServices } from "@/content/services";
-import { workArtwork } from "./artwork";
 import { CaseMedia } from "./case-media";
 import { Footer } from "./our-work-page";
 import styles from "./work.module.css";
-
-const sectionImages: Record<CaseStudyImage, { src: string }> = {
-  "generic-before": before,
-  "digitally-sly-logo": digitallySlyLogo,
-};
-
-const whatsappLink = "https://wa.me/254745474586";
-
-type ComparisonSide = NonNullable<CaseStudy["comparison"]>["before"];
-
-function ComparisonCard({ side }: { side: ComparisonSide }) {
-  const image = side.image ? sectionImages[side.image] : undefined;
-
-  return (
-    <article
-      className={`${styles.shot} ${image ? "" : styles.shotWithoutImage}`}
-    >
-      <div className={styles.shotLabel}>{side.label}</div>
-      {image ? (
-        <img src={image.src} alt={`${side.label}: ${side.title}`} />
-      ) : null}
-      <div className={styles.shotCopy}>
-        <h3 className={styles.display}>{side.title}</h3>
-        <p>{side.copy}</p>
-      </div>
-    </article>
-  );
-}
 
 function CardSection({
   section,
@@ -71,15 +36,12 @@ function CardSection({
 }
 
 export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
-  const art = workArtwork[caseStudy.art];
   const {
     automation,
     challenge,
-    comparison,
     gallery,
     hero,
     heroMedia,
-    outcomes,
     results,
     system,
     walkthrough,
@@ -105,18 +67,9 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
                 <p className={styles.caseCopy}>{hero.intro}</p>
                 <div className={styles.caseTags}>{hero.tags}</div>
               </div>
-              {heroMedia ? (
-                <div className={styles.caseHeroMedia}>
-                  <CaseMedia media={heroMedia} priority />
-                </div>
-              ) : (
-                <div className={styles.caseArt}>
-                  <img
-                    src={art.src}
-                    alt={`${caseStudy.title} website presentation`}
-                  />
-                </div>
-              )}
+              <div className={styles.caseHeroMedia}>
+                <CaseMedia media={heroMedia} priority />
+              </div>
             </div>
             {results ? (
               <div className={styles.caseResults}>
@@ -161,20 +114,6 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
               </div>
             ) : null}
           </div>
-
-          {comparison ? (
-            <div className={styles.transform}>
-              <div className={styles.eyebrow}>{comparison.eyebrow}</div>
-              <h2 className={`${styles.display} ${styles.sectionTitle}`}>
-                {comparison.title}
-              </h2>
-              <div className={styles.beforeAfter}>
-                <ComparisonCard side={comparison.before} />
-                <div className={styles.swap}>→</div>
-                <ComparisonCard side={comparison.after} />
-              </div>
-            </div>
-          ) : null}
 
           {walkthrough ? (
             <div className={styles.walkthrough}>
@@ -258,9 +197,6 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
 
           {system ? (
             <CardSection section={system} className={styles.capabilities} />
-          ) : null}
-          {outcomes ? (
-            <CardSection section={outcomes} className={styles.results} />
           ) : null}
 
           {usedServices.length ? (

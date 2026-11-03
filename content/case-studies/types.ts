@@ -1,9 +1,5 @@
 export type WorkArtwork = "cocktails" | "beads" | "digitally-sly";
 
-export type CaseStudyImage =
-  | "generic-before"
-  | "digitally-sly-logo";
-
 export type CaseStudyCard = {
   icon: string;
   title: string;
@@ -47,8 +43,7 @@ export type CaseStudy = {
       items: readonly string[];
     };
   };
-  /** Replaces the logo artwork in the hero. */
-  heroMedia?: CaseStudyMedia;
+  heroMedia: CaseStudyMedia;
   /** Highlights shown under the hero; `source` says where any figure came from. */
   results?: {
     items: readonly CaseStudyResult[];
@@ -61,22 +56,6 @@ export type CaseStudy = {
     intro: string;
     steps: readonly { label: string; title: string; copy: string }[];
     note?: string;
-  };
-  comparison?: {
-    eyebrow: string;
-    title: string;
-    before: {
-      label: string;
-      title: string;
-      copy: string;
-      image?: CaseStudyImage;
-    };
-    after: {
-      label: string;
-      title: string;
-      copy: string;
-      image?: CaseStudyImage;
-    };
   };
   system?: {
     eyebrow: string;
@@ -95,9 +74,4 @@ export type CaseStudy = {
   };
   /** Slugs from content/services.ts. */
   services?: readonly string[];
-  outcomes?: {
-    eyebrow: string;
-    title: string;
-    items: readonly CaseStudyCard[];
-  };
 };

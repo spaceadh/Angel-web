@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CaseStudyPage as CaseStudyContent } from "@/components/work/case-study-page";
 import { caseStudies, getCaseStudy } from "@/content/case-studies";
-import { absoluteUrl, defaultOgImage, site } from "@/lib/site";
+import { absoluteUrl, site } from "@/lib/site";
 import { JsonLd } from "@/components/seo/json-ld";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -26,16 +26,14 @@ export async function generateMetadata({
       description: caseStudy.description,
       url,
       type: "article",
-      images: caseStudy.heroMedia
-        ? [
-            {
-              url: caseStudy.heroMedia.src,
-              width: caseStudy.heroMedia.width,
-              height: caseStudy.heroMedia.height,
-              alt: caseStudy.heroMedia.alt,
-            },
-          ]
-        : [defaultOgImage],
+      images: [
+        {
+          url: caseStudy.heroMedia.src,
+          width: caseStudy.heroMedia.width,
+          height: caseStudy.heroMedia.height,
+          alt: caseStudy.heroMedia.alt,
+        },
+      ],
     },
   };
 }

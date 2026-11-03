@@ -123,7 +123,7 @@ export const services: readonly Service[] = [
       ],
     ],
     pricing: [],
-    caseStudies: ["digitally-sly", "neighborhood-cocktails"],
+    caseStudies: ["neighborhood-cocktails"],
     faqs: [
       [
         "What is included in a brand identity?",
@@ -139,7 +139,7 @@ export const services: readonly Service[] = [
       ],
       [
         "Can you refresh an existing brand?",
-        "Yes. Digitally Sly had a strong product but a quiet online presence. We gave it a bold, on-brand visual identity and carried it into a new website and email marketing.",
+        "Yes. We can sharpen an existing look or work within brand guidelines you already have, and carry it consistently into your website, social media and emails.",
       ],
       [
         "Do you work with businesses outside Nairobi?",

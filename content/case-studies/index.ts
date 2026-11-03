@@ -5,7 +5,6 @@ import { neighborhoodCocktails } from "./neighborhood-cocktails";
 export type {
   CaseStudy,
   CaseStudyCard,
-  CaseStudyImage,
   CaseStudyMedia,
   CaseStudyResult,
   WorkArtwork,

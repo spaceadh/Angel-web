@@ -488,3 +488,21 @@ When completing any modification, task, or iteration in this codebase, the agent
   - The "Top five" ranking claim was removed because it needs regular upkeep.
   - Clips were checked frame by frame. The booking form only appears empty, with placeholders.
 - **Verification & Status:** `tsc --noEmit` clean; `pnpm build` exit 0. NC page checked at 1440px and 375px (no overflow, no console errors); Digitally Sly and BWA unaffected.
+
+### [2026-11-03 16:50:00 +03:00] — Claude Opus 5.5 / Claude Code (Digitally Sly case study, case-study cleanup)
+
+- **Timestamp:** 2026-11-03T16:50:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Editor
+- **Task / Scope:** Rebuilt the Digitally Sly case study from the owner's recordings of `demo.digitallysly.com`, corrected claims the DS codebase doesn't support, and removed the now-unused comparison/outcomes code.
+- **Files Modified / Created:**
+  - `public/work/digitally-sly/` (Created — 3 clips with posters, 4 stills from the laptop recording, 2.9 MB)
+  - `content/case-studies/digitally-sly.ts` (Rewritten — labelled "In development"; highlights, walkthrough, gallery, build cards; no automation section)
+  - `content/services.ts` (Updated — branding page no longer lists Digitally Sly; the "refresh an existing brand" FAQ no longer names a client)
+  - `content/case-studies/types.ts`, `index.ts`, `components/work/case-study-page.tsx`, `components/work/work.module.css`, `app/our-work/work/[slug]/page.tsx` (Updated — removed `comparison`, `outcomes`, `CaseStudyImage` and their styles; `heroMedia` is now required)
+  - `assets/work-before.svg` (Deleted — unreferenced)
+- **Key Decisions & Implementation Details:**
+  - The DS README says no email or booking backend is connected, the logo was supplied by the client, and the logos, testimonials and photography are placeholders or concept art.
+  - The old "email marketing system" and "visual identity" claims were therefore removed. The clips avoid the placeholder client-logo strip and testimonials, which were checked frame by frame.
+  - The "book a call" wording was dropped because Book a Call currently leads to the same form.
+- **Verification & Status:** `tsc --noEmit` clean; `pnpm build` exit 0. DS checked at 1440px and 375px; Our Work and all three case studies show no broken images or overflow.
