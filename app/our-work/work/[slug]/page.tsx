@@ -26,7 +26,16 @@ export async function generateMetadata({
       description: caseStudy.description,
       url,
       type: "article",
-      images: [defaultOgImage],
+      images: caseStudy.heroMedia
+        ? [
+            {
+              url: caseStudy.heroMedia.src,
+              width: caseStudy.heroMedia.width,
+              height: caseStudy.heroMedia.height,
+              alt: caseStudy.heroMedia.alt,
+            },
+          ]
+        : [defaultOgImage],
     },
   };
 }

@@ -6,6 +6,8 @@ export type {
   CaseStudy,
   CaseStudyCard,
   CaseStudyImage,
+  CaseStudyMedia,
+  CaseStudyResult,
   WorkArtwork,
 } from "./types";
 

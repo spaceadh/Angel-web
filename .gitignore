@@ -17,3 +17,4 @@ docs
 .env*.local
 .claude
 graphify-out
+tsconfig.tsbuildinfo

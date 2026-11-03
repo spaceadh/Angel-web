@@ -416,3 +416,50 @@ When completing any modification, task, or iteration in this codebase, the agent
   - Earlier logbook entries that mention Polar Bison were left as history. The gitignored `guidingDraft/` design drafts still mention it; they are local-only and never deployed.
 - **Verification & Status:**
   - `tsc --noEmit` clean; `pnpm build` exit 0 with 3 case study pages. Home, Our Work, both affected service pages, sitemap and `llms.txt` contain no "Polar"/"Bison". Old URL redirects to `/our-work` (200). Not committed or deployed.
+
+### [2026-11-03 10:12:05 +03:00] — Claude Opus 5.5 / Claude Code (Beads World Africa case study redesign)
+
+- **Timestamp:** 2026-11-03T10:12:05+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Editor
+- **Task / Scope:** Rebuilt the Beads World Africa case study around real screenshots, short screen recordings and measured results, using media the owner dropped in the BWA project root.
+- **Files Modified / Created:**
+  - `public/work/beads-world-africa/` (Created — 7 laptop mockups; 3 silent MP4 clips with WebP posters, 2.6 MB in total)
+  - `content/case-studies/types.ts`, `content/case-studies/index.ts` (Updated — optional `heroMedia`, `results`, `walkthrough`, `gallery`, `services`; `comparison` and `outcomes` now optional)
+  - `content/case-studies/beads-world-africa.ts` (Updated — new hero, results, walkthrough, gallery and services; before/after and outcomes cards removed)
+  - `components/work/case-media.tsx` (Created — image or clip; clips autoplay muted only while on screen and never for reduced-motion users, who get controls)
+  - `components/work/case-study-page.tsx`, `components/work/work.module.css` (Updated — results strip, alternating walkthrough rows, gallery, services-used links, estimate link in the closing CTA)
+  - `app/our-work/work/[slug]/page.tsx` (Updated — social image uses `heroMedia` when set)
+- **Key Decisions & Implementation Details:**
+  - Source videos were 2-minute, 26–30 MB H.264-in-WebM files. Cut to 10–17 s H.264 MP4s (`faststart`, no audio); the builder clip plays at 1.5×.
+  - The phone recording showed a name, phone number and personal email in the checkout form (≈0:38–0:58) and the newsletter field (≈1:15–1:17, ≈1:45). Every clip was checked frame by frame; the builder clip is spliced around the footer to exclude the email.
+  - Results only use verifiable figures: Search Console position (#1.0 “tigers eye bracelet”, 1.6 “tiger eye bracelet”, 13 Sep–30 Oct), 28 stones shown in the builder, and the site's own “no account or password” copy. Sources are printed under the figures. Order or enquiry numbers can be added to `results` when the owner shares them.
+  - The other case studies render exactly as before.
+- **Verification & Status:**
+  - `tsc --noEmit` clean; `pnpm build` exit 0. On the dev server at desktop width and 375px: no horizontal overflow, clips play only while visible and pause off-screen, social image and description verified. Not committed or deployed.
+
+### [2026-11-03 15:05:00 +03:00] — Claude Opus 5.5 / Claude Code (BWA case study: durable claims, automation flow, design pass)
+
+- **Timestamp:** 2026-11-03T15:05:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Editor
+- **Task / Scope:** Owner feedback: figures needing daily upkeep had to go, the page needed a stronger design, and the WhatsApp/automation work wasn't visible.
+- **Files Modified / Created:**
+  - `content/case-studies/types.ts` (Updated — optional `automation` section, media `caption`, `results.source` optional)
+  - `content/case-studies/beads-world-africa.ts` (Updated — highlights without numbers; 5-step "What happens after order" flow; shorter gallery captions; "Also in the build" cards trimmed to 6)
+  - `components/work/case-study-page.tsx`, `components/work/work.module.css` (Updated — dark automation band with an animated flow line (vertical below 1100px, static for reduced motion); hero mockup on a yellow panel; highlight cards; coloured stages for the clips; bento gallery with caption chips)
+  - `public/work/beads-world-africa/find-your-bracelet.mp4` and poster (Updated — cropped to the laptop lid so no grey backdrop shows)
+- **Key Decisions & Implementation Details:**
+  - Removed figures that drift: the Google position, the stone count and "four questions".
+  - The automation steps were checked against the BWA codebase:
+    - orders and customers are saved to the store database;
+    - the WhatsApp message is prefilled;
+    - a Brevo order-alert email with a "WhatsApp the customer" button goes to the team;
+    - entries are queued to the main CRM (`crm_sync_outbox`);
+    - newsletter sign-ups go to a Brevo list;
+    - builder designs are saved as leads (`design_leads`).
+  - WhatsApp broadcasts are credited to Malaika's own internal WhatsApp tool, as the owner confirmed. AI is not mentioned, because the store has none and its use in the WhatsApp tool for BWA is unconfirmed.
+- **Verification & Status:**
+  - `tsc --noEmit` is clean and `pnpm build` passes.
+  - Checked at 1024px, 1440px and 375px with no horizontal overflow; all three case study pages return 200.
+  - Not committed or deployed.
