@@ -114,7 +114,9 @@ export function Footer({ logoIcon }: { logoIcon: typeof fullLogo }) {
                 MALAIKA<small>STUDIOS</small>
               </span>
             </Link>
-            <div className={styles.footerTag}>I make you look good.</div>
+            <div className={styles.footerTag}>
+              We build the website, and everything behind it.
+            </div>
           </div>
           <div className={styles.footerLinks}>
             {[

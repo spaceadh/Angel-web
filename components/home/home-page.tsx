@@ -116,12 +116,15 @@ export function HomePage() {
       <main id="home">
         <section className={`${styles.container} ${styles.hero}`}>
           <div className={styles.heroCopy}>
-            <div className={styles.eyebrow}>Digital presence agency</div>
-            <h1>
-              <span className={styles.heroLine}>WE MAKE</span>
-              <span className={styles.heroLine}>BUSINESSES</span>
+            <div className={styles.eyebrow}>
+              Web design &amp; automation studio, Nairobi
+            </div>
+            <h1 className={styles.heroTitle}>
+              <span className={styles.heroLine}>WE BUILD</span>
+              <span className={styles.heroLine}>THE WEBSITE,</span>
+              <span className={styles.heroLine}>AND EVERYTHING</span>
               <span className={styles.heroLine}>
-                LOOK <span className={styles.good}>GOOD.</span>
+                <span className={styles.good}>BEHIND IT.</span>
               </span>
             </h1>
             <p>
@@ -140,8 +143,9 @@ export function HomePage() {
               <Link href="/services/digital-growth-strategy-analytics">
                 SEO
               </Link>{" "}
-              for businesses in Nairobi and across Kenya — built into a digital
-              presence people trust.
+              for businesses in Nairobi, across Kenya and beyond. You look good
+              online, and the work behind it keeps running when you&apos;re not
+              there.
             </p>
             <div className={styles.actions}>
               <Link className={styles.buttonDark} href="/what-we-do">

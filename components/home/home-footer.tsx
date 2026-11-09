@@ -26,7 +26,9 @@ export function HomeFooter() {
               MALAIKA<small>STUDIOS</small>
             </span>
           </div>
-          <div className={styles.footerTag}>I make you look good.</div>
+          <div className={styles.footerTag}>
+            We build the website, and everything behind it.
+          </div>
           <div className={styles.footerContact}>
             <a href={`mailto:${site.email}`}>{site.email}</a>
             <br />

@@ -2,7 +2,7 @@ export const site = {
   name: "Malaika Studios",
   url: "https://malaikastudios.rotsi.co.ke",
   description:
-    "Malaika Studios is a Nairobi-based digital presence studio building brands, websites, WhatsApp automation and growth systems for businesses in Kenya and around the world.",
+    "We build the website, and everything behind it: branding, automation and SEO for businesses in Nairobi, Kenya and beyond. From KSh 25,000.",
   email: "malaikastudios@rotsi.co.ke",
   phone: "+254745474586",
   whatsappUrl: "https://wa.me/254745474586",
