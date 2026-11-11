@@ -536,3 +536,72 @@
     width: calc(100% - 32px);
   }
 }
+
+/* ─── USD ladder ─────────────────────────────────────────────────── */
+
+.ladderGrid {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.cardUnit {
+  font-size: 0.45em;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+.cardKes {
+  font-size: 13px;
+  font-weight: 600;
+  margin: -6px 0 6px;
+  opacity: 0.7;
+}
+
+.cardDelivery {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0 0 14px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  opacity: 0.85;
+}
+
+.recommended .cardKes,
+.recommended .cardDelivery {
+  color: var(--paper, #fffdf8);
+}
+
+.terms {
+  padding: 56px 0;
+}
+
+.terms h2 {
+  font-size: clamp(24px, 3vw, 34px);
+  margin: 0 0 18px;
+}
+
+.terms ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  max-width: 760px;
+  padding-left: 20px;
+}
+
+.terms li {
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .ladderGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Keep the ladder in price order on phones. */
+  .ladderGrid .recommended {
+    order: 0;
+  }
+}

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {
   calculateMatchResult,
+  normalisePhone,
   MatchAnswers,
   ContactInfo,
 } from "@/lib/malaika-match/config";
@@ -14,6 +15,7 @@ import {
   sendTransactionalEmail,
 } from "@/lib/brevo";
 import { site } from "@/lib/site";
+import { formatKes, getUsdKesRate } from "@/lib/fx";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -66,16 +68,23 @@ export async function POST(req: Request) {
       source?: string;
     };
 
-    const email = contact?.email?.toLowerCase().trim() ?? "";
+    const email = contact?.email?.toLowerCase().trim() || undefined;
     const name = contact?.name?.trim().slice(0, 80) ?? "";
-    const phone = contact?.phone?.trim().slice(0, 30) || undefined;
+    const phoneDigits = normalisePhone(contact?.phone?.slice(0, 30));
 
-    if (!name || !emailPattern.test(email) || email.length > 254) {
+    if (!name || !phoneDigits) {
       return NextResponse.json(
-        { error: "Please provide your name and a valid email address." },
+        { error: "Please provide your name and a WhatsApp number." },
         { status: 400 },
       );
     }
+    if (email && (!emailPattern.test(email) || email.length > 254)) {
+      return NextResponse.json(
+        { error: "That email address doesn't look right. Please check it." },
+        { status: 400 },
+      );
+    }
+    const phone = `+${phoneDigits}`;
 
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
@@ -90,6 +99,15 @@ export async function POST(req: Request) {
     }
 
     const result = calculateMatchResult(answers || {});
+    // Prices are fixed in USD; add the shilling amount at today's rate.
+    const fx = await getUsdKesRate();
+    for (const config of result.configs) {
+      config.priceKes = formatKes(config.usd, fx.rate);
+    }
+    result.recommendation.priceKes = formatKes(
+      result.recommendation.usd,
+      fx.rate,
+    );
     const matchSessionId = `match_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
     // Bots get a normal-looking response but nothing is stored or emailed.
@@ -121,28 +139,32 @@ export async function POST(req: Request) {
         verified,
       });
 
-      const tasks = {
+      const attributes = {
+        FIRSTNAME: firstName,
+        LASTNAME: lastNameParts.join(" ") || undefined,
+        SMS: phone,
+        MATCH_BUSINESS_TYPE: result.brief.business,
+        MATCH_PROJECT_TYPE: result.brief.offering,
+        MATCH_PRIMARY_GOAL: result.brief.outcome,
+        MATCH_INVESTMENT_COMFORT: result.brief.investment,
+        MATCH_SCORE: result.score,
+        MATCH_CATEGORY: result.category,
+        MATCH_ESTIMATE_RANGE: `${result.recommendation.price} (${result.recommendation.priceKes})`,
+        MATCH_COMPLETED_AT: new Date().toISOString(),
+        MATCH_SESSION_ID: matchSessionId,
+      };
+
+      const tasks: Record<string, Promise<unknown>> = {
+        // Brevo identifies a contact by email, or by the SMS attribute when
+        // no email was given.
         contact: brevoRequest("/contacts", {
-          email,
-          attributes: {
-            FIRSTNAME: firstName,
-            LASTNAME: lastNameParts.join(" ") || undefined,
-            SMS: phone,
-            MATCH_BUSINESS_TYPE: result.brief.business,
-            MATCH_PROJECT_TYPE: result.brief.offering,
-            MATCH_PRIMARY_GOAL: result.brief.outcome,
-            MATCH_INVESTMENT_COMFORT: result.brief.investment,
-            MATCH_SCORE: result.score,
-            MATCH_CATEGORY: result.category,
-            MATCH_ESTIMATE_RANGE: result.recommendation.price,
-            MATCH_COMPLETED_AT: new Date().toISOString(),
-            MATCH_SESSION_ID: matchSessionId,
-          },
+          ...(email ? { email } : {}),
+          attributes,
           updateEnabled: true,
         }),
         event: brevoRequest("/events", {
           event_name: "malaika_match_completed",
-          identifiers: { email_id: email },
+          identifiers: email ? { email_id: email } : { phone_id: phone },
           event_properties: {
             match_session_id: matchSessionId,
             score: result.score,
@@ -152,9 +174,21 @@ export async function POST(req: Request) {
             quote_reference: quote.reference,
           },
         }),
-        // Only email addresses that passed the bot check, so the form can't
-        // be used to send mail to strangers.
-        quote: verified
+        alert: sendTransactionalEmail({
+          to: {
+            email: process.env.MATCH_TEAM_EMAIL || site.email,
+            name: site.name,
+          },
+          ...(email ? { replyTo: { email, name } } : {}),
+          subject: alert.subject,
+          html: alert.html,
+          tags: ["malaika-match", "lead-alert"],
+        }),
+      };
+      // The estimate copy goes only to an email that was given and passed the
+      // bot check, so the form can't be used to send mail to strangers.
+      if (email) {
+        tasks.quote = verified
           ? sendTransactionalEmail({
               to: { email, name },
               subject: quote.subject,
@@ -162,30 +196,21 @@ export async function POST(req: Request) {
               text: quote.text,
               tags: ["malaika-match", "quote"],
             })
-          : Promise.reject(new Error("Bot check not passed; quote not sent")),
-        alert: sendTransactionalEmail({
-          to: {
-            email: process.env.MATCH_TEAM_EMAIL || site.email,
-            name: site.name,
-          },
-          replyTo: { email, name },
-          subject: alert.subject,
-          html: alert.html,
-          tags: ["malaika-match", "lead-alert"],
-        }),
-      };
+          : Promise.reject(new Error("Bot check not passed; quote not sent"));
+      }
 
-      const names = Object.keys(tasks) as Array<keyof typeof tasks>;
+      const names = Object.keys(tasks);
       const settled = await Promise.allSettled(Object.values(tasks));
       settled.forEach((outcome, index) => {
         if (outcome.status === "rejected") {
           console.warn(`Match ${names[index]} step failed:`, outcome.reason);
         }
       });
-      emailStatus =
-        settled[names.indexOf("quote")].status === "fulfilled"
-          ? "sent"
-          : "failed";
+      const quoteIndex = names.indexOf("quote");
+      if (quoteIndex >= 0) {
+        emailStatus =
+          settled[quoteIndex].status === "fulfilled" ? "sent" : "failed";
+      }
     }
 
     return NextResponse.json({

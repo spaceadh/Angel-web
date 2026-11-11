@@ -4,10 +4,13 @@ import { absoluteUrl, defaultOgImage, site } from "@/lib/site";
 
 const url = absoluteUrl("/pricing");
 
+// Refresh the shilling amounts once a day.
+export const revalidate = 86400;
+
 export const metadata: Metadata = {
   title: "Pricing — Website Design, SEO & Digital Marketing in Kenya",
   description:
-    "Transparent pricing for website design, email marketing, SEO, digital growth and social content in Nairobi, Kenya. Configurations from KSh 25,000. Get an instant estimate.",
+    "Fixed-price packages for website design, email marketing, SEO, digital growth and social content, from Nairobi, Kenya. From USD 250, each with a delivery deadline. Get an instant estimate.",
   alternates: { canonical: url },
   keywords: [
     "website design price Kenya",
@@ -21,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Transparent Pricing — Malaika Studios",
     description:
-      "Browse all service configurations and prices for website design, SEO, email, growth and social in Kenya. From KSh 25,000.",
+      "Every package, price and delivery deadline for website design, SEO, email, growth and social. From USD 250.",
     url,
     siteName: site.name,
     type: "website",

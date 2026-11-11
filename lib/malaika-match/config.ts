@@ -1,7 +1,7 @@
 // Pricing data lives in lib/pricing.ts — update prices there, not here.
 // Changes in lib/pricing.ts reflect on both /match and /pricing automatically.
-export { CONFIGS, LABELS } from "@/lib/pricing";
-import { CONFIGS, LABELS } from "@/lib/pricing";
+export { LABELS } from "@/lib/pricing";
+import { LABELS, getPricingConfigs, PACKAGES } from "@/lib/pricing";
 import type { OfferingKey, BudgetBandId } from "@/lib/pricing";
 
 export interface MatchOption {
@@ -20,7 +20,14 @@ export interface Question {
 
 export interface ConfigItem {
   name: string;
+  /** "USD 250" or "From USD 2,500". */
   price: string;
+  usd: number;
+  from: boolean;
+  unit?: string;
+  /** Shilling equivalent at the day's rate, e.g. "KSh 32,450". */
+  priceKes?: string;
+  delivery: string;
   items: string[];
   tag: string;
 }
@@ -51,8 +58,10 @@ export interface MatchAnswers {
 
 export interface ContactInfo {
   name: string;
-  email: string;
-  phone?: string;
+  /** WhatsApp number, required: most Kenyan leads answer there first. */
+  phone: string;
+  /** Optional; only used to email a copy of the estimate. */
+  email?: string;
 }
 
 export interface MatchResultPayload {
@@ -386,30 +395,73 @@ export const COMMON_QUESTIONS: Question[] = [
   {
     key: "budget",
     title: "What are you comfortable investing in this project?",
-    help: "Your budget helps us understand the territory we’re working within. It isn’t automatically the price of the project.",
+    help: "This helps us suggest the right package. It isn’t automatically the price of the project.",
     options: [
-      { value: "20-50", label: "KSh 20k – 50k" },
-      { value: "50-100", label: "KSh 50k – 100k" },
-      { value: "100-200", label: "KSh 100k – 200k" },
-      { value: "200+", label: "KSh 200k+" },
+      { value: "starter", label: "Under USD 400 (about KSh 50,000)" },
+      { value: "growth", label: "USD 400 – 800 (about KSh 50,000 – 100,000)" },
+      {
+        value: "strategic",
+        label: "USD 800 – 1,500 (about KSh 100,000 – 195,000)",
+      },
+      { value: "bespoke", label: "USD 1,500+ (about KSh 195,000+)" },
       { value: "unsure", label: "I’m not sure yet — I need guidance" },
     ],
   },
 ];
 
+/**
+ * Turns what people type into international digits for wa.me and Brevo:
+ * "0712 345 678" and "712345678" become "254712345678"; "+44 7700 900123"
+ * becomes "447700900123". Returns null when it can't be a phone number.
+ */
+export function normalisePhone(raw: string | undefined): string | null {
+  if (!raw) return null;
+  let digits = raw.replace(/[^\d]/g, "");
+  if (raw.trim().startsWith("+")) {
+    // already international
+  } else if (digits.startsWith("00")) {
+    digits = digits.slice(2);
+  } else if (/^0[17]\d{8}$/.test(digits)) {
+    digits = `254${digits.slice(1)}`;
+  } else if (/^[17]\d{8}$/.test(digits)) {
+    digits = `254${digits}`;
+  }
+  return digits.length >= 10 && digits.length <= 15 ? digits : null;
+}
+
 export function scoreMatch(a: MatchAnswers): {
   score: number;
   category: string;
 } {
-  let score = 70;
-  if (a.offering) score += 6;
-  if (a.business && a.business !== "other") score += 4;
-  if (a.ambition === "growth") score += 5;
-  if (a.ambition === "strategic") score += 7;
-  if (a.ambition === "distinctive") score += 9;
-  if (a.timeline === "ready") score += 4;
-  if (a.timeline === "one-month") score += 3;
-  if (a.budget && a.budget !== "unsure") score += 4;
+  // Budget and timeline carry most of the weight, so the score sorts leads:
+  // a ready buyer with a budget lands high, "just exploring, not sure" lands
+  // under 60 and reads "Let's Talk First".
+  const budgetPoints: Record<string, number> = {
+    bespoke: 20,
+    strategic: 16,
+    growth: 12,
+    starter: 6,
+    unsure: 0,
+  };
+  const timelinePoints: Record<string, number> = {
+    ready: 15,
+    "one-month": 12,
+    "three-months": 7,
+    exploring: 0,
+  };
+  const ambitionPoints: Record<string, number> = {
+    foundation: 2,
+    growth: 4,
+    strategic: 5,
+    distinctive: 6,
+  };
+
+  let score = 50;
+  if (a.offering) score += 5;
+  if (a.business && a.business !== "other") score += 3;
+  score += budgetPoints[a.budget ?? ""] ?? 0;
+  score += timelinePoints[a.timeline ?? ""] ?? 0;
+  score += ambitionPoints[a.ambition ?? ""] ?? 0;
   const multiCount = (
     a.websiteNeeds ||
     a.emailScope ||
@@ -424,9 +476,9 @@ export function scoreMatch(a: MatchAnswers): {
   const category =
     finalScore >= 85
       ? "Strong Match"
-      : finalScore >= 70
+      : finalScore >= 72
         ? "Good Match"
-        : finalScore >= 55
+        : finalScore >= 60
           ? "Potential Match"
           : "Let's Talk First";
   return { score: finalScore, category };
@@ -500,18 +552,12 @@ export function offeringOutcome(a: MatchAnswers): string {
 
 export function buildConfigs(a: MatchAnswers): ConfigItem[] {
   const offering = (a.offering || "website") as OfferingKey;
-  const budget = (
-    a.budget && a.budget !== "unsure" ? a.budget : "50-100"
-  ) as BudgetBandId;
-  const categoryConfigs = CONFIGS[offering] ?? CONFIGS.website;
-  const list = categoryConfigs[budget] ?? categoryConfigs["50-100"];
-
-  return list.map((x, i) => ({
-    name: x[0],
-    price: x[1],
-    items: x[2],
-    tag: i === 1 ? "Recommended" : i === 0 ? "Essential" : "Expanded",
-  }));
+  const bands: BudgetBandId[] = ["starter", "growth", "strategic", "bespoke"];
+  // Unsure, or an old saved answer: start from the second package.
+  const budget = bands.includes(a.budget as BudgetBandId)
+    ? (a.budget as BudgetBandId)
+    : "growth";
+  return getPricingConfigs(PACKAGES[offering] ? offering : "website", budget);
 }
 
 export function getRecommendationCopy(a: MatchAnswers): string {
@@ -548,7 +594,8 @@ export function calculateMatchResult(
 ): MatchResultPayload {
   const { score, category } = scoreMatch(answers);
   const configs = buildConfigs(answers);
-  const recommendation = configs[1] || configs[0];
+  const recommendation =
+    configs.find((c) => c.tag === "Recommended") ?? configs[0];
   const offering = answers.offering
     ? LABELS.offering[answers.offering as keyof typeof LABELS.offering] ||
       "your project"
@@ -575,11 +622,11 @@ export function calculateMatchResult(
   const recCopy = getRecommendationCopy(answers);
   const recReasons = getRecommendationReasons(answers);
   const recSpecs: Array<[string, string]> = [
-    [recommendation.items[0] || "Custom Scope", "Scope & Deliverables"],
-    [recommendation.items[1] || "Custom Depth", "Structure & Depth"],
+    [recommendation.items[0] || "Custom scope", "Main deliverable"],
+    [recommendation.delivery, "Deadline"],
     [
-      recommendation.items[3] || recommendation.items[2] || "Included",
-      "Analytics & Tracking",
+      recommendation.items[recommendation.items.length - 1] || "Included",
+      "Also included",
     ],
   ];
 

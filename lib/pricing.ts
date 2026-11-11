@@ -1,21 +1,45 @@
 /**
  * lib/pricing.ts
  *
- * ╔══════════════════════════════════════════════════════════════════╗
- * ║  SINGLE SOURCE OF TRUTH — ALL MALAIKA STUDIOS PRICING           ║
- * ║  Update prices here → reflects on /pricing and /match instantly  ║
- * ╚══════════════════════════════════════════════════════════════════╝
+ * SINGLE SOURCE OF TRUTH FOR ALL MALAIKA STUDIOS PRICING.
+ * Edit a package here and it updates /pricing, /match, the service pages,
+ * the estimate emails and /llms.txt.
+ *
+ * Prices are set in US dollars and stay fixed. Shilling amounts are worked
+ * out from the day's exchange rate (lib/fx.ts), so a weaker shilling never
+ * eats into the price. Every package has a fixed scope and a delivery
+ * deadline in working days.
  */
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type OfferingKey = "website" | "email" | "seo" | "growth" | "social";
-export type BudgetBandId = "20-50" | "50-100" | "100-200" | "200+";
+export type BudgetBandId = "starter" | "growth" | "strategic" | "bespoke";
 export type ConfigTag = "Essential" | "Recommended" | "Expanded";
+
+export interface Package {
+  name: string;
+  /** Price in US dollars. */
+  usd: number;
+  /** True for "from" prices (bespoke work, scoped in writing). */
+  from?: boolean;
+  /** Delivery deadline in working days; null when it's set in writing. */
+  days: number | null;
+  /** Shown after the price, e.g. "per month". */
+  unit?: string;
+  /** Exactly what's delivered. */
+  items: string[];
+}
 
 export interface PricingConfigItem {
   name: string;
+  /** "USD 250" or "From USD 2,500". */
   price: string;
+  usd: number;
+  from: boolean;
+  unit?: string;
+  /** "Delivered in 10 working days" or "Deadline agreed in writing". */
+  delivery: string;
   items: string[];
   tag: ConfigTag;
 }
@@ -35,14 +59,22 @@ export interface OfferingMeta {
   accentColor: string;
 }
 
-// ─── Budget Bands ─────────────────────────────────────────────────────────────
+// ─── Budget bands (used by /match) ────────────────────────────────────────────
 
 export const BUDGET_BANDS: readonly BudgetBand[] = [
-  { id: "20-50", label: "Starter", range: "KSh 20k – 50k" },
-  { id: "50-100", label: "Growth", range: "KSh 50k – 100k" },
-  { id: "100-200", label: "Strategic", range: "KSh 100k – 200k" },
-  { id: "200+", label: "Bespoke", range: "KSh 200k+" },
+  { id: "starter", label: "Starter", range: "Under USD 400" },
+  { id: "growth", label: "Growth", range: "USD 400 – 800" },
+  { id: "strategic", label: "Strategic", range: "USD 800 – 1,500" },
+  { id: "bespoke", label: "Bespoke", range: "USD 1,500+" },
 ] as const;
+
+/** Which package in each ladder a budget band points to. */
+const BAND_PACKAGE_INDEX: Record<BudgetBandId, number> = {
+  starter: 0,
+  growth: 1,
+  strategic: 2,
+  bespoke: 3,
+};
 
 // ─── Offerings ────────────────────────────────────────────────────────────────
 
@@ -123,810 +155,403 @@ export const LABELS = {
     ready: "Ready to start",
   },
   budget: {
-    "20-50": "KSh 20k–50k",
-    "50-100": "KSh 50k–100k",
-    "100-200": "KSh 100k–200k",
-    "200+": "KSh 200k+",
+    starter: "Under USD 400",
+    growth: "USD 400–800",
+    strategic: "USD 800–1,500",
+    bespoke: "USD 1,500+",
     unsure: "Not sure yet",
   },
 };
 
-// ─── CONFIGS ──────────────────────────────────────────────────────────────────
+// ─── Terms that apply to every package ────────────────────────────────────────
+
+export const PRICING_TERMS: readonly string[] = [
+  "Prices are in US dollars. Clients in Kenya pay in shillings at the exchange rate on the invoice date.",
+  "Delivery deadlines are in working days. The clock starts when we have your content (logo, text, photos) and the first payment.",
+  "Each package lists exactly what's included. Extra pages, extra revision rounds and new features are quoted before we start them.",
+  "Not included unless listed: domain and hosting fees, paid tools and subscriptions, ad spend, photography.",
+];
+
+// ─── Packages ─────────────────────────────────────────────────────────────────
 //
-// Format: [configName, price, [deliverable, deliverable, ...]]
-// Index 0 = Essential  |  Index 1 = Recommended  |  Index 2 = Expanded
-//
-// ┌─────────────────────────────────────────────────────────────────────┐
-// │  TO UPDATE PRICING: edit the values below.                          │
-// │  Changes automatically reflect on /pricing and /match result pages. │
-// └─────────────────────────────────────────────────────────────────────┘
+// One ladder per service: four fixed packages, then bespoke.
+// Change a price or a line here and every page follows.
 
-export const CONFIGS: Record<
-  OfferingKey,
-  Record<BudgetBandId, Array<[string, string, string[]]>>
-> = {
-  // ── WEBSITES ──────────────────────────────────────────────────────────
-  website: {
-    "20-50": [
-      [
-        "Foundation",
-        "KSh 25,000",
-        [
-          "Up to 4 pages",
-          "Up to 2 unique layouts",
-          "1 form",
-          "Analytics",
-          "Basic SEO",
-          "2 revision rounds",
-        ],
+export const PACKAGES: Record<OfferingKey, readonly Package[]> = {
+  website: [
+    {
+      name: "Launch",
+      usd: 250,
+      days: 10,
+      items: [
+        "Up to 4 pages, built for phones first",
+        "1 enquiry form or WhatsApp button",
+        "Basic SEO: titles, descriptions, sitemap",
+        "Google Analytics",
+        "2 revision rounds",
       ],
-      [
-        "Focused",
-        "KSh 35,000",
-        [
-          "Up to 5 pages",
-          "Up to 3 unique layouts",
-          "1 form",
-          "Analytics + Search Console",
-          "Basic SEO",
-          "2 revision rounds",
-        ],
+    },
+    {
+      name: "Business",
+      usd: 450,
+      days: 15,
+      items: [
+        "Up to 7 pages",
+        "2 forms, with WhatsApp and email alerts",
+        "On-page SEO for every page",
+        "Google Analytics + Search Console",
+        "Linked to your Google Business Profile",
+        "2 revision rounds",
       ],
-      [
-        "Expanded",
-        "KSh 45,000",
-        [
-          "Up to 7 pages",
-          "Up to 4 unique layouts",
-          "2 forms",
-          "Analytics + Search Console",
-          "Basic SEO",
-          "2 revision rounds",
-        ],
+    },
+    {
+      name: "Growth",
+      usd: 850,
+      days: 25,
+      items: [
+        "Up to 12 pages",
+        "Edit your own content (CMS or blog)",
+        "Booking or enquiry flow",
+        "Leads saved to a CRM or sheet, with alerts",
+        "Event tracking on every call to action",
+        "3 revision rounds",
       ],
-    ],
-    "50-100": [
-      [
-        "Essential Growth",
-        "KSh 55,000",
-        [
-          "Up to 6 pages",
-          "Up to 4 unique layouts",
-          "2 forms",
-          "Analytics + Search Console",
-          "Basic / on-page SEO",
-          "3 revision rounds",
-        ],
+    },
+    {
+      name: "Commerce",
+      usd: 1500,
+      days: 35,
+      items: [
+        "Online catalogue, up to 50 products",
+        "Orders to WhatsApp, already written out",
+        "Admin to edit products and prices",
+        "Order alert emails and a customer list",
+        "Product SEO and tracking",
+        "3 revision rounds",
       ],
-      [
-        "Growth Build",
-        "KSh 75,000",
-        [
-          "Up to 8 pages",
-          "Up to 6 unique layouts",
-          "2 forms",
-          "Event tracking",
-          "Strong SEO foundation",
-          "4 revision rounds",
-        ],
+    },
+    {
+      name: "Bespoke",
+      usd: 2500,
+      from: true,
+      days: null,
+      items: [
+        "Custom features, like a product builder or quiz",
+        "Integrations with your systems",
+        "Scope, price and deadline agreed in writing",
       ],
-      [
-        "Experience Build",
-        "KSh 95,000",
-        [
-          "Up to 10 pages",
-          "Up to 7 unique layouts",
-          "3 forms",
-          "Advanced tracking",
-          "Strong SEO",
-          "4 revision rounds",
-        ],
+    },
+  ],
+  email: [
+    {
+      name: "Email Setup",
+      usd: 250,
+      days: 7,
+      items: [
+        "Email platform set up (e.g. Brevo)",
+        "Domain authentication, so emails land in the inbox",
+        "Sign-up form on your website",
+        "1 branded template",
+        "1 welcome email",
       ],
-    ],
-    "100-200": [
-      [
-        "Strategic Build",
-        "KSh 110,000",
-        [
-          "Up to 10 pages",
-          "Up to 7 unique layouts",
-          "3 forms",
-          "GA4 + GSC + GTM",
-          "Strategic SEO",
-          "4 revision rounds",
-        ],
+    },
+    {
+      name: "Email Starter",
+      usd: 450,
+      days: 10,
+      items: [
+        "Everything in Email Setup",
+        "Your contact list imported and cleaned",
+        "2 audience segments",
+        "2 campaigns written, designed and sent",
+        "Results report",
       ],
-      [
-        "Digital Growth Build",
-        "KSh 150,000",
-        [
-          "Up to 14 pages",
-          "Up to 10 unique layouts",
-          "4 forms",
-          "Advanced tracking",
-          "Advanced SEO",
-          "4 revision rounds",
-        ],
+    },
+    {
+      name: "Retention",
+      usd: 800,
+      days: 20,
+      items: [
+        "Everything in Email Starter",
+        "3 automated sequences: welcome, follow-up, win-back",
+        "4 campaigns written, designed and sent",
+        "Segments by interest or purchase",
+        "Results report",
       ],
-      [
-        "Digital Experience",
-        "KSh 190,000",
-        [
-          "Up to 18 pages",
-          "Up to 12 unique layouts",
-          "4+ forms",
-          "Deep tracking",
-          "Advanced SEO",
-          "5 revision rounds",
-        ],
+    },
+    {
+      name: "Lifecycle",
+      usd: 1400,
+      days: 30,
+      items: [
+        "Everything in Retention",
+        "Email and WhatsApp follow-up linked to your CRM",
+        "5 automated sequences",
+        "6 campaigns, with A/B tests",
+        "Results report and next-step plan",
       ],
-    ],
-    "200+": [
-      [
-        "Bespoke",
-        "From KSh 220,000",
-        [
-          "Bespoke page scope",
-          "Custom layouts",
-          "Custom functionality",
-          "Analytics + tracking",
-          "Strategic SEO",
-          "Scoped revisions",
-        ],
+    },
+    {
+      name: "Bespoke",
+      usd: 2500,
+      from: true,
+      days: null,
+      items: [
+        "Custom lifecycle system across email and WhatsApp",
+        "Integrations with your store or CRM",
+        "Scope, price and deadline agreed in writing",
       ],
-      [
-        "Bespoke Growth",
-        "From KSh 275,000",
-        [
-          "Expanded experience",
-          "Advanced interactions",
-          "Growth systems",
-          "Deep tracking",
-          "Advanced SEO",
-          "Scoped revisions",
-        ],
+    },
+  ],
+  seo: [
+    {
+      name: "Search Setup",
+      usd: 250,
+      days: 7,
+      items: [
+        "Technical check, with up to 10 fixes",
+        "Google Search Console + Analytics",
+        "Sitemap and indexing checked",
+        "Titles and descriptions for up to 5 pages",
+        "Google Business Profile set up or cleaned up",
       ],
-      [
-        "Bespoke Experience",
-        "From KSh 350,000+",
-        [
-          "Fully bespoke digital experience",
-          "Custom functionality",
-          "Advanced interactions",
-          "Growth infrastructure",
-          "Deep analytics",
-          "Scoped revisions",
-        ],
+    },
+    {
+      name: "Local SEO",
+      usd: 450,
+      days: 15,
+      items: [
+        "Everything in Search Setup",
+        "Keyword research (20 keywords)",
+        "Up to 10 pages optimised",
+        "Google Business Profile optimised",
+        "10 local directory listings",
+        "Results report",
       ],
-    ],
-  },
-
-  // ── EMAIL ─────────────────────────────────────────────────────────────
-  email: {
-    "20-50": [
-      [
-        "Email Foundation",
-        "KSh 25,000",
-        [
-          "Platform setup",
-          "Domain authentication",
-          "1 reusable template",
-          "1 campaign",
-          "Basic reporting",
-        ],
+    },
+    {
+      name: "Search Growth",
+      usd: 850,
+      days: 30,
+      items: [
+        "Everything in Local SEO",
+        "Competitor analysis",
+        "Up to 20 pages optimised",
+        "2 new pages or articles written",
+        "Structured data for Google and AI search",
+        "Results report at day 30",
       ],
-      [
-        "Email Starter",
-        "KSh 35,000",
-        [
-          "Platform setup",
-          "Authentication",
-          "1 template",
-          "2 campaigns",
-          "Basic segmentation",
-          "Reporting",
-        ],
+    },
+    {
+      name: "Search Authority",
+      usd: 1500,
+      days: 45,
+      items: [
+        "Everything in Search Growth",
+        "Up to 30 pages optimised",
+        "4 articles written",
+        "3-month content plan",
+        "Multiple locations",
+        "Results report and next-step plan",
       ],
-      [
-        "Email Active",
-        "KSh 45,000",
-        [
-          "Platform setup",
-          "2 templates",
-          "3 campaigns",
-          "Basic segmentation",
-          "Signup integration",
-          "Reporting",
-        ],
+    },
+    {
+      name: "Bespoke",
+      usd: 2500,
+      from: true,
+      days: null,
+      items: [
+        "Ongoing search programme",
+        "Content, technical and local work together",
+        "Scope, price and deadline agreed in writing",
       ],
-    ],
-    "50-100": [
-      [
-        "Email Essential",
-        "KSh 55,000",
-        [
-          "Platform integration",
-          "2 templates",
-          "3 campaigns",
-          "Audience segmentation",
-          "Basic automation",
-          "Reporting",
-        ],
+    },
+  ],
+  growth: [
+    {
+      name: "Tracking Setup",
+      usd: 250,
+      days: 7,
+      items: [
+        "Google Analytics with up to 3 goals",
+        "WhatsApp and call click tracking",
+        "Meta Pixel, with a consent banner",
+        "Simple results dashboard",
       ],
-      [
-        "Email Growth",
-        "KSh 75,000",
-        [
-          "Platform integration",
-          "3 campaigns",
-          "1 reusable system",
-          "Segmentation",
-          "1 automated sequence",
-          "Reporting + optimisation",
-        ],
+    },
+    {
+      name: "Lead Flow",
+      usd: 450,
+      days: 10,
+      items: [
+        "Everything in Tracking Setup",
+        "Enquiries sent to WhatsApp and email",
+        "Leads saved to a CRM or sheet",
+        "1 automated follow-up",
       ],
-      [
-        "Email Retention",
-        "KSh 95,000",
-        [
-          "Platform integration",
-          "4 campaigns",
-          "Segmentation",
-          "2 automated sequences",
-          "A/B test setup",
-          "Optimisation + reporting",
-        ],
+    },
+    {
+      name: "Lead System",
+      usd: 900,
+      days: 20,
+      items: [
+        "Everything in Lead Flow",
+        "CRM set up for your team",
+        "3 automations: follow-up, reminders, booking",
+        "Instagram and WhatsApp messages routed to one place",
+        "Monthly results report",
       ],
-    ],
-    "100-200": [
-      [
-        "Retention Foundation",
-        "KSh 110,000",
-        [
-          "Strategy",
-          "4 campaigns",
-          "Segmentation",
-          "2 sequences",
-          "Platform optimisation",
-          "Reporting",
-        ],
+    },
+    {
+      name: "Growth Engine",
+      usd: 1600,
+      days: 30,
+      items: [
+        "Everything in Lead System",
+        "Customer journey mapped end to end",
+        "5 automations",
+        "Booking, payment and CRM connected",
+        "Meta Conversions API",
+        "Monthly results report",
       ],
-      [
-        "Retention Growth",
-        "KSh 150,000",
-        [
-          "Strategy",
-          "6 campaigns",
-          "Multiple segments",
-          "3 sequences",
-          "A/B testing",
-          "Optimisation",
-        ],
+    },
+    {
+      name: "Bespoke",
+      usd: 2500,
+      from: true,
+      days: null,
+      items: [
+        "Custom growth system and integrations",
+        "Built around how your team works",
+        "Scope, price and deadline agreed in writing",
       ],
-      [
-        "Retention System",
-        "KSh 190,000",
-        [
-          "Retention strategy",
-          "8 campaigns",
-          "Advanced segmentation",
-          "4 sequences",
-          "Testing framework",
-          "Ongoing optimisation setup",
-        ],
+    },
+  ],
+  social: [
+    {
+      name: "Content Starter",
+      usd: 250,
+      unit: "per month",
+      days: 7,
+      items: [
+        "1 platform",
+        "8 posts a month (images or carousels)",
+        "Captions written",
+        "Content calendar",
       ],
-    ],
-    "200+": [
-      [
-        "Bespoke Email",
-        "From KSh 220,000",
-        [
-          "Custom retention strategy",
-          "Campaign system",
-          "Advanced automation",
-          "Segmentation architecture",
-          "Testing",
-          "Reporting",
-        ],
+    },
+    {
+      name: "Content Plus",
+      usd: 450,
+      unit: "per month",
+      days: 7,
+      items: [
+        "2 platforms",
+        "12 posts a month, including 4 Reels",
+        "Captions written",
+        "Scheduling",
+        "Content calendar",
       ],
-      [
-        "Email Growth System",
-        "From KSh 275,000",
-        [
-          "Advanced lifecycle system",
-          "Multiple sequences",
-          "Campaign engine",
-          "Optimisation framework",
-          "Reporting",
-        ],
+    },
+    {
+      name: "Social Growth",
+      usd: 800,
+      unit: "per month",
+      days: 10,
+      items: [
+        "2 platforms",
+        "16 posts a month, including 6 Reels",
+        "1 campaign idea a month",
+        "Scheduling",
+        "Month-end report",
       ],
-      [
-        "Retention Engine",
-        "From KSh 350,000+",
-        [
-          "Fully bespoke lifecycle system",
-          "Advanced automation",
-          "Deep segmentation",
-          "Testing + optimisation",
-          "Custom reporting",
-        ],
+    },
+    {
+      name: "Content Engine",
+      usd: 1400,
+      unit: "per month",
+      days: 10,
+      items: [
+        "3 platforms",
+        "24 posts a month, including 10 Reels or motion graphics",
+        "2 campaigns a month",
+        "Ad creatives",
+        "Month-end report",
       ],
-    ],
-  },
-
-  // ── SEO ───────────────────────────────────────────────────────────────
-  seo: {
-    "20-50": [
-      [
-        "Search Foundation",
-        "KSh 25,000",
-        [
-          "Technical baseline",
-          "Search Console",
-          "Keyword research",
-          "Up to 5 pages optimised",
-          "Metadata",
-          "Indexing checks",
-        ],
+    },
+    {
+      name: "Bespoke",
+      usd: 2500,
+      from: true,
+      unit: "per month",
+      days: null,
+      items: [
+        "Full content production and campaigns",
+        "Shoots, motion and ads",
+        "Scope, price and deadline agreed in writing",
       ],
-      [
-        "Search Starter",
-        "KSh 35,000",
-        [
-          "Technical baseline",
-          "Search Console",
-          "Keyword research",
-          "Up to 8 pages optimised",
-          "Metadata",
-          "Internal linking",
-        ],
-      ],
-      [
-        "Search Local",
-        "KSh 45,000",
-        [
-          "Search foundation",
-          "Local SEO setup",
-          "Keyword research",
-          "Up to 10 pages",
-          "Business Profile optimisation",
-          "Reporting",
-        ],
-      ],
-    ],
-    "50-100": [
-      [
-        "SEO Essential",
-        "KSh 55,000",
-        [
-          "Technical audit",
-          "Keyword research",
-          "Up to 10 pages",
-          "Search Console",
-          "Metadata + internal linking",
-          "Reporting",
-        ],
-      ],
-      [
-        "Search Growth",
-        "KSh 75,000",
-        [
-          "Technical audit",
-          "Competitor analysis",
-          "Up to 15 pages",
-          "Keyword strategy",
-          "On-page optimisation",
-          "Reporting + optimisation",
-        ],
-      ],
-      [
-        "Search Authority",
-        "KSh 95,000",
-        [
-          "Technical audit",
-          "Competitor analysis",
-          "Up to 20 pages",
-          "Content direction",
-          "On-page + local SEO",
-          "Reporting + optimisation",
-        ],
-      ],
-    ],
-    "100-200": [
-      [
-        "Strategic SEO",
-        "KSh 110,000",
-        [
-          "Technical audit",
-          "Competitor research",
-          "Up to 20 pages",
-          "Keyword strategy",
-          "Content briefs",
-          "Technical + on-page SEO",
-        ],
-      ],
-      [
-        "Search Growth System",
-        "KSh 150,000",
-        [
-          "Full search strategy",
-          "Competitor research",
-          "Up to 30 pages",
-          "Content briefs",
-          "Local / GEO considerations",
-          "Optimisation cycles",
-        ],
-      ],
-      [
-        "Search Authority System",
-        "KSh 190,000",
-        [
-          "Advanced search strategy",
-          "Deep competitor research",
-          "Up to 40 pages",
-          "Content system",
-          "Technical + local + GEO",
-          "Optimisation framework",
-        ],
-      ],
-    ],
-    "200+": [
-      [
-        "Bespoke Search",
-        "From KSh 220,000",
-        [
-          "Custom search strategy",
-          "Technical SEO",
-          "Content architecture",
-          "Entity / brand optimisation",
-          "Advanced reporting",
-        ],
-      ],
-      [
-        "Search Growth System",
-        "From KSh 275,000",
-        [
-          "Advanced search programme",
-          "Content system",
-          "Local / GEO strategy",
-          "Testing + optimisation",
-          "Deep reporting",
-        ],
-      ],
-      [
-        "Search Authority",
-        "From KSh 350,000+",
-        [
-          "Bespoke search ecosystem",
-          "Advanced technical work",
-          "Content + entity strategy",
-          "Multi-location capability",
-          "Deep optimisation",
-        ],
-      ],
-    ],
-  },
-
-  // ── GROWTH ────────────────────────────────────────────────────────────
-  growth: {
-    "20-50": [
-      [
-        "Tracking Foundation",
-        "KSh 25,000",
-        [
-          "Analytics setup",
-          "Core conversion goals",
-          "Basic event tracking",
-          "WhatsApp tracking",
-          "Simple reporting",
-        ],
-      ],
-      [
-        "Lead Foundation",
-        "KSh 35,000",
-        [
-          "Analytics",
-          "Conversion points",
-          "Lead routing",
-          "WhatsApp flow",
-          "Basic reporting",
-        ],
-      ],
-      [
-        "Growth Starter",
-        "KSh 45,000",
-        [
-          "Analytics",
-          "Conversion tracking",
-          "Lead routing",
-          "1 automation",
-          "WhatsApp / Instagram flow",
-          "Reporting",
-        ],
-      ],
-    ],
-    "50-100": [
-      [
-        "Growth Essential",
-        "KSh 55,000",
-        [
-          "Analytics",
-          "Conversion goals",
-          "Lead routing",
-          "1 automation",
-          "WhatsApp integration",
-          "Reporting",
-        ],
-      ],
-      [
-        "Growth System",
-        "KSh 75,000",
-        [
-          "Funnel mapping",
-          "Event tracking",
-          "Lead routing",
-          "2 automations",
-          "WhatsApp / Instagram flows",
-          "Reporting",
-        ],
-      ],
-      [
-        "Growth Automation",
-        "KSh 95,000",
-        [
-          "Funnel mapping",
-          "Advanced events",
-          "Lead routing",
-          "3 automations",
-          "Multiple flows",
-          "Optimisation + reporting",
-        ],
-      ],
-    ],
-    "100-200": [
-      [
-        "Digital Growth",
-        "KSh 110,000",
-        [
-          "Funnel strategy",
-          "Advanced tracking",
-          "Lead routing",
-          "3 automations",
-          "CRM / booking integration",
-          "Reporting",
-        ],
-      ],
-      [
-        "Growth Engine",
-        "KSh 150,000",
-        [
-          "Conversion strategy",
-          "Advanced analytics",
-          "Multiple automations",
-          "CRM integrations",
-          "Experiments",
-          "Optimisation cycles",
-        ],
-      ],
-      [
-        "Growth Infrastructure",
-        "KSh 190,000",
-        [
-          "Growth architecture",
-          "Deep tracking",
-          "Advanced automation",
-          "Multiple integrations",
-          "Experiments",
-          "Optimisation framework",
-        ],
-      ],
-    ],
-    "200+": [
-      [
-        "Bespoke Growth",
-        "From KSh 220,000",
-        [
-          "Custom growth architecture",
-          "Advanced tracking",
-          "Custom automations",
-          "Integrations",
-          "Experiments",
-          "Reporting",
-        ],
-      ],
-      [
-        "Growth Engine",
-        "From KSh 275,000",
-        [
-          "Advanced funnel system",
-          "Automation architecture",
-          "CRM ecosystem",
-          "Testing",
-          "Optimisation",
-        ],
-      ],
-      [
-        "Digital Growth Infrastructure",
-        "From KSh 350,000+",
-        [
-          "Fully bespoke growth system",
-          "Advanced automation",
-          "Deep analytics",
-          "Multiple integrations",
-          "Continuous optimisation framework",
-        ],
-      ],
-    ],
-  },
-
-  // ── SOCIAL ────────────────────────────────────────────────────────────
-  social: {
-    "20-50": [
-      [
-        "Content Foundation",
-        "KSh 25,000",
-        [
-          "Content strategy",
-          "2 content pillars",
-          "6 static creatives",
-          "Copy direction",
-          "1 platform",
-        ],
-      ],
-      [
-        "Social Starter",
-        "KSh 35,000",
-        [
-          "Strategy",
-          "3 content pillars",
-          "8 creatives",
-          "Copywriting",
-          "1 platform",
-        ],
-      ],
-      [
-        "Social Active",
-        "KSh 45,000",
-        [
-          "Strategy",
-          "3 pillars",
-          "10 creatives",
-          "Copywriting",
-          "2 platforms",
-          "Basic reporting",
-        ],
-      ],
-    ],
-    "50-100": [
-      [
-        "Social Essential",
-        "KSh 55,000",
-        [
-          "Strategy",
-          "3 pillars",
-          "10 creatives",
-          "Copywriting",
-          "2 platforms",
-          "Reporting",
-        ],
-      ],
-      [
-        "Social Growth",
-        "KSh 75,000",
-        [
-          "Strategy",
-          "4 pillars",
-          "12 creatives",
-          "Campaign concept",
-          "2 platforms",
-          "Reporting",
-        ],
-      ],
-      [
-        "Social Campaign",
-        "KSh 95,000",
-        [
-          "Strategy",
-          "4 pillars",
-          "16 creatives",
-          "Campaign production",
-          "3 platforms",
-          "Performance analysis",
-        ],
-      ],
-    ],
-    "100-200": [
-      [
-        "Content Strategy",
-        "KSh 110,000",
-        [
-          "Content strategy",
-          "4 pillars",
-          "16 creatives",
-          "Campaign planning",
-          "3 platforms",
-          "Reporting",
-        ],
-      ],
-      [
-        "Social Growth System",
-        "KSh 150,000",
-        [
-          "Strategy",
-          "5 pillars",
-          "20 creatives",
-          "Campaigns",
-          "3 platforms",
-          "Performance analysis",
-        ],
-      ],
-      [
-        "Social Content Engine",
-        "KSh 190,000",
-        [
-          "Strategy",
-          "5 pillars",
-          "24 creatives",
-          "Multiple campaigns",
-          "3+ platforms",
-          "Optimisation",
-        ],
-      ],
-    ],
-    "200+": [
-      [
-        "Bespoke Social",
-        "From KSh 220,000",
-        [
-          "Custom strategy",
-          "Content system",
-          "Campaigns",
-          "Creative production",
-          "Multi-platform",
-          "Reporting",
-        ],
-      ],
-      [
-        "Social Growth System",
-        "From KSh 275,000",
-        [
-          "Advanced content engine",
-          "Campaign system",
-          "Creative direction",
-          "Multi-platform",
-          "Optimisation",
-        ],
-      ],
-      [
-        "Social Content Engine",
-        "From KSh 350,000+",
-        [
-          "Fully bespoke social system",
-          "Advanced creative production",
-          "Campaign architecture",
-          "Multi-platform",
-          "Deep reporting",
-        ],
-      ],
-    ],
-  },
+    },
+  ],
 };
 
-// ─── Helper ───────────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
-const CONFIG_TAGS: ConfigTag[] = ["Essential", "Recommended", "Expanded"];
+export function formatUsd(usd: number, from = false) {
+  return `${from ? "From " : ""}USD ${usd.toLocaleString("en-US")}`;
+}
 
-/** Returns typed PricingConfigItem[] for a given offering + budget band */
+function deliveryLabel(pkg: Package) {
+  if (pkg.days === null) return "Deadline agreed in writing";
+  return pkg.unit === "per month"
+    ? `First posts within ${pkg.days} working days`
+    : `Delivered in ${pkg.days} working days`;
+}
+
+export function toConfigItem(pkg: Package, tag: ConfigTag): PricingConfigItem {
+  return {
+    name: pkg.name,
+    price: formatUsd(pkg.usd, pkg.from),
+    usd: pkg.usd,
+    from: Boolean(pkg.from),
+    unit: pkg.unit,
+    delivery: deliveryLabel(pkg),
+    items: pkg.items,
+    tag,
+  };
+}
+
+/** The full ladder for a service, as shown on /pricing. */
+export function getLadder(offering: OfferingKey): PricingConfigItem[] {
+  return PACKAGES[offering].map((pkg, i) =>
+    toConfigItem(
+      pkg,
+      i === 1 ? "Recommended" : i === 0 ? "Essential" : "Expanded",
+    ),
+  );
+}
+
+/**
+ * Three neighbouring packages for a budget band: the one that fits the
+ * budget (Recommended) plus the one below and the one above it.
+ */
 export function getPricingConfigs(
   offering: OfferingKey,
   band: BudgetBandId,
 ): PricingConfigItem[] {
-  return CONFIGS[offering][band].map((item, i) => ({
-    name: item[0],
-    price: item[1],
-    items: item[2],
-    tag: CONFIG_TAGS[i],
-  }));
+  const ladder = PACKAGES[offering];
+  const rec = BAND_PACKAGE_INDEX[band] ?? 1;
+  const start = Math.max(0, Math.min(rec - 1, ladder.length - 3));
+  return ladder.slice(start, start + 3).map((pkg, i) => {
+    const index = start + i;
+    const tag: ConfigTag =
+      index === rec ? "Recommended" : index < rec ? "Essential" : "Expanded";
+    return toConfigItem(pkg, tag);
+  });
+}
+
+/** Cheapest package for a service, e.g. "USD 250". */
+export function startingPrice(offering: OfferingKey) {
+  return formatUsd(PACKAGES[offering][0].usd);
 }
 
 /** Extracts the numeric portion of a price string for Schema.org */

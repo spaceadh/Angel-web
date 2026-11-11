@@ -20,7 +20,11 @@ export function GET(req: Request) {
     ...Object.fromEntries(params),
   };
   const { html, text, subject } = buildQuoteEmail({
-    contact: { name: "Wanjiku Kamau", email: "preview@example.com" },
+    contact: {
+      name: "Wanjiku Kamau",
+      phone: "+254712345678",
+      email: "preview@example.com",
+    },
     result: calculateMatchResult(answers),
     sessionId: "match_preview_abc1234",
   });

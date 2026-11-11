@@ -1,4 +1,4 @@
-import { CONFIGS, type OfferingKey } from "@/lib/pricing";
+import { startingPrice, type OfferingKey } from "@/lib/pricing";
 
 /**
  * `{from:<offering>}` in seoTitle, description or FAQ answers is replaced with
@@ -65,7 +65,7 @@ export const services: readonly Service[] = [
     faqs: [
       [
         "How much does a website cost in Kenya?",
-        "Our website packages start at {from:website} for a focused site of up to four pages, with analytics and basic SEO included. Larger sites with more pages, forms and tracking are priced in clear bands on our pricing page, and the free estimate tool gives you a range in about two minutes.",
+        "Our website packages start at {from:website} for a focused site of up to four pages, with analytics and basic SEO included. Larger sites with more pages, forms and tracking are fixed packages with a delivery deadline on our pricing page, and the free estimate tool gives you a range in about two minutes.",
       ],
       [
         "How long does it take to build a website?",
@@ -251,7 +251,7 @@ export const services: readonly Service[] = [
     faqs: [
       [
         "Do you offer SEO services in Kenya?",
-        "Yes. SEO packages start at {from:seo} and cover the technical baseline, Search Console, keyword research and optimising your key pages. Local packages add Google Business Profile optimisation so you show up in Maps and nearby searches.",
+        "Yes. SEO packages start at {from:seo} and cover a technical check with fixes, Search Console, titles and descriptions for your key pages, and your Google Business Profile. Local SEO adds keyword research, more pages and directory listings so you show up in Maps and nearby searches.",
       ],
       [
         "How long does SEO take to show results?",
@@ -279,9 +279,8 @@ export const services: readonly Service[] = [
 ];
 
 export function fillPrices(text: string) {
-  return text.replace(
-    /\{from:(\w+)\}/g,
-    (_, key: OfferingKey) => CONFIGS[key]["20-50"][0][1],
+  return text.replace(/\{from:(\w+)\}/g, (_, key: OfferingKey) =>
+    startingPrice(key),
   );
 }
 

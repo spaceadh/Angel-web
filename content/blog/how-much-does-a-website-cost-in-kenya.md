@@ -1,6 +1,6 @@
 ---
 title: "How Much Does a Website Cost in Kenya? (2026 Price Guide)"
-description: "Real 2026 website prices in Kenya, from KSh 25,000 starter sites to KSh 220,000+ bespoke builds, plus what drives the cost and how to budget."
+description: "Real 2026 website prices in Kenya, from USD 250 (about KSh 32,500) starter sites to bespoke builds, plus what drives the cost and how to budget."
 date: 2026-10-14
 author: Malaika Studios
 category: Websites
@@ -10,7 +10,7 @@ tags:
   - pricing
 service: website-design-development
 takeaways:
-  - "A professional business website in Kenya costs roughly KSh 25,000 to KSh 190,000, and bespoke builds start from about KSh 220,000."
+  - "Our website packages cost USD 250 to USD 1,500 (about KSh 32,500 to KSh 195,000), and bespoke builds start from USD 2,500."
   - "Price depends mostly on unique page designs, forms and integrations, SEO and tracking, and revision rounds."
   - "Very cheap quotes often skip SEO, analytics and ownership of your domain, so ask who owns what before you pay."
 draft: false
@@ -22,16 +22,19 @@ We use our own published prices throughout. You can see every package on our [pr
 
 ## The short answer
 
-For a professional business website in Kenya in 2026, expect roughly:
+For a professional business website in Kenya in 2026, here is what each of our packages buys:
 
-| Budget    | What it usually buys                                          | Malaika price range   |
-| --------- | ------------------------------------------------------------- | --------------------- |
-| Starter   | 4–7 pages, basic SEO, analytics, one or two forms             | KSh 25,000 – 45,000   |
-| Growth    | 6–10 pages, stronger SEO, event tracking, more layouts        | KSh 55,000 – 95,000   |
-| Strategic | 10–18 pages, GA4 + Search Console + Tag Manager, advanced SEO | KSh 110,000 – 190,000 |
-| Bespoke   | Custom functionality, advanced interactions, growth systems   | From KSh 220,000      |
+| Package  | What it buys                                                       | Price          | About, in KSh    |
+| -------- | ------------------------------------------------------------------ | -------------- | ---------------- |
+| Launch   | Up to 4 pages, 1 form or WhatsApp button, basic SEO, analytics     | USD 250        | KSh 32,500       |
+| Business | Up to 7 pages, 2 forms with alerts, on-page SEO, Search Console    | USD 450        | KSh 58,500       |
+| Growth   | Up to 12 pages, edit it yourself, booking or enquiry flow, CRM     | USD 850        | KSh 110,500      |
+| Commerce | Online catalogue up to 50 products, WhatsApp orders, product admin | USD 1,500      | KSh 195,000      |
+| Bespoke  | Custom features and integrations                                   | From USD 2,500 | From KSh 325,000 |
 
-Most small and growing businesses land in the **Starter** or **Growth** bands. Spending more only makes sense when the site has more to do, such as selling, booking, capturing leads at scale or supporting a large catalogue.
+Our prices are fixed in US dollars. The shilling figures use about KSh 130 to the dollar (November 2026) and move with the exchange rate. Every package has a delivery deadline, from 10 working days for Launch to 35 for Commerce.
+
+Most small and growing businesses start with **Launch** or **Business**. Spending more only makes sense when the site has more to do, such as selling, booking, capturing leads at scale or supporting a large catalogue.
 
 ## What actually drives the price
 
@@ -89,7 +92,7 @@ Start with what the website needs to _do_, not how many pages it has:
 2. **Bring in leads every week** → choose Growth, with proper tracking and SEO.
 3. **Sell, book or automate** → Strategic or Bespoke, with the integrations built in.
 
-> Not sure which band fits? Our [instant estimate](/match?source=blog_website_cost) asks a few quick questions and recommends three configurations with real prices. It takes about two minutes.
+> Not sure which package fits? Our [instant estimate](/match?source=blog_website_cost) asks a few quick questions and recommends three packages with real prices. It takes about two minutes.
 
 ## Frequently asked questions
 

@@ -506,3 +506,41 @@ When completing any modification, task, or iteration in this codebase, the agent
   - The old "email marketing system" and "visual identity" claims were therefore removed. The clips avoid the placeholder client-logo strip and testimonials, which were checked frame by frame.
   - The "book a call" wording was dropped because Book a Call currently leads to the same form.
 - **Verification & Status:** `tsc --noEmit` clean; `pnpm build` exit 0. DS checked at 1440px and 375px; Our Work and all three case studies show no broken images or overflow.
+
+### [2026-11-11 08:30:00 +03:00] — Claude Opus 5.5 / Claude Code (Malaika Match: WhatsApp-first contact, qualifying score)
+
+- **Timestamp:** 2026-11-11T08:30:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer
+- **Task / Scope:** Made /match work for Instagram leads: WhatsApp number required and email optional, a score that actually sorts leads, no keyboard hints on phones, no emoji, plainer copy.
+- **Files Modified / Created:**
+  - `lib/malaika-match/config.ts` (Updated — `scoreMatch` starts at 50 and weights budget (0–20) and timeline (0–15); thresholds 85/72/60; `normalisePhone()`; `ContactInfo.phone` required, `email` optional; plainer budget help)
+  - `app/api/match/route.ts` (Updated — requires name + valid phone, email optional but validated; Brevo contact keyed by email or the SMS attribute; event uses `phone_id` without email; quote email only when an email was given)
+  - `components/match/match-contact.tsx` (Updated — WhatsApp field first and required, email optional "for a copy"; new heading and copy)
+  - `components/match/match-hero.tsx`, `match-quiz.tsx`, `match-result.tsx`, `match-calculating.tsx` (Updated — emoji removed; "Websites start from KSh 25,000" on the intro; email line only when given)
+  - `components/match/match.module.css` (Updated — key hints hidden on touch screens)
+  - `lib/malaika-match/quote-email.ts`, `app/api/match/email-preview/route.ts` (Updated — "Not given" email in the team alert; "Your budget" label)
+- **Key Decisions & Implementation Details:**
+  - Test scores: just exploring + not sure = 57 "Let's Talk First"; KSh 20–50k within 3 months = 75 "Good Match"; ready + KSh 200k+ = 99 "Strong Match". Before, every finished quiz scored 76–99.
+  - Kenyan numbers typed as 07…/01…/7… are stored as +254…, so wa.me links in the alert work.
+  - The price-response buttons on the result still log to Brevo only when an email was given.
+- **Verification & Status:** `tsc --noEmit` clean; `pnpm build` passes. API tested locally (Brevo off in dev) for 4 answer sets and 3 invalid inputs; full flow walked at 375px with a phone-only contact through to the result. Not committed or deployed.
+
+### [2026-11-11 10:30:00 +03:00] — Claude Opus 5.5 / Claude Code (USD pricing ladder with deadlines)
+
+- **Timestamp:** 2026-11-11T10:30:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / Pricing
+- **Task / Scope:** Owner decision: prices are set in US dollars (so a weaker shilling can't erode them), every package has strict scope and a hard deadline, and shilling amounts are shown at the day's rate. Replaced the 60 KSh configurations with one 5-step ladder per service.
+- **Files Modified / Created:**
+  - `lib/pricing.ts` (Rewritten — `PACKAGES` (4 fixed packages + Bespoke per service, USD, `days`, `unit`, `items`), `PRICING_TERMS`, `getLadder()`, `getPricingConfigs()` now returns the budget's package plus its neighbours, `startingPrice()`, `formatUsd()`; budget band ids are now `starter|growth|strategic|bespoke`; `CONFIGS` removed)
+  - `lib/fx.ts` (Created — `getUsdKesRate()` from open.er-api.com, cached 24 h, fallback CBK 129.81; `formatKes()` rounds to KSh 100)
+  - `components/pricing/pricing-page.tsx`, `pricing.module.css`, `app/pricing/page.tsx` (Updated — one ladder per service with USD price, KSh today, delivery deadline; "How every package works" terms; Offer schema in USD; revalidate daily)
+  - `lib/malaika-match/config.ts`, `app/api/match/route.ts`, `components/match/match-result.tsx`, `match.module.css`, `match-hero.tsx`, `lib/malaika-match/quote-email.ts` (Updated — USD budget bands with KSh hints; recommendation is the package that fits the budget; KSh at today's rate and deadline on every option, in the result and the emails)
+  - `components/services/service-page.tsx`, `content/services.ts`, `app/layout.tsx`, `app/llms.txt/route.ts`, `lib/site.ts` (Updated — USD starting prices, `priceCurrency: "USD"`)
+  - `content/blog/how-much-does-a-website-cost-in-kenya.md` (Updated — new package table in USD with KSh at about 130)
+- **Key Decisions & Implementation Details:**
+  - Ladders (USD): Website 250/450/850/1,500/from 2,500 (10/15/25/35 working days); Email 250/450/800/1,400; SEO 250/450/850/1,500; Growth 250/450/900/1,600; Social 250/450/800/1,400 per month; Bespoke from 2,500 everywhere, deadline agreed in writing.
+  - The deadline clock starts when Malaika has the content and the first payment. Extras are quoted before they start. Domain, hosting, paid tools, ad spend and photography are excluded unless listed.
+  - No figures for extras or payment split were published; those are the owner's policy.
+- **Verification & Status:** `tsc --noEmit` clean; `pnpm build` passes; `pnpm blog:check` 4/4. Match API checked for all budget bands; /pricing checked at 1440px and 375px (no overflow); llms.txt and the website service page show USD. Live rate fetched: 129.98 KES (11 Nov 2026). Not committed or deployed.

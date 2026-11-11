@@ -122,7 +122,6 @@ export function MatchResult({
       <div className={`${styles.resultContainer} ${styles.fadeIn}`}>
         {emailStatus === "sent" && contactEmail && (
           <div className={styles.emailBanner} role="status">
-            <span aria-hidden="true">📩</span>
             <p>
               <strong>Sent!</strong> A copy of this estimate is on its way to{" "}
               <strong>{contactEmail}</strong>. Not there in a few minutes? Check
@@ -135,7 +134,6 @@ export function MatchResult({
             className={`${styles.emailBanner} ${styles.emailBannerWarn}`}
             role="status"
           >
-            <span aria-hidden="true">⚠️</span>
             <p>
               We couldn&apos;t email your copy just now, but your estimate is
               below and our team has your details.{" "}
@@ -225,14 +223,15 @@ export function MatchResult({
               <i /> 03 · Three ways to build it
             </div>
             <div className={styles.configHeading}>
-              <h3>Three tailored configurations.</h3>
+              <h3>Three packages around your budget.</h3>
               <p>
-                Same goal. Different levels of scope, detail and investment.
+                Prices are fixed in US dollars. Each package has a fixed scope
+                and a delivery deadline.
               </p>
             </div>
             <div className={styles.configGrid}>
               {result.configs.map((c, i) => {
-                const isRec = i === 1 || c.tag === "Recommended";
+                const isRec = c.tag === "Recommended";
                 return (
                   <article
                     key={c.name}
@@ -245,13 +244,21 @@ export function MatchResult({
                     )}
                     <div className={styles.configNum}>0{i + 1}</div>
                     <h4>{c.name}</h4>
-                    <div className={styles.configPrice}>{c.price}</div>
+                    <div className={styles.configPrice}>
+                      {c.price}
+                      {c.unit ? ` ${c.unit}` : ""}
+                    </div>
+                    {c.priceKes && (
+                      <div className={styles.configKes}>
+                        About {c.priceKes} today
+                      </div>
+                    )}
                     <div className={styles.configTagline}>
-                      {i === 0
-                        ? "The smallest sensible version."
-                        : i === 1
-                          ? "The balanced version for your brief."
-                          : "More depth, sophistication and room to grow."}
+                      {isRec
+                        ? `Fits your budget. ${c.delivery}.`
+                        : c.tag === "Essential"
+                          ? `A leaner version. ${c.delivery}.`
+                          : `More room to grow. ${c.delivery}.`}
                     </div>
                     <ul className={styles.configList}>
                       {c.items.map((item) => (
@@ -287,6 +294,9 @@ export function MatchResult({
                   <br />
                   <span className={styles.recPrice}>
                     {result.recommendation.price}
+                    {result.recommendation.priceKes
+                      ? ` (about ${result.recommendation.priceKes})`
+                      : ""}
                   </span>
                 </h3>
                 <p className={styles.recCopy}>{result.recommendationCopy}</p>

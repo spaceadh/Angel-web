@@ -3,45 +3,38 @@ import { HomeNavigation } from "@/components/home/home-navigation";
 import { HomeFooter } from "@/components/home/home-footer";
 import { JsonLd } from "@/components/seo/json-ld";
 import { PricingNav } from "./pricing-nav";
-import {
-  OFFERINGS,
-  BUDGET_BANDS,
-  LABELS,
-  getPricingConfigs,
-  extractPriceNumber,
-} from "@/lib/pricing";
+import { OFFERINGS, LABELS, PRICING_TERMS, getLadder } from "@/lib/pricing";
+import { formatKes, getUsdKesRate } from "@/lib/fx";
 import { site } from "@/lib/site";
 import styles from "./pricing.module.css";
 
 // ─── Schema.org JSON-LD ────────────────────────────────────────────────────────
-// All 60 configurations are declared as Offers so Google can read pricing directly.
+// Every package is declared as an Offer so Google can read pricing directly.
 function buildJsonLd() {
   const offers = OFFERINGS.flatMap((offering) =>
-    BUDGET_BANDS.flatMap((band) =>
-      getPricingConfigs(offering.key, band.id).map((cfg) => ({
-        "@type": "Offer",
-        name: `${cfg.name} — ${offering.fullLabel}`,
-        description: cfg.items.join(". "),
-        price: extractPriceNumber(cfg.price),
-        priceCurrency: "KES",
-        priceSpecification: {
-          "@type": "PriceSpecification",
-          price: extractPriceNumber(cfg.price),
-          priceCurrency: "KES",
-          minPrice: extractPriceNumber(cfg.price),
+    getLadder(offering.key).map((cfg) => ({
+      "@type": "Offer",
+      name: `${cfg.name} — ${offering.fullLabel}`,
+      description: `${cfg.items.join(". ")}. ${cfg.delivery}.`,
+      price: String(cfg.usd),
+      priceCurrency: "USD",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        price: String(cfg.usd),
+        priceCurrency: "USD",
+        minPrice: String(cfg.usd),
+      },
+      offeredBy: {
+        "@type": "LocalBusiness",
+        name: site.name,
+        url: site.url,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Nairobi",
+          addressCountry: "KE",
         },
-        offeredBy: {
-          "@type": "LocalBusiness",
-          name: site.name,
-          url: site.url,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Nairobi",
-            addressCountry: "KE",
-          },
-        },
-      })),
-    ),
+      },
+    })),
   );
 
   return {
@@ -49,7 +42,7 @@ function buildJsonLd() {
     "@type": "ItemList",
     name: "Malaika Studios — Digital Services Pricing in Kenya",
     description:
-      "Transparent pricing for website design, email marketing, SEO, digital growth and social content in Kenya. Configurations from KSh 25,000.",
+      "Transparent pricing for website design, email marketing, SEO, digital growth and social content in Kenya and worldwide. Packages from USD 250, each with a fixed scope and delivery deadline.",
     url: `${site.url}/pricing`,
     itemListElement: offers.map((offer, i) => ({
       "@type": "ListItem",
@@ -61,7 +54,12 @@ function buildJsonLd() {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function PricingPage() {
+export async function PricingPage() {
+  const fx = await getUsdKesRate();
+  const rateDate = new Date(`${fx.date}T00:00:00Z`).toLocaleDateString(
+    "en-GB",
+    { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" },
+  );
   return (
     <div className={styles.page}>
       <HomeNavigation />
@@ -77,9 +75,9 @@ export function PricingPage() {
             for <em>every</em> stage.
           </h1>
           <p className={styles.lede}>
-            Every configuration is tailored to your brief — not sold off the
-            shelf. Use the estimate tool to get the right scope for your
-            business, or browse everything below.
+            Fixed packages in US dollars, each with exactly what&apos;s included
+            and a delivery deadline. Shilling amounts use today&apos;s exchange
+            rate (USD 1 = KSh {fx.rate.toFixed(2)}, {rateDate}).
           </p>
           <div className={styles.heroActions}>
             <Link
@@ -138,58 +136,66 @@ export function PricingPage() {
               </Link>
             </div>
 
-            {/* Budget bands */}
-            {BUDGET_BANDS.map((band) => {
-              const configs = getPricingConfigs(offering.key, band.id);
-              return (
-                <div key={band.id} className={styles.bandSection}>
-                  <div className={styles.bandHeader}>
-                    <span className={styles.bandRange}>{band.range}</span>
-                    <span className={styles.bandLabel}>{band.label}</span>
-                  </div>
+            <div className={`${styles.configGrid} ${styles.ladderGrid}`}>
+              {getLadder(offering.key).map((cfg) => (
+                <article
+                  key={`${offering.key}-${cfg.name}`}
+                  className={`${styles.configCard} ${
+                    cfg.tag === "Recommended" ? styles.recommended : ""
+                  }`}
+                >
+                  {cfg.tag === "Recommended" && (
+                    <div
+                      className={styles.recBadge}
+                      aria-label="Recommended package"
+                    >
+                      Recommended
+                    </div>
+                  )}
 
-                  <div className={styles.configGrid}>
-                    {configs.map((cfg) => (
-                      <article
-                        key={`${offering.key}-${band.id}-${cfg.name}`}
-                        className={`${styles.configCard} ${
-                          cfg.tag === "Recommended" ? styles.recommended : ""
-                        }`}
-                      >
-                        {cfg.tag === "Recommended" && (
-                          <div
-                            className={styles.recBadge}
-                            aria-label="Recommended configuration"
-                          >
-                            ★ Recommended
-                          </div>
-                        )}
+                  <h3 className={styles.cardName}>{cfg.name}</h3>
+                  <p className={styles.cardPrice}>
+                    {cfg.price}
+                    {cfg.unit && (
+                      <span className={styles.cardUnit}> {cfg.unit}</span>
+                    )}
+                  </p>
+                  <p className={styles.cardKes}>
+                    {cfg.from ? "From about " : "About "}
+                    {formatKes(cfg.usd, fx.rate)} today
+                  </p>
+                  <p className={styles.cardDelivery}>{cfg.delivery}</p>
 
-                        <p className={styles.cardTag}>{cfg.tag}</p>
-                        <h3 className={styles.cardName}>{cfg.name}</h3>
-                        <p className={styles.cardPrice}>{cfg.price}</p>
-
-                        <ul className={styles.cardItems}>
-                          {cfg.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </ul>
-
-                        <Link
-                          href={`/match?source=pricing_${offering.key}_${band.id}`}
-                          className={styles.cardCta}
-                        >
-                          Start with this →
-                        </Link>
-                      </article>
+                  <ul className={styles.cardItems}>
+                    {cfg.items.map((item) => (
+                      <li key={item}>{item}</li>
                     ))}
-                  </div>
-                </div>
-              );
-            })}
+                  </ul>
+
+                  <Link
+                    href={`/match?source=pricing_${offering.key}_${cfg.name.toLowerCase().replace(/\s+/g, "_")}`}
+                    className={styles.cardCta}
+                  >
+                    Start with this →
+                  </Link>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       ))}
+
+      {/* ── Terms ────────────────────────────────────────────────── */}
+      <section className={styles.terms} aria-labelledby="pricing-terms">
+        <div className={styles.container}>
+          <h2 id="pricing-terms">How every package works</h2>
+          <ul>
+            {PRICING_TERMS.map((term) => (
+              <li key={term}>{term}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* ── Bottom CTA ───────────────────────────────────────────── */}
       <section className={styles.bottomCta}>

@@ -62,7 +62,7 @@ export function buildQuoteEmail({
     ["Your business", result.brief.business],
     ["What you need", result.brief.offering],
     ["What success looks like", result.brief.outcome],
-    ["Investment territory", result.brief.investment],
+    ["Your budget", result.brief.investment],
   ]
     .map(
       ([label, value]) => `
@@ -92,7 +92,8 @@ export function buildQuoteEmail({
             ${isRec ? `<div style="display:inline-block;background:${yellow};color:${ink};border-radius:999px;padding:4px 12px;font-family:${font};font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Our recommendation</div>` : ""}
             <div style="font-family:${font};font-size:12px;color:${sub};letter-spacing:1px;">0${index + 1} · ${escapeHtml(config.tag)}</div>
             <div style="font-family:${font};font-size:22px;font-weight:800;color:${fg};margin:4px 0 2px;">${escapeHtml(config.name)}</div>
-            <div style="font-family:${font};font-size:26px;font-weight:800;color:${isRec ? yellow : blue};margin:0 0 14px;">${escapeHtml(config.price)}</div>
+            <div style="font-family:${font};font-size:26px;font-weight:800;color:${isRec ? yellow : blue};margin:0 0 14px;">${escapeHtml(config.price)}${config.unit ? ` <span style="font-size:14px;font-weight:600;">${escapeHtml(config.unit)}</span>` : ""}</div>
+            <div style="font-family:${font};font-size:13px;color:${sub};margin:-8px 0 12px;">${config.priceKes ? `About ${escapeHtml(config.priceKes)} today · ` : ""}${escapeHtml(config.delivery)}</div>
             <ul style="margin:0 0 16px;padding-left:18px;">${items}</ul>
             <a href="${whatsappFor(config.name, config.price, reference)}" style="font-family:${font};font-size:14px;font-weight:700;color:${isRec ? yellow : ink};text-decoration:underline;">Talk about this option →</a>
           </td></tr>
@@ -168,7 +169,7 @@ export function buildQuoteEmail({
   </td></tr>
 
   <tr><td style="padding:0 4px 8px;font-family:${font};font-size:12px;line-height:1.6;color:${muted};">
-    Prices are estimates in Kenyan shillings based on your answers. We'll confirm the final scope and quote with you before any work begins. Reference ${reference}.<br><br>
+    Prices are fixed in US dollars; shilling amounts use today's exchange rate, and clients in Kenya pay in shillings at the rate on the invoice date. Each package has a fixed scope and a delivery deadline in working days, starting when we have your content and the first payment. Reference ${reference}.<br><br>
     ${button(absoluteUrl("/pricing"), "See all pricing", false)}<br><br>
     Malaika Studios · ${escapeHtml(site.location)} · <a href="mailto:${site.email}" style="color:${muted};">${site.email}</a><br>
     You're receiving this because you requested an estimate at ${site.url.replace("https://", "")}.
@@ -194,7 +195,7 @@ export function buildQuoteEmail({
     "THREE WAYS TO BUILD IT",
     ...result.configs.flatMap((config, index) => [
       "",
-      `0${index + 1}. ${config.name}: ${config.price}${config.name === rec.name ? " (recommended)" : ""}`,
+      `0${index + 1}. ${config.name}: ${config.price}${config.unit ? ` ${config.unit}` : ""}${config.priceKes ? ` (about ${config.priceKes} today)` : ""}, ${config.delivery.toLowerCase()}${config.name === rec.name ? " (recommended)" : ""}`,
       ...config.items.map((item) => `   - ${item}`),
     ]),
     "",
@@ -204,7 +205,7 @@ export function buildQuoteEmail({
     `Chat on WhatsApp: ${whatsappFor(rec.name, rec.price, reference)}`,
     `Or reply to this email.`,
     "",
-    "Prices are estimates in Kenyan shillings based on your answers. We'll confirm the final scope and quote before any work begins.",
+    "Prices are fixed in US dollars; shilling amounts use today's exchange rate, and clients in Kenya pay in shillings at the rate on the invoice date. Each package has a fixed scope and a delivery deadline in working days, starting when we have your content and the first payment.",
     "",
     `Malaika Studios · ${site.location} · ${site.email}`,
   ].join("\n");
@@ -229,7 +230,7 @@ export function buildLeadAlertEmail({
   const reference = quoteReference(sessionId);
   const rows: Array<[string, string]> = [
     ["Name", contact.name],
-    ["Email", contact.email],
+    ["Email", contact.email || "Not given"],
     ["Phone / WhatsApp", contact.phone || "Not given"],
     ["Score", `${result.score}% (${result.category})`],
     ["Business", result.brief.business],

@@ -1,7 +1,7 @@
 import { caseStudies } from "@/content/case-studies";
 import { fillPrices, services } from "@/content/services";
 import { getAllPosts } from "@/lib/blog";
-import { CONFIGS, OFFERINGS } from "@/lib/pricing";
+import { OFFERINGS, startingPrice } from "@/lib/pricing";
 import { absoluteUrl, site } from "@/lib/site";
 
 // Re-check every 15 minutes so scheduled posts appear at their publish time.
@@ -14,8 +14,7 @@ export const revalidate = 900;
  */
 export function GET() {
   const startingPrices = OFFERINGS.map((offering) => {
-    const first = CONFIGS[offering.key]["20-50"][0];
-    return `- ${offering.fullLabel}: from ${first[1]} (${absoluteUrl("/pricing")})`;
+    return `- ${offering.fullLabel}: from ${startingPrice(offering.key)} (${absoluteUrl("/pricing")})`;
   }).join("\n");
 
   const body = `# ${site.name}
@@ -29,7 +28,9 @@ Instant project estimate: ${absoluteUrl("/match")}
 
 ${services.map((service) => `- [${service.title}](${absoluteUrl(`/services/${service.slug}`)}): ${fillPrices(service.description)}`).join("\n")}
 
-## Pricing (Kenyan shillings, published)
+## Pricing (US dollars, published)
+
+Every package has a fixed scope and a delivery deadline in working days. Clients in Kenya pay in shillings at the exchange rate on the invoice date.
 
 ${startingPrices}
 

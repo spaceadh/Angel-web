@@ -18,7 +18,7 @@ export function ServicePage({ service }: { service: Service }) {
   const serviceUrl = absoluteUrl(`/services/${service.slug}`);
   const pricing = service.pricing.map((key) => ({
     offering: OFFERINGS.find((offering) => offering.key === key)!,
-    configs: getPricingConfigs(key, "20-50"),
+    configs: getPricingConfigs(key, "starter"),
   }));
   const lowPrices = pricing
     .map(({ configs }) => Number(extractPriceNumber(configs[0].price)))
@@ -52,7 +52,7 @@ export function ServicePage({ service }: { service: Service }) {
                   ? {
                       offers: {
                         "@type": "AggregateOffer",
-                        priceCurrency: "KES",
+                        priceCurrency: "USD",
                         lowPrice: Math.min(...lowPrices),
                         url: absoluteUrl("/pricing"),
                       },
@@ -145,8 +145,13 @@ export function ServicePage({ service }: { service: Service }) {
                   {configs.map((config) => (
                     <li key={config.name}>
                       <span>{config.name}</span>
-                      <strong>{config.price}</strong>
-                      <p>{config.items.join(" · ")}</p>
+                      <strong>
+                        {config.price}
+                        {config.unit ? ` ${config.unit}` : ""}
+                      </strong>
+                      <p>
+                        {config.items.join(" · ")} · {config.delivery}
+                      </p>
                     </li>
                   ))}
                 </ul>

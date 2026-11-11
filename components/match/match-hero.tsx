@@ -19,30 +19,22 @@ export function MatchHero({ onStart }: MatchHeroProps) {
           <span className={styles.scriptNote}>let's find out</span>
         </h1>
         <p className={styles.lede}>
-          Answer a few focused questions about what you’re building, what
-          success looks like and the investment territory you’re comfortable
-          working within. We’ll calculate your match score and shape three
-          realistic ways to build it.
+          Answer 8 quick questions about your business and what you need.
+          You&apos;ll get three ways to build it, with real prices. Websites
+          start from USD 250.
         </p>
 
         <div className={styles.heroFeatures}>
-          <div className={styles.featurePill}>
-            <span>⚡</span> Takes 2 minutes
-          </div>
-          <div className={styles.featurePill}>
-            <span>🎯</span> Clear price options
-          </div>
-          <div className={styles.featurePill}>
-            <span>🤝</span> Zero commitment
-          </div>
+          <div className={styles.featurePill}>Takes 2 minutes</div>
+          <div className={styles.featurePill}>Clear prices</div>
+          <div className={styles.featurePill}>No commitment</div>
         </div>
 
         <button className={styles.cta} onClick={onStart}>
           Start The Malaika Match →
         </button>
         <div className={styles.micro}>
-          <span>🔒</span> Your information is safe. We use your details strictly
-          to share your results.
+          We only use your details to share your results.
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ export const CALCULATING_STEPS = [
   { label: "Scoring how well we fit", ms: 800 },
   { label: "Pricing three ways to build it", ms: 900 },
   { label: "Choosing our recommendation", ms: 700 },
-  { label: "Writing up your estimate email", ms: 700 },
+  { label: "Writing up your estimate", ms: 700 },
 ] as const;
 
 export const CALCULATING_TOTAL_MS = CALCULATING_STEPS.reduce(
@@ -22,7 +22,7 @@ export function MatchCalculating({
   email,
 }: {
   name: string;
-  email: string;
+  email?: string;
 }) {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -84,9 +84,11 @@ export function MatchCalculating({
           })}
         </ol>
 
-        <p className={styles.calcNote}>
-          A copy will land in <strong>{email}</strong>.
-        </p>
+        {email && (
+          <p className={styles.calcNote}>
+            A copy will land in <strong>{email}</strong>.
+          </p>
+        )}
       </div>
     </section>
   );

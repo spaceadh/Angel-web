@@ -1383,3 +1383,18 @@ a.configLink:hover {
     animation: none;
   }
 }
+
+/* Keyboard hints only make sense where there is a keyboard and a mouse. */
+@media (hover: none), (pointer: coarse) {
+  .keyHint,
+  .keyboardOnly {
+    display: none;
+  }
+}
+
+.configKes {
+  font-size: 13px;
+  font-weight: 600;
+  margin: -4px 0 8px;
+  opacity: 0.7;
+}

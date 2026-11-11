@@ -154,7 +154,7 @@ export function MatchQuiz({
               >
                 Continue →
               </button>
-              <div className={styles.tip}>💡 Select all that apply</div>
+              <div className={styles.tip}>Select all that apply</div>
             </div>
           ) : (
             <div className={styles.navRow}>
@@ -166,8 +166,8 @@ export function MatchQuiz({
               >
                 ← Back
               </button>
-              <div className={styles.tip}>
-                💡 Press number keys or click an option
+              <div className={`${styles.tip} ${styles.keyboardOnly}`}>
+                Tip: press a number key to choose
               </div>
             </div>
           )}

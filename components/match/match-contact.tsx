@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ContactInfo } from "@/lib/malaika-match/config";
+import { ContactInfo, normalisePhone } from "@/lib/malaika-match/config";
 import styles from "./match.module.css";
 
 declare global {
@@ -104,14 +104,19 @@ export function MatchContact({
     setError("");
 
     if (!name.trim()) return fail("Please tell us your name.");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
+    if (!normalisePhone(phone)) {
+      return fail(
+        "That WhatsApp number doesn't look right. Try 0712 345 678 or +254 712 345 678.",
+      );
+    }
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
       return fail("That email address doesn't look right. Please check it.");
     }
 
     onSubmitContact({
       name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim() || undefined,
+      phone: phone.trim(),
+      email: email.trim() || undefined,
       turnstileToken,
       website: honeypot || undefined,
     });
@@ -124,25 +129,18 @@ export function MatchContact({
       <div className={`${styles.transitionWrap} ${styles.fadeIn}`}>
         <div className={styles.qKicker}>Last step · Your estimate is ready</div>
         <h2>
-          Where should we send your{" "}
-          <span className={styles.blue}>estimate?</span>
+          Where can we <span className={styles.blue}>reach you?</span>
         </h2>
         <p>
-          We&apos;ll show your match score, three ways to build it with real
-          prices, and our recommendation. A copy goes straight to your inbox so
-          you can share it with your team.
+          Your estimate shows on the next screen: three ways to build it, with
+          real prices, and our recommendation. Add your email if you&apos;d like
+          a copy to share with your team.
         </p>
 
         <ul className={styles.contactPerks} aria-label="What you'll get">
-          <li>
-            <span aria-hidden="true">📊</span> Match score
-          </li>
-          <li>
-            <span aria-hidden="true">💰</span> 3 priced options
-          </li>
-          <li>
-            <span aria-hidden="true">📩</span> Emailed copy
-          </li>
+          <li>Match score</li>
+          <li>3 priced options</li>
+          <li>Our recommendation</li>
         </ul>
 
         <form
@@ -166,7 +164,26 @@ export function MatchContact({
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="email">Email address *</label>
+            <label htmlFor="phone">WhatsApp number *</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              autoComplete="tel"
+              inputMode="tel"
+              placeholder="0712 345 678"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              maxLength={30}
+              required
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="email">
+              Email{" "}
+              <span className={styles.optional}>(optional, for a copy)</span>
+            </label>
             <input
               type="email"
               id="email"
@@ -177,24 +194,6 @@ export function MatchContact({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               maxLength={254}
-              required
-            />
-          </div>
-
-          <div className={styles.field}>
-            <label htmlFor="phone">
-              Phone / WhatsApp{" "}
-              <span className={styles.optional}>(optional)</span>
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              autoComplete="tel"
-              placeholder="+254 700 000 000"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              maxLength={30}
             />
           </div>
 
@@ -229,8 +228,7 @@ export function MatchContact({
               {isSubmitting ? "Preparing your estimate…" : "Show my estimate →"}
             </button>
             <div className={styles.micro} style={{ justifyContent: "center" }}>
-              <span aria-hidden="true">🔒</span> We only use your details to
-              send your estimate and follow up about this project. No spam.
+              We only use your details to follow up about this project. No spam.
             </div>
           </div>
         </form>
