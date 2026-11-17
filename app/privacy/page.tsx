@@ -21,14 +21,26 @@ export default function PrivacyPage() {
           <h1>Privacy & cookie policy</h1>
           <p>
             We use essential technology to run this website. Optional analytics
-            and advertising tools load only after you choose to accept them.
+            and advertising tools that use cookies load only after you choose to
+            accept them.
           </p>
-          <h2>What optional analytics does</h2>
+          <h2>What analytics we use</h2>
           <p>
-            With consent, Google Analytics helps us understand aggregate site
-            use. Meta Pixel and the Meta Conversions API help us measure whether
-            Meta advertising leads to a WhatsApp conversation. We do not use
-            these tools before consent.
+            Ahrefs Web Analytics counts visits and shows which pages people
+            read. It doesn&apos;t use cookies or identify you, so it runs for
+            every visitor.
+          </p>
+          <p>
+            Google Analytics also runs for every visitor, but without cookies
+            until you accept analytics. Until then it only sends anonymous visit
+            counts. If you accept, it can use cookies to tell repeat visits
+            apart.
+          </p>
+          <p>
+            Meta Pixel, the Meta Conversions API and Brevo&apos;s website
+            tracker help us measure whether our advertising leads to a WhatsApp
+            conversation. They load only after you accept, and stop if you
+            change your choice to &quot;Only essential&quot;.
           </p>
           <h2>Your choices</h2>
           <p>

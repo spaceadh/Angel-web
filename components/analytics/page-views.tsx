@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { trackEvent } from "./consent-and-analytics";
+import {
+  isAnalyticsReady as gaAlreadyReady,
+  trackEvent,
+} from "./consent-and-analytics";
 
 export function AnalyticsPageViews() {
   const pathname = usePathname();
@@ -10,6 +13,8 @@ export function AnalyticsPageViews() {
 
   useEffect(() => {
     const handleReady = () => setIsAnalyticsReady(true);
+    // GA may have started before this component mounted.
+    if (gaAlreadyReady()) handleReady();
     window.addEventListener("malaika:analytics-ready", handleReady);
     return () =>
       window.removeEventListener("malaika:analytics-ready", handleReady);

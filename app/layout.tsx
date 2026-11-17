@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { ConsentAndAnalytics } from "@/components/analytics/consent-and-analytics";
 import { AnalyticsPageViews } from "@/components/analytics/page-views";
@@ -119,6 +120,13 @@ export default function RootLayout({
         {children}
         <AnalyticsPageViews />
         <ConsentAndAnalytics />
+        {/* Ahrefs Web Analytics: cookieless visit counts, so it runs without
+            the consent banner (see /privacy). */}
+        <Script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="ZBLtCTgikRvDJMo+0esICQ"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

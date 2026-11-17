@@ -18,7 +18,9 @@ const consentKey = "malaika-analytics-consent";
 const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-XHNJHFGC3B";
 const metaPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 const brevoClientKey = "v2b1m4jxleys2rcw6pf0bfqb";
-let analyticsInitialised = false;
+let gaInitialised = false;
+let marketingInitialised = false;
+let analyticsReady = false;
 
 function loadScript(id: string, src: string) {
   if (document.getElementById(id)) return;
@@ -29,22 +31,48 @@ function loadScript(id: string, src: string) {
   document.head.appendChild(script);
 }
 
-function initialiseAnalytics() {
-  if (analyticsInitialised) return;
-  analyticsInitialised = true;
+/**
+ * GA4 runs for every visitor using Google Consent Mode. Until someone taps
+ * "Accept analytics", storage is denied, so GA4 sends cookieless pings with
+ * no visitor ID. Accepting upgrades it to normal measurement with cookies.
+ */
+function initialiseGa(granted: boolean) {
+  if (gaInitialised || !gaId) return;
+  gaInitialised = true;
 
-  if (gaId) {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args) => window.dataLayer?.push(args);
-    window.gtag("js", new Date());
-    // Route changes are reported explicitly in AnalyticsPageViews. This avoids
-    // GA4 counting the initial page twice after a visitor grants consent.
-    window.gtag("config", gaId, { anonymize_ip: true, send_page_view: false });
-    loadScript(
-      "malaika-ga4",
-      `https://www.googletagmanager.com/gtag/js?id=${gaId}`,
-    );
-  }
+  window.dataLayer = window.dataLayer || [];
+  // gtag.js reads the `arguments` object, so this must be a plain function.
+  window.gtag = function gtag() {
+    window.dataLayer?.push(arguments);
+  };
+  window.gtag("consent", "default", {
+    analytics_storage: granted ? "granted" : "denied",
+    // No Google Ads on this site, so advertising storage stays off.
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
+  window.gtag("js", new Date());
+  // Route changes are reported explicitly in AnalyticsPageViews, so the
+  // initial page isn't counted twice.
+  window.gtag("config", gaId, { anonymize_ip: true, send_page_view: false });
+  loadScript(
+    "malaika-ga4",
+    `https://www.googletagmanager.com/gtag/js?id=${gaId}`,
+  );
+
+  analyticsReady = true;
+  window.dispatchEvent(new Event("malaika:analytics-ready"));
+}
+
+export function isAnalyticsReady() {
+  return analyticsReady;
+}
+
+/** Meta Pixel and Brevo identify visitors, so they only load after consent. */
+function initialiseMarketing() {
+  if (marketingInitialised) return;
+  marketingInitialised = true;
 
   if (metaPixelId && !window.fbq) {
     const fbq = (...args: unknown[]) => {
@@ -85,8 +113,6 @@ function initialiseAnalytics() {
   window.Brevo = window.Brevo || [];
   window.Brevo.push(["init", { client_key: brevoClientKey }]);
   loadScript("malaika-brevo", "https://cdn.brevo.com/js/sdk-loader.js");
-
-  window.dispatchEvent(new Event("malaika:analytics-ready"));
 }
 
 export function hasAnalyticsConsent() {
@@ -100,7 +126,7 @@ export function trackEvent(
   name: string,
   parameters: Record<string, string> = {},
 ) {
-  if (!hasAnalyticsConsent()) return;
+  // GA4 itself respects the consent state (cookieless until accepted).
   window.gtag?.("event", name, parameters);
 }
 
@@ -129,7 +155,6 @@ export function getPageContext() {
 }
 
 export async function trackWhatsappLead(placement: string) {
-  if (!hasAnalyticsConsent()) return;
   const eventId = crypto.randomUUID();
   const parameters = {
     ...getPageContext(),
@@ -137,6 +162,8 @@ export async function trackWhatsappLead(placement: string) {
     cta_placement: placement,
   };
   trackEvent("generate_lead", parameters);
+  // Meta only hears about the lead from visitors who accepted.
+  if (!hasAnalyticsConsent()) return;
   window.fbq?.("track", "Contact", parameters, { eventID: eventId });
   await fetch("/api/meta/events", {
     method: "POST",
@@ -168,6 +195,7 @@ export function ConsentAndAnalytics() {
 
   useEffect(() => {
     const saved = localStorage.getItem(consentKey);
+    initialiseGa(saved === "granted");
     const frame = requestAnimationFrame(() => {
       if (saved === "granted" || saved === "denied") setChoice(saved);
     });
@@ -180,7 +208,13 @@ export function ConsentAndAnalytics() {
   }, []);
 
   useEffect(() => {
-    if (choice === "granted") initialiseAnalytics();
+    if (choice === "granted") {
+      window.gtag?.("consent", "update", { analytics_storage: "granted" });
+      initialiseMarketing();
+    } else if (choice === "denied") {
+      window.gtag?.("consent", "update", { analytics_storage: "denied" });
+      window.fbq?.("consent", "revoke");
+    }
   }, [choice]);
 
   const save = (value: "granted" | "denied") => {

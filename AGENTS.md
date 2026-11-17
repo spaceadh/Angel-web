@@ -558,3 +558,27 @@ When completing any modification, task, or iteration in this codebase, the agent
   - `docs/brevo-email-templates/*.html` (logo and /match links; the copies inside Brevo must be updated by hand)
   - `package.json`, `pnpm-lock.yaml` (`next` and `eslint-config-next` 16.4.1 → 16.4.6)
 - **Verification & Status:** `tsc --noEmit` clean; `pnpm build` passes on 16.4.6. Build output: canonical https://malaikastudios.co.ke, robots.txt sitemap on the new domain, no old site URLs left. Not committed or deployed at time of writing.
+
+### [2026-11-17 11:45:00 +03:00] — Claude Opus 5.5 / Claude Code (Ahrefs Web Analytics)
+
+- **Timestamp:** 2026-11-17T11:45:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer
+- **Task / Scope:** Added the owner's Ahrefs Web Analytics snippet site-wide.
+- **Files Modified / Created:**
+  - `app/layout.tsx` (Updated — `next/script` for `https://analytics.ahrefs.com/analytics.js` with the account's `data-key`, `afterInteractive`)
+  - `app/privacy/page.tsx` (Updated — the cookie-consent line now covers tools that use cookies; new paragraph naming Ahrefs Web Analytics as cookieless and always on)
+- **Key Decisions & Implementation Details:** Ahrefs Web Analytics is cookieless, so it loads outside the consent gate, unlike GA4, Meta Pixel and Brevo, which still wait for consent.
+- **Verification & Status:** `tsc --noEmit` clean; `pnpm build` passes; on the dev server the script tag is in the page with the right key. Real visit counts can only be confirmed in Ahrefs after deploy. Not committed or deployed at time of writing.
+
+### [2026-11-17 12:30:00 +03:00] — Claude Opus 5.5 / Claude Code (GA4 Consent Mode: cookieless by default)
+
+- **Timestamp:** 2026-11-17T12:30:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer
+- **Task / Scope:** Owner asked for analytics to run by default and switch off when declined. GA4 now runs for every visitor via Google Consent Mode (storage denied until "Accept analytics"); Meta Pixel, Meta CAPI and Brevo stay opt-in because they identify visitors.
+- **Files Modified / Created:**
+  - `components/analytics/consent-and-analytics.tsx` (Updated — `initialiseGa()` on mount with `consent default` analytics/ad storage denied (analytics granted if saved); `consent update` on Accept/Decline; Meta + Brevo moved to `initialiseMarketing()`, loaded only on Accept; `fbq('consent','revoke')` on Decline; `trackEvent` sends to GA regardless (GA honours consent); WhatsApp lead still goes to Meta only with consent; `gtag` now pushes the `arguments` object, as gtag.js requires — the previous version pushed plain arrays)
+  - `components/analytics/page-views.tsx` (Updated — picks up GA readiness if it fired before mount)
+  - `app/privacy/page.tsx` (Updated — "What analytics we use": Ahrefs always on, GA cookieless until accepted, Meta/Brevo only after accepting)
+- **Verification & Status:** `tsc --noEmit` and eslint clean; `pnpm build` passes. Browser test on the dev server: no choice → GA loaded, consent denied, no cookies, no Meta/Brevo, one page_view queued; Accept → consent update granted, `_ga` cookies set, Meta and Brevo load; Decline → consent update denied, no cookies, no Meta/Brevo. Not committed or deployed at time of writing.
