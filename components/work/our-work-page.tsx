@@ -133,7 +133,7 @@ export function Footer({ logoIcon }: { logoIcon: typeof fullLogo }) {
             ))}
           </div>
           <div className={styles.footerContact}>
-            malaikastudios.rotsi.co.ke
+            malaikastudios.co.ke
             <br />
             Nairobi / Remote / Global
           </div>

@@ -84,7 +84,7 @@ export function HomeFooter() {
           <span>
             Digital Presence by{" "}
             <a
-              href="https://malaikastudios.rotsi.co.ke"
+              href="https://malaikastudios.co.ke"
               target="_blank"
               rel="noopener noreferrer"
             >

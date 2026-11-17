@@ -1,6 +1,6 @@
 export const site = {
   name: "Malaika Studios",
-  url: "https://malaikastudios.rotsi.co.ke",
+  url: "https://malaikastudios.co.ke",
   description:
     "We build the website, and everything behind it: branding, automation and SEO for businesses in Nairobi, Kenya and beyond. From USD 250.",
   email: "malaikastudios@rotsi.co.ke",

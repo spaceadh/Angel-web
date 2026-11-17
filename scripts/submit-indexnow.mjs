@@ -4,7 +4,7 @@
 //   add --dry-run to print the URLs without submitting.
 import { readdirSync, readFileSync } from "node:fs";
 
-const origin = "https://malaikastudios.rotsi.co.ke";
+const origin = "https://malaikastudios.co.ke";
 const args = new Set(process.argv.slice(2));
 
 // The key is public by design: it is served at /<key>.txt from public/.

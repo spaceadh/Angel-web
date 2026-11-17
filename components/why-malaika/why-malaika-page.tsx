@@ -299,7 +299,7 @@ export function WhyMalaikaPage() {
               ))}
             </div>
             <div className={styles.footerContact}>
-              malaikastudios.rotsi.co.ke
+              malaikastudios.co.ke
               <br />
               Nairobi / Remote / Global
             </div>

@@ -35,7 +35,7 @@ const fonts = [
 export function renderOgImage({
   eyebrow = "Malaika Studios · Nairobi",
   title,
-  footer = "malaikastudios.rotsi.co.ke",
+  footer = "malaikastudios.co.ke",
   stat,
   accent = "#ffd400",
 }: {

@@ -178,6 +178,7 @@ export function getPost(slug: string): Post | undefined {
         const text = this.parser.parseInline(tokens);
         const external =
           /^https?:\/\//.test(href) &&
+          !href.includes("malaikastudios.co.ke") &&
           !href.includes("malaikastudios.rotsi.co.ke");
         const titleAttr = title ? ` title="${title}"` : "";
         const rel = external

@@ -25,6 +25,6 @@ export default async function Image({
     title: post.title,
     stat: post.keyStat,
     accent: series?.accent === "#2563ff" ? "#7aa2ff" : series?.accent,
-    footer: "malaikastudios.rotsi.co.ke/blog",
+    footer: "malaikastudios.co.ke/blog",
   });
 }

@@ -20,7 +20,7 @@ export default async function Image({
       ? `${series.name} · ${series.cadence}`
       : "Malaika Studios Blog",
     title: series?.tagline ?? "Malaika Studios Blog",
-    footer: "malaikastudios.rotsi.co.ke/blog",
+    footer: "malaikastudios.co.ke/blog",
     accent: series?.key === "global-brief" ? "#7aa2ff" : series?.accent,
   });
 }

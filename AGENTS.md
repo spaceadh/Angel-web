@@ -544,3 +544,17 @@ When completing any modification, task, or iteration in this codebase, the agent
   - The deadline clock starts when Malaika has the content and the first payment. Extras are quoted before they start. Domain, hosting, paid tools, ad spend and photography are excluded unless listed.
   - No figures for extras or payment split were published; those are the owner's policy.
 - **Verification & Status:** `tsc --noEmit` clean; `pnpm build` passes; `pnpm blog:check` 4/4. Match API checked for all budget bands; /pricing checked at 1440px and 375px (no overflow); llms.txt and the website service page show USD. Live rate fetched: 129.98 KES (11 Nov 2026). Not committed or deployed.
+
+### [2026-11-17 10:00:00 +03:00] — Claude Opus 5.5 / Claude Code (Domain move to malaikastudios.co.ke, Next.js patch)
+
+- **Timestamp:** 2026-11-17T10:00:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / SEO
+- **Task / Scope:** The site moved from malaikastudios.rotsi.co.ke to malaikastudios.co.ke (the old host already 308-redirects with the path kept). Canonicals, sitemap, robots and every hard-coded URL now use the new domain. Next.js patched after the build stopped on a security notice.
+- **Files Modified / Created:**
+  - `lib/site.ts` (`url` → https://malaikastudios.co.ke; email left as malaikastudios@rotsi.co.ke on the owner's instruction)
+  - `components/home/home-footer.tsx`, `components/what-we-do/what-we-do-page.tsx`, `components/why-malaika/why-malaika-page.tsx`, `components/work/our-work-page.tsx`, `lib/og-image.tsx`, `app/blog/[slug]/opengraph-image.tsx`, `app/blog/series/[series]/opengraph-image.tsx`, `scripts/submit-indexnow.mjs`, `ANALYTICS_SEO_SETUP.md` (domain text and links)
+  - `lib/blog.ts` (links to either domain count as internal)
+  - `docs/brevo-email-templates/*.html` (logo and /match links; the copies inside Brevo must be updated by hand)
+  - `package.json`, `pnpm-lock.yaml` (`next` and `eslint-config-next` 16.4.1 → 16.4.6)
+- **Verification & Status:** `tsc --noEmit` clean; `pnpm build` passes on 16.4.6. Build output: canonical https://malaikastudios.co.ke, robots.txt sitemap on the new domain, no old site URLs left. Not committed or deployed at time of writing.
