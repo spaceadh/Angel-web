@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       { source: "/projects/:slug*", destination: "/our-work", permanent: true },
+      // Website cost calculator hidden on 2026-11-17 until it is corrected.
+      {
+        source: "/tools/website-cost-calculator",
+        destination: "/pricing",
+        permanent: false,
+      },
     ];
   },
 };

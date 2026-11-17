@@ -1,4 +1,8 @@
-/** Free tools at /tools/<slug>. The hub, sitemap and llms.txt read this list. */
+/**
+ * Free tools at /tools/<slug>. The hub, sitemap and llms.txt read this list.
+ * The website cost calculator (components/tools/website-calculator.tsx) is
+ * hidden until its logic is reviewed; its URL redirects to /pricing.
+ */
 export type Tool = {
   slug: string;
   name: string;
@@ -28,13 +32,6 @@ export const tools: readonly Tool[] = [
     name: "WhatsApp Business API cost calculator",
     summary:
       "Your monthly WhatsApp bill in shillings, from Meta's rate card for Kenya.",
-    category: "BusinessApplication",
-  },
-  {
-    slug: "website-cost-calculator",
-    name: "Website cost calculator",
-    summary:
-      "Pick what your site needs and see the fixed price and delivery deadline.",
     category: "BusinessApplication",
   },
 ];

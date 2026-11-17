@@ -639,3 +639,13 @@ When completing any modification, task, or iteration in this codebase, the agent
   - `package.json`, `pnpm-lock.yaml` (Added `qrcode@1.5.4`, `@types/qrcode`)
 - **Key Decisions & Implementation Details:** Everything runs in the browser; the number is never sent to Malaika (said on the page). The GBP advice uses post/offer button links, not a chat feature, because Google retired Business Profile chat.
 - **Verification & Status:** tsc, eslint and `pnpm build` clean. The number parser was checked against 10 inputs (Kenyan, international, 00-prefix, typos). On the production server: `0712 345 678` → `https://wa.me/254712345678?text=…`, the QR renders, no overflow. Fixed during testing: template chips all read "Hi"/"Hello", and a stray leading 0 was accepted. Not committed or deployed.
+
+### [2026-11-17 17:45:00 +03:00] — Claude Opus 5.5 / Claude Code (Website cost calculator hidden)
+
+- **Timestamp:** 2026-11-17T17:45:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer
+- **Task / Scope:** The owner found mistakes in the website cost calculator and asked to hide it.
+- **Files Modified / Created:** `lib/tools/index.ts` (entry removed, so it is gone from the hub, sitemap, llms.txt and "more tools"), `app/tools/website-cost-calculator/` (Deleted), `next.config.ts` (temporary 307 redirect from `/tools/website-cost-calculator` to `/pricing`)
+- **Key Decisions & Implementation Details:** `components/tools/website-calculator.tsx` is kept (now unused) so it can be corrected and brought back. To restore it, re-add the registry entry and the page (from git history: commit 1904ab6), and remove the redirect.
+- **Verification & Status:** `pnpm build` and tsc pass; /tools lists 3 tools.
