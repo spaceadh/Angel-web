@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MatchLink } from "@/components/analytics/tracked-links";
 import { HomeFooter } from "@/components/home/home-footer";
 import { HomeNavigation } from "@/components/home/home-navigation";
 
@@ -27,7 +28,7 @@ export default function NotFound() {
               <Link href="/pricing">Pricing</Link>
             </li>
             <li>
-              <Link href="/match?source=404">Get an instant estimate</Link>
+              <MatchLink placement="404">Get an instant estimate</MatchLink>
             </li>
             <li>
               <Link href="/our-work">Our work</Link>

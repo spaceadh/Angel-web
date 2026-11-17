@@ -4,13 +4,17 @@ import { fillPrices, services, type Service } from "@/content/services";
 import { getCaseStudy } from "@/content/case-studies";
 import { HomeFooter } from "@/components/home/home-footer";
 import { HomeNavigation } from "@/components/home/home-navigation";
-import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
+import {
+  TrackedWhatsappLink,
+  MatchLink,
+} from "@/components/analytics/tracked-links";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   OFFERINGS,
   extractPriceNumber,
   getPricingConfigs,
 } from "@/lib/pricing";
+import { getAllPosts } from "@/lib/blog";
 import { absoluteUrl, site } from "@/lib/site";
 import styles from "./service-page.module.css";
 
@@ -31,6 +35,13 @@ export function ServicePage({ service }: { service: Service }) {
     answer: fillPrices(answer),
   }));
   const otherServices = services.filter(({ slug }) => slug !== service.slug);
+  // Guides written for this service first, then the newest posts, so every
+  // service page links into the blog (and passes it authority).
+  const allPosts = getAllPosts();
+  const guides = [
+    ...allPosts.filter((post) => post.service === service.slug),
+    ...allPosts.filter((post) => post.service !== service.slug),
+  ].slice(0, 3);
 
   return (
     <div className={styles.page}>
@@ -89,12 +100,12 @@ export function ServicePage({ service }: { service: Service }) {
               {service.hero}
             </h1>
             <p className={styles.lede}>{service.introduction}</p>
-            <Link
-              href={`/match?source=service_${service.slug}`}
+            <MatchLink
+              placement={`service_${service.slug}`}
               className={styles.cta}
             >
               Calculate Scope &amp; Pricing →
-            </Link>
+            </MatchLink>
           </div>
         </section>
         <section className={`${styles.container} ${styles.section}`}>
@@ -197,6 +208,27 @@ export function ServicePage({ service }: { service: Service }) {
                 ))}
               </ul>
             </div>
+          </section>
+        )}
+        {guides.length > 0 && (
+          <section className={`${styles.container} ${styles.section}`}>
+            <div className={styles.sectionHead}>
+              <p>Guides</p>
+              <h2>Read before you spend.</h2>
+            </div>
+            <ul className={styles.work}>
+              {guides.map((post) => (
+                <li key={post.slug}>
+                  <Link href={`/blog/${post.slug}`}>
+                    <h3>{post.title}</h3>
+                    <p>{post.description}</p>
+                    <span>
+                      Read the guide <FaArrowRight />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </section>
         )}
         <section className={`${styles.container} ${styles.section}`}>

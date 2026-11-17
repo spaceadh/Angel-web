@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
-import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
+import {
+  TrackedWhatsappLink,
+  MatchLink,
+} from "@/components/analytics/tracked-links";
 import logoIcon from "@/assets/malaika-logo-icon.svg";
 import visual from "@/assets/why-malaika-image.webp";
 import type { CaseStudy, CaseStudyCard } from "@/content/case-studies";
@@ -227,12 +230,12 @@ export function CaseStudyPage({ caseStudy }: { caseStudy: CaseStudy }) {
               >
                 <FaWhatsapp /> &nbsp; Talk to Malaika →
               </TrackedWhatsappLink>
-              <Link
+              <MatchLink
                 className={styles.caseCtaEstimate}
-                href={`/match?source=case_${caseStudy.slug}`}
+                placement={`case_${caseStudy.slug}`}
               >
                 Or get an instant estimate →
-              </Link>
+              </MatchLink>
             </div>
             <div className={styles.caseCtaArt}>
               <img src={visual.src} alt="" />

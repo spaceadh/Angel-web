@@ -17,6 +17,7 @@ import { MatchContact, type ContactSubmission } from "./match-contact";
 import { MatchCalculating, CALCULATING_TOTAL_MS } from "./match-calculating";
 import { MatchResult } from "./match-result";
 import styles from "./match.module.css";
+import { readMatchSource } from "@/components/analytics/tracked-links";
 
 import logo from "@/assets/malaika-full-logo.svg";
 
@@ -139,8 +140,7 @@ export function MalaikaMatchFlow() {
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const source =
-      new URLSearchParams(window.location.search).get("source") ?? undefined;
+    const source = readMatchSource();
 
     startTransition(async () => {
       try {

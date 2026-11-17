@@ -17,12 +17,15 @@ export async function generateMetadata({
   const caseStudy = getCaseStudy((await params).slug);
   if (!caseStudy) return {};
   const url = absoluteUrl(`/our-work/work/${caseStudy.slug}`);
+  const title = caseStudy.seoTitle
+    ? `${caseStudy.title}: ${caseStudy.seoTitle}`
+    : `${caseStudy.title} Case Study`;
   return {
-    title: `${caseStudy.title} Case Study`,
+    title,
     description: caseStudy.description,
     alternates: { canonical: url },
     openGraph: {
-      title: `${caseStudy.title} Case Study`,
+      title,
       description: caseStudy.description,
       url,
       type: "article",
@@ -47,20 +50,39 @@ export default async function CaseStudyPage({ params }: PageProps) {
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+          "@graph": [
             {
-              "@type": "ListItem",
-              position: 2,
-              name: "Our work",
-              item: absoluteUrl("/our-work"),
+              "@type": "CreativeWork",
+              "@id": `${url}#work`,
+              name: `${caseStudy.title} case study`,
+              headline: caseStudy.seoTitle
+                ? `${caseStudy.title}: ${caseStudy.seoTitle}`
+                : caseStudy.title,
+              description: caseStudy.description,
+              url,
+              image: absoluteUrl(
+                caseStudy.heroMedia.poster ?? caseStudy.heroMedia.src,
+              ),
+              creator: { "@id": `${site.url}/#organization` },
+              publisher: { "@id": `${site.url}/#organization` },
+              about: {
+                "@type": "Organization",
+                name: caseStudy.title,
+              },
+              keywords: caseStudy.hero.tags.split(" / ").join(", "),
+              inLanguage: "en-KE",
             },
             {
-              "@type": "ListItem",
-              position: 3,
-              name: caseStudy.title,
-              item: url,
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { name: "Home", item: site.url },
+                { name: "Our work", item: absoluteUrl("/our-work") },
+                { name: caseStudy.title, item: url },
+              ].map((crumb, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                ...crumb,
+              })),
             },
           ],
         }}

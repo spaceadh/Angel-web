@@ -6,7 +6,10 @@ import { useState } from "react";
 import logo from "@/assets/malaika-full-logo.svg";
 import styles from "./home-page.module.css";
 import { FaWhatsapp } from "react-icons/fa6";
-import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
+import {
+  TrackedWhatsappLink,
+  MatchLink,
+} from "@/components/analytics/tracked-links";
 
 const navigation = [
   { href: "/pricing", label: "Pricing" },
@@ -83,9 +86,9 @@ export function HomeNavigation() {
             </Link>
           ))}
         </nav>
-        <Link href="/match?source=nav" className={styles.navCta}>
+        <MatchLink placement="nav" className={styles.navCta}>
           Get Instant Estimate →
-        </Link>
+        </MatchLink>
         <button
           className={styles.menuButton}
           type="button"
@@ -114,13 +117,13 @@ export function HomeNavigation() {
             {item.label}
           </Link>
         ))}
-        <Link
-          href="/match?source=mobile_nav"
+        <MatchLink
+          placement="mobile_nav"
           className={styles.navCta}
           onClick={closeMenu}
         >
           Get Instant Estimate →
-        </Link>
+        </MatchLink>
       </nav>
     </header>
   );

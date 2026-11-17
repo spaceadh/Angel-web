@@ -5,6 +5,7 @@ import { ConsentAndAnalytics } from "@/components/analytics/consent-and-analytic
 import { AnalyticsPageViews } from "@/components/analytics/page-views";
 import { JsonLd } from "@/components/seo/json-ld";
 import { startingPrice } from "@/lib/pricing";
+import { services } from "@/content/services";
 import { absoluteUrl, site } from "@/lib/site";
 import { Bricolage_Grotesque, Caveat, DM_Sans } from "next/font/google";
 
@@ -105,13 +106,56 @@ export default function RootLayout({
                   "@type": "Place",
                   name,
                 })),
-                sameAs: Object.values(site.social),
+                slogan: site.slogan,
+                knowsAbout: [
+                  "Website design",
+                  "E-commerce websites",
+                  "M-Pesa payment integration",
+                  "WhatsApp Business automation",
+                  "Email marketing",
+                  "CRM setup",
+                  "Search engine optimisation",
+                  "Local SEO",
+                  "Brand identity and logo design",
+                ],
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  contactType: "sales",
+                  telephone: site.phone,
+                  email: site.email,
+                  url: site.whatsappUrl,
+                  areaServed: ["KE", "Worldwide"],
+                  availableLanguage: ["English"],
+                },
+                hasOfferCatalog: {
+                  "@type": "OfferCatalog",
+                  name: "Malaika Studios services",
+                  itemListElement: services.map((service) => ({
+                    "@type": "Offer",
+                    itemOffered: {
+                      "@type": "Service",
+                      name: service.title,
+                      url: absoluteUrl(`/services/${service.slug}`),
+                    },
+                  })),
+                },
+                ...(site.googleBusinessUrl
+                  ? { hasMap: site.googleBusinessUrl }
+                  : {}),
+                ...(site.openingHours.length
+                  ? { openingHours: site.openingHours }
+                  : {}),
+                sameAs: [
+                  ...Object.values(site.social),
+                  ...(site.googleBusinessUrl ? [site.googleBusinessUrl] : []),
+                ],
               },
               {
                 "@type": "WebSite",
                 "@id": `${site.url}/#website`,
                 name: site.name,
                 url: site.url,
+                inLanguage: "en-KE",
                 publisher: { "@id": `${site.url}/#organization` },
               },
             ],

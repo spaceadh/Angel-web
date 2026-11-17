@@ -8,6 +8,15 @@ export const site = {
   whatsappUrl: "https://wa.me/254745474586",
   location: "Nairobi, Kenya",
   serviceAreas: ["Nairobi", "Kenya", "East Africa", "Worldwide"],
+  slogan: "We build the website, and everything behind it.",
+  /**
+   * Google Business Profile share link (Maps "Share" → copy link). When set it
+   * goes into the schema as `hasMap` and `sameAs`, which ties the site to the
+   * Maps listing. Leave empty until copied from the real profile.
+   */
+  googleBusinessUrl: "",
+  /** Opening hours exactly as on the Google Business Profile, e.g. "Mo-Fr 08:00-18:00". */
+  openingHours: [] as string[],
   social: {
     instagram: "https://www.instagram.com/malaikastudios.ke/",
     x: "https://www.x.com/rotsilabs/",

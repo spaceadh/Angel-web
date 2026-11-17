@@ -6,6 +6,7 @@ import homeStyles from "./home/home-page.module.css";
 import styles from "./contact-page.module.css";
 import { FaWhatsapp } from "react-icons/fa6";
 import {
+  MatchLink,
   TrackedEmailLink,
   TrackedWhatsappLink,
 } from "@/components/analytics/tracked-links";
@@ -29,12 +30,12 @@ export function ContactPageContent() {
               conversation on WhatsApp or email Malaika Studios.
             </p>
             <div className={styles.actions}>
-              <Link
-                href="/match?source=contact_page"
+              <MatchLink
+                placement="contact_page"
                 className={styles.primaryAction}
               >
                 Get An Instant Estimate →
-              </Link>
+              </MatchLink>
               <TrackedWhatsappLink
                 className={styles.secondaryAction}
                 placement="contact_page"

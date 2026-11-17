@@ -4,6 +4,7 @@ import { getAllPosts } from "@/lib/blog";
 import { BLOG_SERIES } from "@/lib/blog-series";
 import { absoluteUrl } from "@/lib/site";
 import { services } from "@/content/services";
+import { tools } from "@/lib/tools";
 
 // Re-check every 15 minutes so scheduled posts appear at their publish time.
 export const revalidate = 900;
@@ -21,6 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     ...Object.keys(BLOG_SERIES).map((key) => `/blog/series/${key}`),
     ...services.map(({ slug }) => `/services/${slug}`),
+    "/tools",
+    ...tools.map(({ slug }) => `/tools/${slug}`),
     ...caseStudies.map(({ slug }) => `/our-work/work/${slug}`),
   ];
 

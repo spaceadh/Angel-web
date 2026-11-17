@@ -5,6 +5,7 @@ const media = "/work/digitally-sly";
 export const digitallySly: CaseStudy = {
   slug: "digitally-sly",
   title: "Digitally Sly",
+  seoTitle: "Website for a Kenyan Content Studio",
   description:
     "How Malaika Studios is building Digitally Sly, a Kenyan social media and content studio, a mobile-first website true to its brand.",
   art: "digitally-sly",
@@ -25,11 +26,13 @@ export const digitallySly: CaseStudy = {
     items: [
       {
         value: "Phone first",
-        label: "Designed for the phone, where its audience scrolls, then scaled up.",
+        label:
+          "Designed for the phone, where its audience scrolls, then scaled up.",
       },
       {
         value: "On brand",
-        label: "Built from Digitally Sly's own brand guidelines, colour for colour.",
+        label:
+          "Built from Digitally Sly's own brand guidelines, colour for colour.",
       },
       {
         value: "One form",

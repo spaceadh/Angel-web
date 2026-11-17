@@ -91,6 +91,69 @@ export const services: readonly Service[] = [
     ],
   },
   {
+    slug: "ecommerce-website-kenya",
+    title: "E-commerce website design",
+    heading: "E-commerce website design in Kenya",
+    seoTitle: "E-commerce Website Design in Kenya: M-Pesa & WhatsApp",
+    description:
+      "Online shops for Kenyan brands: product pages Google can find, WhatsApp ordering, M-Pesa payment options and instant order alerts. Packages from {from:website}.",
+    hero: "An online shop that sells while you sleep.",
+    introduction:
+      "Malaika Studios builds online stores for Kenyan businesses that sell on Instagram and WhatsApp today. Customers browse real product pages, order in one tap, and your team gets the order already written out, with no copying from DMs.",
+    audience:
+      "This is for Kenyan product brands, boutiques, beauty, food and gift businesses that already sell through Instagram, WhatsApp or a physical shop and want orders without answering the same price question fifty times a day. Your customers pay the way they already pay in Kenya, and every order lands somewhere your team will see it.",
+    outcomes: [
+      "Product and category pages built to rank on Google",
+      "One-tap ordering through WhatsApp, with the order written out",
+      "M-Pesa payment options: Till, Paybill or prompt on the customer's phone",
+      "Instant order alerts and customer records for follow-up",
+    ],
+    process: [
+      [
+        "Map how you sell today",
+        "We look at your DMs, best sellers and delivery areas to see what customers ask before they buy.",
+      ],
+      [
+        "Build the store around it",
+        "Products, prices, delivery and payment are answered on the page, so fewer orders stall in chat.",
+      ],
+      [
+        "Connect what happens after",
+        "Orders, alerts, customer records and follow-up emails run without someone copying them by hand.",
+      ],
+    ],
+    pricing: ["website"],
+    caseStudies: ["beads-world-africa"],
+    faqs: [
+      [
+        "How much does an e-commerce website cost in Kenya?",
+        "Our website packages start at {from:website}. A shop with a product catalogue, ordering and payment options usually sits in the middle packages, depending on the number of products and the systems it connects to. Every package has a fixed price and delivery deadline on our pricing page, and the free estimate tool gives you a range in about two minutes.",
+      ],
+      [
+        "Can customers pay with M-Pesa?",
+        "Yes. Depending on your volume we show your Till or Paybill number with clear steps, or connect Safaricom's M-Pesa API so the payment prompt appears on the customer's phone and the order is marked paid. We help you choose the option that fits how many orders you handle.",
+      ],
+      [
+        "Can orders come to WhatsApp instead of a checkout?",
+        "Yes. Many Kenyan buyers still want to confirm on WhatsApp. We built Beads World Africa a store where tapping Order opens WhatsApp with the full order already typed out, while the order is saved and the team gets an email alert.",
+      ],
+      [
+        "Do I need Shopify or WooCommerce?",
+        "Not necessarily. We recommend a platform after looking at your products, team and budget. Some shops are best on a hosted platform with monthly fees, others on a custom build with no per-sale fees. We explain the trade-off before you commit.",
+      ],
+      [
+        "Will my products show on Google?",
+        "Every product gets its own page with a clear title, description, price and photos that Google can read, plus Search Console set up so you can see which products people search for.",
+      ],
+    ],
+    keywords: [
+      "ecommerce website Kenya",
+      "online shop website Nairobi",
+      "M-Pesa checkout website",
+      "WhatsApp ordering website",
+    ],
+  },
+  {
     slug: "brand-identity-digital-design",
     title: "Brand identity & digital design",
     heading: "Branding and logo design in Nairobi",

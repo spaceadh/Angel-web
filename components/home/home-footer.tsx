@@ -37,11 +37,13 @@ export function HomeFooter() {
         </div>
         <div className={styles.footerLinks}>
           <Link href="/services/website-design-development">Websites</Link>
+          <Link href="/services/ecommerce-website-kenya">Online shops</Link>
           <Link href="/services/brand-identity-digital-design">Branding</Link>
           <Link href="/services/whatsapp-email-crm-automation">Automation</Link>
           <Link href="/services/digital-growth-strategy-analytics">Growth</Link>
           <Link href="/pricing">Pricing</Link>
           <Link href="/blog">Blog</Link>
+          <Link href="/tools">Free tools</Link>
           <Link href="/privacy">Privacy</Link>
           <button
             type="button"

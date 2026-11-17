@@ -5,6 +5,7 @@ const media = "/work/neighborhood-cocktails";
 export const neighborhoodCocktails: CaseStudy = {
   slug: "neighborhood-cocktails",
   title: "Neighborhood Cocktails",
+  seoTitle: "Booking Website for a Nairobi Cocktail Bar",
   description:
     "How Malaika Studios built Neighborhood Cocktails, a Nairobi mobile cocktail bar, a website that prices events, takes bookings and follows up automatically.",
   art: "cocktails",

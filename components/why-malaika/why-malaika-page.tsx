@@ -4,7 +4,10 @@ import logoIcon from "@/assets/malaika-logo-icon.svg";
 import visual from "@/assets/why-malaika-image.webp";
 import styles from "@/components/what-we-do/what-we-do-page.module.css";
 import { FaWhatsapp } from "react-icons/fa6";
-import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
+import {
+  TrackedWhatsappLink,
+  MatchLink,
+} from "@/components/analytics/tracked-links";
 
 const navItems = [
   ["/what-we-do", "What We Do"],
@@ -251,12 +254,9 @@ export function WhyMalaikaPage() {
                 Build one coherent digital presence around the business you
                 already have.
               </p>
-              <Link
-                href="/match?source=why_malaika"
-                className={styles.finalCta}
-              >
+              <MatchLink placement="why_malaika" className={styles.finalCta}>
                 Calculate Scope &amp; Pricing →
-              </Link>
+              </MatchLink>
             </div>
             <div className={styles.finalArt}>
               <img src={visual.src} alt="" />

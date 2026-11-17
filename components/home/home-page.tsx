@@ -4,11 +4,15 @@ import heroVisual from "@/assets/hero-visual.webp";
 import workBeads from "@/assets/beads-world/beads-world-africa-logo.png";
 import workDigitally from "@/assets/digitally-sly/digitaly-sly-logo.png";
 import workNeighborhood from "@/assets/neighbourhood-cocktails/neighbourhood-cocktails-logo.png";
+import { getAllPosts, formatPostDate } from "@/lib/blog";
 import { HomeFooter } from "./home-footer";
 import { HomeNavigation } from "./home-navigation";
 import styles from "./home-page.module.css";
 import { FaWhatsapp, FaLongArrowAltRight } from "react-icons/fa";
-import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
+import {
+  TrackedWhatsappLink,
+  MatchLink,
+} from "@/components/analytics/tracked-links";
 import { FaArrowRight } from "react-icons/fa6";
 
 const whatsappUrl = "https://wa.me/254745474586";
@@ -110,6 +114,7 @@ const process = [
 ] as const;
 
 export function HomePage() {
+  const guides = getAllPosts().slice(0, 3);
   return (
     <div className={styles.homePage}>
       <HomeNavigation />
@@ -132,6 +137,8 @@ export function HomePage() {
                 Website design
               </Link>
               ,{" "}
+              <Link href="/services/ecommerce-website-kenya">online shops</Link>
+              ,{" "}
               <Link href="/services/brand-identity-digital-design">
                 branding
               </Link>
@@ -151,12 +158,9 @@ export function HomePage() {
               <Link className={styles.buttonDark} href="/what-we-do">
                 See what we do <FaLongArrowAltRight />
               </Link>
-              <Link
-                href="/match?source=home_hero"
-                className={styles.buttonOutline}
-              >
+              <MatchLink placement="home_hero" className={styles.buttonOutline}>
                 Calculate Scope & Pricing →
-              </Link>
+              </MatchLink>
             </div>
             {/* <span className={`${styles.script} ${styles.heroScript}`}> */}
             {/* I make you */}
@@ -318,15 +322,44 @@ export function HomePage() {
           </div>
         </section>
 
+        {guides.length > 0 && (
+          <section className={styles.guides} id="guides">
+            <div className={styles.container}>
+              <div className={styles.workHead}>
+                <div>
+                  <div className={styles.sectionLabel}>Guides</div>
+                  <h2 className={styles.display}>READ BEFORE YOU SPEND.</h2>
+                </div>
+                <Link href="/blog" className={styles.buttonOutline}>
+                  All guides →
+                </Link>
+              </div>
+              <ul className={styles.guideGrid}>
+                {guides.map((post) => (
+                  <li key={post.slug}>
+                    <Link href={`/blog/${post.slug}`}>
+                      <time dateTime={post.date}>
+                        {formatPostDate(post.date)}
+                      </time>
+                      <h3>{post.title}</h3>
+                      <p>{post.description}</p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
         <section className={styles.cta} id="contact">
           <div className={`${styles.container} ${styles.ctaGrid}`}>
             <div>
               <div className={styles.sectionLabel}>Let&apos;s make you</div>
               <h2 className={styles.display}>LOOK GOOD.</h2>
               <p>Ready to build a digital presence that actually works?</p>
-              <Link href="/match?source=home_cta" className={styles.button}>
+              <MatchLink placement="home_cta" className={styles.button}>
                 Get An Instant Estimate <FaArrowRight />
-              </Link>
+              </MatchLink>
             </div>
             <div className={styles.ctaArt}>
               <img

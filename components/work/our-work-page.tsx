@@ -14,7 +14,10 @@ const navItems = [
   ["/contact", "Contact"],
 ] as const;
 import { FaWhatsapp } from "react-icons/fa";
-import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
+import {
+  TrackedWhatsappLink,
+  MatchLink,
+} from "@/components/analytics/tracked-links";
 
 const whatsappLink = "https://wa.me/254745474586";
 
@@ -85,9 +88,9 @@ export function OurWorkPage() {
                 covered.
               </p>
             </div>
-            <Link href="/match?source=our_work" className={styles.buttonDark}>
+            <MatchLink placement="our_work" className={styles.buttonDark}>
               Calculate Your Project Scope →
-            </Link>
+            </MatchLink>
           </div>
         </section>
       </main>

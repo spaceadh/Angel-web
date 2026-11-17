@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MatchLink } from "@/components/analytics/tracked-links";
 import { HomeNavigation } from "@/components/home/home-navigation";
 import { HomeFooter } from "@/components/home/home-footer";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -80,12 +81,9 @@ export async function PricingPage() {
             rate (USD 1 = KSh {fx.rate.toFixed(2)}, {rateDate}).
           </p>
           <div className={styles.heroActions}>
-            <Link
-              href="/match?source=pricing_hero"
-              className={styles.ctaPrimary}
-            >
+            <MatchLink placement="pricing_hero" className={styles.ctaPrimary}>
               Get Your Instant Estimate →
-            </Link>
+            </MatchLink>
             <a
               href={site.whatsappUrl}
               target="_blank"
@@ -172,12 +170,12 @@ export async function PricingPage() {
                     ))}
                   </ul>
 
-                  <Link
-                    href={`/match?source=pricing_${offering.key}_${cfg.name.toLowerCase().replace(/\s+/g, "_")}`}
+                  <MatchLink
+                    placement={`pricing_${offering.key}_${cfg.name.toLowerCase().replace(/\s+/g, "_")}`}
                     className={styles.cardCta}
                   >
                     Start with this →
-                  </Link>
+                  </MatchLink>
                 </article>
               ))}
             </div>
@@ -206,12 +204,9 @@ export async function PricingPage() {
             Answer 8 questions about your business and get a configuration built
             for your brief — with a price to match.
           </p>
-          <Link
-            href="/match?source=pricing_bottom"
-            className={styles.ctaPrimary}
-          >
+          <MatchLink placement="pricing_bottom" className={styles.ctaPrimary}>
             Get Your Instant Estimate →
-          </Link>
+          </MatchLink>
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import { fillPrices, services } from "@/content/services";
 import { getAllPosts } from "@/lib/blog";
 import { OFFERINGS, startingPrice } from "@/lib/pricing";
 import { absoluteUrl, site } from "@/lib/site";
+import { tools } from "@/lib/tools";
 
 // Re-check every 15 minutes so scheduled posts appear at their publish time.
 export const revalidate = 900;
@@ -35,6 +36,10 @@ Every package has a fixed scope and a delivery deadline in working days. Clients
 ${startingPrices}
 
 Full price list for every package: ${absoluteUrl("/pricing")}
+
+## Free tools
+
+${tools.map((tool) => `- [${tool.name}](${absoluteUrl(`/tools/${tool.slug}`)}): ${tool.summary}`).join("\n")}
 
 ## Case studies
 

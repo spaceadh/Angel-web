@@ -582,3 +582,60 @@ When completing any modification, task, or iteration in this codebase, the agent
   - `components/analytics/page-views.tsx` (Updated — picks up GA readiness if it fired before mount)
   - `app/privacy/page.tsx` (Updated — "What analytics we use": Ahrefs always on, GA cookieless until accepted, Meta/Brevo only after accepting)
 - **Verification & Status:** `tsc --noEmit` and eslint clean; `pnpm build` passes. Browser test on the dev server: no choice → GA loaded, consent denied, no cookies, no Meta/Brevo, one page_view queued; Accept → consent update granted, `_ga` cookies set, Meta and Brevo load; Decline → consent update denied, no cookies, no Meta/Brevo. Not committed or deployed at time of writing.
+
+### [2026-11-17 14:30:00 +03:00] — Claude Opus 5.5 / Claude Code (SEO push after the domain move)
+
+- **Timestamp:** 2026-11-17T14:30:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / SEO
+- **Task / Scope:** Owner asked to "go hard on SEO" now that malaikastudios.co.ke is live. Closed the open code items from `docs/seo-audit-2026-11-09.md` and wrote a content/authority playbook.
+- **Files Modified / Created:**
+  - `components/analytics/tracked-links.tsx` (Updated — `MatchLink` (plain `/match`, placement saved to sessionStorage + GA `match_cta_click`), `readMatchSource()`)
+  - 12 components/pages (Updated — every `/match?source=…` link replaced with `MatchLink`); `components/match/malaika-match-flow.tsx` (reads `readMatchSource()`; `?source=` in the URL still wins for ads/bio links)
+  - `content/services.ts` (Added — `ecommerce-website-kenya` service page); `components/home/home-footer.tsx`, `components/home/home-page.tsx`, `content/case-studies/beads-world-africa.ts` (link to it)
+  - `components/services/service-page.tsx` (Added — "Guides" section: posts for that service first, then newest)
+  - `components/home/home-page.tsx`, `home-page.module.css`, `app/page.tsx` (Added — "Read before you spend" latest-guides strip; homepage revalidates every 15 min)
+  - `app/layout.tsx`, `lib/site.ts` (Updated — org schema: slogan, knowsAbout, contactPoint, OfferCatalog of services, inLanguage; `googleBusinessUrl` / `openingHours` slots feed `hasMap`, `sameAs`, `openingHours` once filled)
+  - `content/case-studies/types.ts`, the three case studies, `app/our-work/work/[slug]/page.tsx` (Updated — optional `seoTitle`; page title "<Client>: <what we built>"; `CreativeWork` + Breadcrumb schema)
+  - `docs/seo-playbook-2026-11-17.md` (Created)
+- **Key Decisions & Implementation Details:**
+  - No "web designer Nairobi" page yet: it would compete with the website service page, whose heading already targets that search. The playbook plans it as a separate location page with local proof.
+  - The e-commerce page says we can connect Till/Paybill or the M-Pesa API prompt. It does not claim Beads World Africa uses M-Pesa (its checkout is WhatsApp ordering). The owner should confirm the wording.
+  - Contact language in the schema is English only (Swahili is not confirmed).
+- **Verification & Status:** `tsc --noEmit` clean; eslint shows no new errors (6 existing errors in match components); `pnpm build` passes. Browser checks: no `?source=` links remain; the nav CTA opens `/match` with the placement stored; the new service page, BWA case study and homepage guides strip have no overflow at 375px; the production HTML has the organisation schema once per page. Not committed or deployed.
+
+### [2026-11-17 16:30:00 +03:00] — Claude Opus 5.5 / Claude Code (Free tools: three calculators and /tools hub)
+
+- **Timestamp:** 2026-11-17T16:30:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / SEO
+- **Task / Scope:** Built the first free tools from the SEO playbook, with the entry link in the footer as the owner asked.
+- **Files Modified / Created:**
+  - `lib/tools/index.ts` (Created — tool registry used by the hub, sitemap, llms.txt and "more tools")
+  - `lib/tools/mpesa.ts` (Created — Safaricom tariffs: send money, agent withdrawal, Pochi la Biashara, Buy Goods merchant fee, Till to mobile/Paybill)
+  - `lib/tools/whatsapp.ts` (Created — Meta "Rest of Africa" USD rates effective 1 Oct 2026; 1,000 free service messages)
+  - `components/tools/tool-page.tsx`, `tools.module.css`, `use-tool-tracking.ts` (Created — shared page shell with WebApplication + FAQPage + Breadcrumb schema, CTA, sources, GA `tool_used` event)
+  - `components/tools/mpesa-calculator.tsx`, `whatsapp-calculator.tsx`, `website-calculator.tsx` (Created)
+  - `app/tools/page.tsx`, `app/tools/mpesa-charges-calculator/page.tsx`, `app/tools/whatsapp-business-api-cost-calculator/page.tsx`, `app/tools/website-cost-calculator/page.tsx` (Created)
+  - `components/home/home-footer.tsx` ("Free tools" link), `app/sitemap.ts`, `app/llms.txt/route.ts` (Updated)
+  - `docs/seo-playbook-2026-11-17.md` (Updated)
+- **Key Decisions & Implementation Details:**
+  - The M-Pesa bands come from Safaricom's official charges page ("Last Updated: August 4, 2026"), read in the browser on 2026-11-17 because Safaricom blocks scripted requests. Pochi la Biashara rates are labelled by Safaricom as a 3-month offer from 1 Aug 2026, and the page says so. Paybill receiving charges depend on the business's tariff, so they are explained but not calculated.
+  - The WhatsApp rates come from Meta's USD rate card spreadsheet. Volume tiers start above 100k utility / 300k authentication messages, so they are left out. Click-to-WhatsApp free windows and provider fees are noted, not subtracted.
+  - The website calculator uses `PACKAGES.website` from `lib/pricing.ts`, so prices stay in sync. A shop with bookings shows a "quoted separately" note. Results send a prefilled WhatsApp message.
+- **Verification & Status:** `tsc` and eslint clean on the new files; `pnpm build` passes (4 new static routes). Checked on a production server (`next start`, port 3005): M-Pesa results at KSh 2,500 / 40,000 / 300,000 / 450 match Safaricom's tables; the WhatsApp "Online store" preset = USD 281 / KSh 36,524 (checked by hand); website Commerce + Search Setup = USD 1,750; no console errors; no overflow at 375px. A hydration warning on the shared dev server came from its stale cache (old footer markup), not from this code. Not committed or deployed.
+
+### [2026-11-17 17:15:00 +03:00] — Claude Opus 5.5 / Claude Code (WhatsApp link and QR code generator)
+
+- **Timestamp:** 2026-11-17T17:15:00+03:00
+- **Model / Assistant:** Claude Opus 5.5 (Claude Code)
+- **Role:** Lead Engineer / SEO
+- **Task / Scope:** Fourth free tool, the one the playbook rates as most likely to earn links: `/tools/whatsapp-link-generator`.
+- **Files Modified / Created:**
+  - `lib/tools/whatsapp-link.ts` (Created — `toWhatsappNumber()` (Kenyan 07/01/7 → 254…, +/00 international, rejects a leading 0), `whatsappLink()`)
+  - `components/tools/whatsapp-link-generator.tsx` (Created — number + message with 4 templates, copy link, test link, QR code drawn in the browser, PNG (1024px) and SVG download, GA `tool_output` events)
+  - `app/tools/whatsapp-link-generator/page.tsx` (Created — explainer, 6 FAQs, WhatsApp Help Center source)
+  - `lib/tools/index.ts` (listed first), `app/tools/page.tsx` (hub copy), `components/tools/tools.module.css` (button, textarea, QR styles)
+  - `package.json`, `pnpm-lock.yaml` (Added `qrcode@1.5.4`, `@types/qrcode`)
+- **Key Decisions & Implementation Details:** Everything runs in the browser; the number is never sent to Malaika (said on the page). The GBP advice uses post/offer button links, not a chat feature, because Google retired Business Profile chat.
+- **Verification & Status:** tsc, eslint and `pnpm build` clean. The number parser was checked against 10 inputs (Kenyan, international, 00-prefix, typos). On the production server: `0712 345 678` → `https://wa.me/254712345678?text=…`, the QR renders, no overflow. Fixed during testing: template chips all read "Hi"/"Hello", and a stray leading 0 was accepted. Not committed or deployed.

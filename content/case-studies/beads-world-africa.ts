@@ -3,6 +3,7 @@ import type { CaseStudy } from "./types";
 export const beadsWorldAfrica: CaseStudy = {
   slug: "beads-world-africa",
   title: "Beads World Africa",
+  seoTitle: "E-commerce Site with WhatsApp Orders",
   description:
     "How Malaika Studios built Beads World Africa an online store where orders arrive on WhatsApp, the team is alerted instantly and every customer syncs to the CRM.",
   art: "beads",
@@ -31,7 +32,8 @@ export const beadsWorldAfrica: CaseStudy = {
       },
       {
         value: "Found on Google",
-        label: "The store ranks for the stone-bracelet searches its buyers make.",
+        label:
+          "The store ranks for the stone-bracelet searches its buyers make.",
       },
     ],
   },
@@ -179,6 +181,7 @@ export const beadsWorldAfrica: CaseStudy = {
     ],
   },
   services: [
+    "ecommerce-website-kenya",
     "website-design-development",
     "whatsapp-email-crm-automation",
     "digital-growth-strategy-analytics",

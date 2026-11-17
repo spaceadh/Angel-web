@@ -2,7 +2,10 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa6";
 import { HomeFooter } from "@/components/home/home-footer";
 import { HomeNavigation } from "@/components/home/home-navigation";
-import { TrackedWhatsappLink } from "@/components/analytics/tracked-links";
+import {
+  TrackedWhatsappLink,
+  MatchLink,
+} from "@/components/analytics/tracked-links";
 import { JsonLd } from "@/components/seo/json-ld";
 import { formatPostDate, type Post, type PostMeta } from "@/lib/blog";
 import { getSeries } from "@/lib/blog-series";
@@ -285,12 +288,9 @@ export function BlogPost({
               Kenyan shilling prices — in about two minutes.
             </p>
             <div className={styles.ctaRow}>
-              <Link
-                href={`/match?source=blog_${post.slug}`}
-                className={styles.cta}
-              >
+              <MatchLink placement={`blog_${post.slug}`} className={styles.cta}>
                 Get an instant estimate →
-              </Link>
+              </MatchLink>
               <TrackedWhatsappLink
                 href={site.whatsappUrl}
                 placement={`blog_${post.slug}`}

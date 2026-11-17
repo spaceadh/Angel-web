@@ -26,6 +26,8 @@ export type CaseStudyResult = {
 export type CaseStudy = {
   slug: string;
   title: string;
+  /** Search-led page title, e.g. what was built and for whom; falls back to "<title> Case Study". */
+  seoTitle?: string;
   description: string;
   art: WorkArtwork;
   hero: {

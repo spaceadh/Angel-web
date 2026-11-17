@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MatchLink } from "@/components/analytics/tracked-links";
 import { HomeFooter } from "@/components/home/home-footer";
 import { HomeNavigation } from "@/components/home/home-navigation";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -129,9 +130,9 @@ export function BlogIndex({
             <p className={styles.empty}>
               The first {series ? `${series.name} issue is` : "articles are"} on
               the way. In the meantime,{" "}
-              <Link href="/match?source=blog_empty">
+              <MatchLink placement="blog_empty">
                 get an instant estimate for your project →
-              </Link>
+              </MatchLink>
             </p>
           ) : (
             <>
